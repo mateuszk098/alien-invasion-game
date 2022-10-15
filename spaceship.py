@@ -21,5 +21,5 @@ class Spaceship():
         self.rect.midbottom = self.screen_rect.midbottom
 
     def blitme(self) -> None:
-        ''' Displays the spaceship in its current position. '''
+        ''' Displays the spaceship in current position on the screen. '''
         self.screen.blit(self.image, self.rect)
