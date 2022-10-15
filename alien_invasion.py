@@ -8,6 +8,7 @@ import pygame
 from pygame.surface import Surface
 
 from settings import Settings
+from spaceship import Spaceship
 
 
 class AlienInvasion():
@@ -20,6 +21,7 @@ class AlienInvasion():
         self.settings: Settings = Settings()
         self.screen: Surface = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
+        self.ship: Spaceship = Spaceship(self)
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -28,6 +30,7 @@ class AlienInvasion():
                 if event.type == pygame.QUIT:
                     sys.exit()
             self.screen.fill(self.settings.background_color)
+            self.ship.blitme()
             pygame.display.flip()  # Update of the screen.
 
 
