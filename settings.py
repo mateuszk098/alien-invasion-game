@@ -17,3 +17,10 @@ class Settings():
 
         # Settings related to spaceship.
         self.ship_speed: float = 1.5
+
+        # Settings related to bullet.
+        self.bullet_speed: float = 1.0
+        self.bullet_width: int = 3
+        self.bullet_height: int = 15
+        self.bullet_color: int = RGB(60, 60, 60)
+        self.bullets_allowed: int = 3
