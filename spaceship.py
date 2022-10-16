@@ -28,9 +28,10 @@ class Spaceship():
 
     def update(self) -> None:
         ''' Update of the spaceship position considering flag indicating its moving. '''
-        if self.moving_right == True:
+        if self.moving_right == True and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
-        if self.moving_left == True:  # Usage of elif - priority for moving right.
+        # Usage of elif - priority for moving right.
+        if self.moving_left == True and self.rect.left > 0:
             self.x -= self.settings.ship_speed
 
         self.rect.x = int(self.x)
