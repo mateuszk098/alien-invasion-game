@@ -10,6 +10,7 @@ from settings import Settings
 from spaceship import Spaceship
 from bullet import Bullet
 from alien import Alien
+from star import Star
 
 
 class AlienInvasion():
@@ -31,8 +32,10 @@ class AlienInvasion():
         self.ship: Spaceship = Spaceship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
+        self.stars = pygame.sprite.Group()
 
         self._create_fleet()
+        self._create_stars()
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -112,13 +115,27 @@ class AlienInvasion():
         alien.rect.y = alien.rect.height + 2*alien_height*row_number  # type: ignore
         self.aliens.add(alien)
 
+    def _create_stars(self) -> None:
+        ''' Create outer space with stars. '''
+        stars_per_row: int = self.settings.stars_per_row
+        star_rows: int = self.settings.star_rows
+        pixels_per_row: int = self.settings.screen_height // star_rows
+
+        for row in range(star_rows):
+            for _ in range(stars_per_row):
+                star: Star = Star(self)
+                star.y += pixels_per_row*row
+                star.rect.y = star.y  # type: ignore
+                self.stars.add(star)
+
     def _update_screen(self) -> None:
         ''' Updates the screen. '''
         self.screen.fill(self.settings.background_color)
+        self.stars.draw(self.screen)
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()  # type: ignore
-        self.aliens.draw(self.screen)
+        #self.aliens.draw(self.screen)
         pygame.display.flip()  # Update of the screen.
 
 
