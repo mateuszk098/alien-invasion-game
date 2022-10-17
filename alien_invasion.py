@@ -9,6 +9,7 @@ import pygame
 from settings import Settings
 from spaceship import Spaceship
 from bullet import Bullet
+from alien import Alien
 
 
 class AlienInvasion():
@@ -27,6 +28,8 @@ class AlienInvasion():
         # self.settings.screen_height = self.screen.get_rect().height
         self.ship: Spaceship = Spaceship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+        self._create_fleet()
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -78,12 +81,18 @@ class AlienInvasion():
             if bullet.rect.bottom <= 0:  # type: ignore
                 self.bullets.remove(bullet)
 
+    def _create_fleet(self) -> None:
+        ''' Create new alien fleet. '''
+        alien: Alien = Alien(self)
+        self.aliens.add(alien)
+
     def _update_screen(self) -> None:
         ''' Updates the screen. '''
         self.screen.fill(self.settings.background_color)
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()  # type: ignore
+        self.aliens.draw(self.screen)
         pygame.display.flip()  # Update of the screen.
 
 
