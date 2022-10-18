@@ -12,7 +12,7 @@ class GameStats():
         ''' Initialize statistics. '''
         self.settings = ai_game.settings
         self.reset_stats()
-        self.game_active: bool = True
+        self.game_active: bool = False
 
     def reset_stats(self) -> None:
         ''' Initialize statistical data, which can change during game. '''

@@ -13,6 +13,7 @@ from spaceship import Spaceship
 from bullet import Bullet
 from alien import Alien
 from star import Star
+from button import Button
 
 
 class AlienInvasion():
@@ -37,16 +38,18 @@ class AlienInvasion():
         self.aliens = pygame.sprite.Group()
         self.stars = pygame.sprite.Group()
 
-        self._create_fleet()
+        # self._create_fleet()
         self._create_stars()
+
+        self.play_button: Button = Button(self, 'Play')
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
         while True:
             self._check_events()
+            self._update_stars()
 
             if self.stats.game_active is True:
-                self._update_stars()
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
@@ -62,6 +65,9 @@ class AlienInvasion():
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event) -> None:
         ''' Reaction on key press. '''
@@ -80,6 +86,20 @@ class AlienInvasion():
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+
+    def _check_play_button(self, mouse_pos: tuple[int, int]) -> None:
+
+        button_clicked: bool = self.play_button.rect.collidepoint(mouse_pos)
+
+        if button_clicked is True and self.stats.game_active is False:
+            self.stats.reset_stats()
+            self.stats.game_active = True
+
+            self.aliens.empty()
+            self.bullets.empty()
+
+            self._create_fleet()
+            self.ship.center_ship()
 
     def _fire_bullet(self) -> None:
         ''' Create new bullet and add it to group. '''
@@ -173,15 +193,18 @@ class AlienInvasion():
         Clears aliens and bullets Group, creates new alien fleet,
         and centers the spaceship.
         '''
+
+        self.aliens.empty()
+        self.bullets.empty()
+        self.ship.center_ship()
+
         if self.stats.ships_left > 0:
             self.stats.ships_left -= 1
-            self.aliens.empty()
-            self.bullets.empty()
             self._create_fleet()
-            self.ship.center_ship()
-            sleep(1.0)
         else:
             self.stats.game_active = False
+
+        sleep(1.0)
 
     def _create_stars(self) -> None:
         ''' Create outer space with stars. '''
@@ -216,9 +239,15 @@ class AlienInvasion():
         self.screen.fill(self.settings.background_color)
         self.stars.draw(self.screen)
         self.ship.blitme()
+
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()  # type: ignore
+
         self.aliens.draw(self.screen)
+
+        if self.stats.game_active is False:
+            self.play_button.draw_button()
+
         pygame.display.flip()  # Update of the screen.
 
 

@@ -12,10 +12,10 @@ from pygame.rect import Rect
 class Star(Sprite):
     ''' Class representing a individual star in the space. '''
 
-    __my_stars: list[str] = ['star1.png', 'star2.png', 'star3.png', 'star4.png',
-                             'star5.png', 'star6.png', 'star7.png', 'star8.png',
-                             'star9.png', 'star10.png', 'star11.png', 'star12.png',
-                             'star13.png', 'star14.png', 'star15.png']
+    __my_stars: tuple[str, ...] = ('star1.png', 'star2.png', 'star3.png', 'star4.png',
+                                   'star5.png', 'star6.png', 'star7.png', 'star8.png',
+                                   'star9.png', 'star10.png', 'star11.png', 'star12.png',
+                                   'star13.png', 'star14.png', 'star15.png')
 
     def __init__(self, ai_game) -> None:
         ''' Initialize a star. '''
