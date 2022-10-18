@@ -89,6 +89,18 @@ class AlienInvasion():
             if bullet.rect.bottom <= 0:  # type: ignore
                 self.bullets.remove(bullet)
 
+        self._check_bullet_alien_collisions()
+
+    def _check_bullet_alien_collisions(self) -> None:
+        ''' Reaction to collision between bullet and alien ship.'''
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.aliens, True, True)  # True means to remove object.
+
+        # Create new fleet and remove bullets.
+        if not self.aliens:
+            self.bullets.empty()
+            self._create_fleet()
+
     def _create_fleet(self) -> None:
         ''' Create new alien fleet. '''
         alien: Alien = Alien(self)
@@ -134,6 +146,10 @@ class AlienInvasion():
         ''' Update all aliens position on the screen. '''
         self._check_fleet_edges()
         self.aliens.update()
+
+        # Check collision betwenn spaceship and alien ship.
+        if pygame.sprite.spritecollideany(self.ship, self.aliens) is not None:  # type: ignore
+            print('Statek został trafiony!')
 
     def _create_stars(self) -> None:
         ''' Create outer space with stars. '''

@@ -4,6 +4,8 @@ General file representing bullet.
 
 import pygame
 from pygame.sprite import Sprite
+from pygame.rect import Rect
+from pygame.surface import Surface
 
 
 class Bullet(Sprite):
@@ -14,11 +16,13 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
-        self.color = self.settings.bullet_color
+        self.color: int = self.settings.bullet_color
 
         # Create bullet rect and its position
-        self.rect: pygame.Rect = pygame.Rect(
-            0, 0, self.settings.bullet_width, self.settings.bullet_height)
+        self.image = pygame.image.load('../images/bullet2.png')
+        self.rect: Rect = self.image.get_rect()
+        # self.rect: pygame.Rect = pygame.Rect(
+        #     0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
         self.y: float = float(self.rect.y)
 
@@ -29,4 +33,5 @@ class Bullet(Sprite):
 
     def draw_bullet(self) -> None:
         ''' Displays bullet on the screen. '''
-        pygame.draw.rect(self.screen, self.color, self.rect)
+        #pygame.draw.rect(self.screen, self.color, self.rect)
+        self.screen.blit(self.image, self.rect)
