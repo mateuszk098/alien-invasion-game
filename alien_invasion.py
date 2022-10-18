@@ -41,8 +41,10 @@ class AlienInvasion():
         ''' Main loop of the game. '''
         while True:
             self._check_events()
+            self._update_stars()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
             self._update_screen()
 
     def _check_events(self) -> None:
@@ -115,18 +117,37 @@ class AlienInvasion():
         alien.rect.y = alien.rect.height + 2*alien_height*row_number  # type: ignore
         self.aliens.add(alien)
 
+    def _update_aliens(self) -> None:
+        ''' Update all aliens position on the screen. '''
+        self.aliens.update()
+
     def _create_stars(self) -> None:
         ''' Create outer space with stars. '''
-        stars_per_row: int = self.settings.stars_per_row
-        star_rows: int = self.settings.star_rows
-        pixels_per_row: int = self.settings.screen_height // star_rows
+        pixels_per_row: int = self.settings.screen_height // self.settings.star_rows
 
-        for row in range(star_rows):
-            for _ in range(stars_per_row):
+        for row in range(self.settings.star_rows):
+            for _ in range(self.settings.stars_per_row):
                 star: Star = Star(self)
                 star.y += pixels_per_row*row
                 star.rect.y = star.y  # type: ignore
                 self.stars.add(star)
+
+    def _update_stars(self) -> None:
+        ''' Update all stars position on the screen. '''
+        self.stars.update()
+
+        for star in self.stars.copy():
+            if star.rect.top > self.settings.screen_height:  # type: ignore
+                self.stars.remove(star)
+
+        pixels_per_row: int = self.settings.screen_height // self.settings.star_rows
+
+        if len(self.stars) < self.settings.stars_per_row*self.settings.star_rows:
+            new_star: Star = Star(self)
+            # Provide effect that stars coming on the screen naturally.
+            new_star.y -= pixels_per_row
+            new_star.rect.y = new_star.y  # type: ignore
+            self.stars.add(new_star)
 
     def _update_screen(self) -> None:
         ''' Updates the screen. '''
@@ -135,7 +156,7 @@ class AlienInvasion():
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()  # type: ignore
-        #self.aliens.draw(self.screen)
+        self.aliens.draw(self.screen)
         pygame.display.flip()  # Update of the screen.
 
 

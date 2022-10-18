@@ -6,6 +6,7 @@ import random
 
 import pygame
 from pygame.sprite import Sprite
+from pygame.rect import Rect
 
 
 class Star(Sprite):
@@ -19,13 +20,19 @@ class Star(Sprite):
     def __init__(self, ai_game) -> None:
         ''' Initialize a star. '''
         super().__init__()
+        self.settings = ai_game.settings
 
         # Load the random star image and load its rect.
         self.image = pygame.image.load(f'images/{random.choice(self.__my_stars)}')
-        self.rect = self.image.get_rect()
+        self.rect: Rect = self.image.get_rect()
 
-        # Place star at the left corner.
-        self.rect.x = random.randint(0, ai_game.settings.screen_width)
-        self.rect.y = random.randint(0, ai_game.settings.screen_height // ai_game.settings.star_rows)
+        # Place star at the top row.
+        self.rect.x = random.randint(0, self.settings.screen_width)
+        self.rect.y = random.randint(0, self.settings.screen_height // self.settings.star_rows)
 
         self.y: float = float(self.rect.y)
+
+    def update(self, *args, **kwargs) -> None:
+        ''' Update stars position. '''
+        self.y += self.settings.stars_speed
+        self.rect.y = int(self.y)

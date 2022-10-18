@@ -25,6 +25,10 @@ class Settings():
         self.bullet_color: int = RGB(255, 255, 255)
         self.bullets_allowed: int = 3
 
+        # Settings related to alien ship
+        self.alien_speed: float = 1.0
+
         # Settings related to star
         self.stars_per_row: int = 10
         self.star_rows: int = 10
+        self.stars_speed: float = 0.25
