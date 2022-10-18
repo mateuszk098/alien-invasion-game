@@ -28,13 +28,18 @@ class Spaceship():
 
     def update(self) -> None:
         ''' Update of the spaceship position considering flag indicating its moving. '''
-        if self.moving_right == True and self.rect.right < self.screen_rect.right:
+        if self.moving_right is True and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
         # Usage of elif - priority for moving right.
-        if self.moving_left == True and self.rect.left > 0:
+        if self.moving_left is True and self.rect.left > 0:
             self.x -= self.settings.ship_speed
 
         self.rect.x = int(self.x)
+
+    def center_ship(self) -> None:
+        ''' Place the ship in the center of the screen. '''
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
 
     def blitme(self) -> None:
         ''' Displays the spaceship in current position on the screen. '''

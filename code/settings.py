@@ -17,6 +17,7 @@ class Settings():
 
         # Settings related to spaceship.
         self.ship_speed: float = 1.5
+        self.ship_limit: int = 3
 
         # Settings related to bullet.
         self.bullet_speed: float = 1.0
@@ -25,12 +26,12 @@ class Settings():
         self.bullet_color: int = RGB(255, 255, 255)
         self.bullets_allowed: int = 3
 
-        # Settings related to alien ship
+        # Settings related to alien ship.
         self.alien_speed: float = 1.0
-        self.fleet_drop_speed: int = 10
-        self.fleet_direction: int = 1  # Right movement "1", left movement "-1"
+        self.fleet_drop_speed: int = 50
+        self.fleet_direction: int = 1  # Right movement "1", left movement "-1".
 
-        # Settings related to star
+        # Settings related to stars.
         self.stars_per_row: int = 10
         self.star_rows: int = 10
         self.stars_speed: float = 0.25

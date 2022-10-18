@@ -3,10 +3,12 @@ General file with class used to game management.
 '''
 
 import sys
+from time import sleep
 
 import pygame
 
 from settings import Settings
+from game_stats import GameStats
 from spaceship import Spaceship
 from bullet import Bullet
 from alien import Alien
@@ -29,6 +31,7 @@ class AlienInvasion():
         # self.settings.screen_width = self.screen.get_rect().width
         # self.settings.screen_height = self.screen.get_rect().height
 
+        self.stats: GameStats = GameStats(self)
         self.ship: Spaceship = Spaceship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
@@ -41,10 +44,13 @@ class AlienInvasion():
         ''' Main loop of the game. '''
         while True:
             self._check_events()
-            self._update_stars()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+
+            if self.stats.game_active is True:
+                self._update_stars()
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
+
             self._update_screen()
 
     def _check_events(self) -> None:
@@ -132,7 +138,7 @@ class AlienInvasion():
     def _check_fleet_edges(self) -> None:
         ''' Reaction if any alien comes to the screen edge. '''
         for alien in self.aliens.sprites():
-            if alien.check_edges() == True:  # type: ignore
+            if alien.check_edges() is True:  # type: ignore
                 self._change_fleet_direction()
                 break
 
@@ -149,7 +155,33 @@ class AlienInvasion():
 
         # Check collision betwenn spaceship and alien ship.
         if pygame.sprite.spritecollideany(self.ship, self.aliens) is not None:  # type: ignore
-            print('Statek został trafiony!')
+            self._ship_hit()
+
+        self._check_aliens_bottom()
+
+    def _check_aliens_bottom(self) -> None:
+        ''' Calls `_ship_hit()` if any alien ship comes to the bottom of the screen. '''
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:  # type: ignore
+                self._ship_hit()
+                break
+
+    def _ship_hit(self) -> None:
+        '''
+        Reaction to collision between spaceship and alien ship.
+        Clears aliens and bullets Group, creates new alien fleet,
+        and centers the spaceship.
+        '''
+        if self.stats.ships_left > 0:
+            self.stats.ships_left -= 1
+            self.aliens.empty()
+            self.bullets.empty()
+            self._create_fleet()
+            self.ship.center_ship()
+            sleep(1.0)
+        else:
+            self.stats.game_active = False
 
     def _create_stars(self) -> None:
         ''' Create outer space with stars. '''
