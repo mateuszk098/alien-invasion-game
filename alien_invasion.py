@@ -94,12 +94,12 @@ class AlienInvasion():
         alien: Alien = Alien(self)
 
         alien_width: int = alien.rect.width  # type: ignore
-        available_space_x: int = self.settings.screen_width - (2*alien_width)
+        available_space_x: int = self.settings.screen_width - (4*alien_width)
         number_aliens_x: int = available_space_x // (2*alien_width)
 
         alien_height: int = alien.rect.height  # type: ignore
         ship_height: int = self.ship.rect.height
-        available_space_y: int = self.settings.screen_height - (3*alien_height) - ship_height
+        available_space_y: int = self.settings.screen_height - (4*alien_height) - ship_height
         number_rows: int = available_space_y // (2*alien_height)
 
         # Create the fleet
@@ -117,8 +117,22 @@ class AlienInvasion():
         alien.rect.y = alien.rect.height + 2*alien_height*row_number  # type: ignore
         self.aliens.add(alien)
 
+    def _check_fleet_edges(self) -> None:
+        ''' Reaction if any alien comes to the screen edge. '''
+        for alien in self.aliens.sprites():
+            if alien.check_edges() == True:  # type: ignore
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self) -> None:
+        ''' Shifts the whole alien fleet and changes direction of movement. '''
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed  # type: ignore
+        self.settings.fleet_direction *= -1
+
     def _update_aliens(self) -> None:
         ''' Update all aliens position on the screen. '''
+        self._check_fleet_edges()
         self.aliens.update()
 
     def _create_stars(self) -> None:

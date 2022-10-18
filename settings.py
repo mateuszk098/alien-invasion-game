@@ -27,6 +27,8 @@ class Settings():
 
         # Settings related to alien ship
         self.alien_speed: float = 1.0
+        self.fleet_drop_speed: int = 10
+        self.fleet_direction: int = 1  # Right movement "1", left movement "-1"
 
         # Settings related to star
         self.stars_per_row: int = 10
