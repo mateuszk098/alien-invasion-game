@@ -41,7 +41,12 @@ class AlienInvasion():
         # self._create_fleet()
         self._create_stars()
 
-        self.play_button: Button = Button(self, 'Play')
+        self.play_button: Button = Button(self, 'Play', -100)
+        self.easy_mode_button: Button = Button(self, 'Easy Mode', -25)
+        self.medium_mode_button: Button = Button(self, 'Medium Mode', 50)
+        self.hard_mode_button: Button = Button(self, 'Hard Mode', 125)
+
+        self.easy_clicked: bool = False
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -68,6 +73,7 @@ class AlienInvasion():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
+                self._check_difficulty_button(mouse_pos)
 
     def _check_keydown_events(self, event) -> None:
         ''' Reaction on key press. '''
@@ -79,7 +85,8 @@ class AlienInvasion():
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
-        elif event.key == pygame.K_g:
+        elif event.key == pygame.K_g and self.stats.game_active is False:
+            self.settings.initialize_dynamic_settings()
             self._start_game()
 
     def _check_keyup_events(self, event) -> None:
@@ -93,7 +100,20 @@ class AlienInvasion():
         ''' Checks if the play button is clicked by mouse. '''
         button_clicked: bool = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked is True and self.stats.game_active is False:
+            self.settings.initialize_dynamic_settings()
             self._start_game()
+
+    def _check_difficulty_button(self, mouse_pos: tuple[int, int]) -> None:
+        easy_clicked: bool = self.easy_mode_button.rect.collidepoint(mouse_pos)
+        medium_clicked: bool = self.medium_mode_button.rect.collidepoint(mouse_pos)
+        hard_clicked: bool = self.hard_mode_button.rect.collidepoint(mouse_pos)
+
+        if easy_clicked is True and self.stats.game_active is False and self.easy_clicked is True:
+            self.easy_clicked = False
+            print('b')
+        elif easy_clicked is True and self.stats.game_active is False:
+            self.easy_clicked = True
+            print('a')
 
     def _start_game(self) -> None:
         ''' Sets game in the initial state and runs it. '''
@@ -126,9 +146,10 @@ class AlienInvasion():
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)  # True means to remove object.
 
-        # Create new fleet and remove bullets.
+        # Create new fleet with gameplay speedup.
         if not self.aliens:
             self.bullets.empty()
+            self.settings.increase_speed()
             self._create_fleet()
 
     def _create_fleet(self) -> None:
@@ -205,6 +226,7 @@ class AlienInvasion():
             self.stats.ships_left -= 1
             self._create_fleet()
         else:
+            self.settings.reset_stars_speed()
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
 
@@ -253,6 +275,9 @@ class AlienInvasion():
 
         if self.stats.game_active is False:
             self.play_button.draw_button()
+            self.easy_mode_button.draw_button(self.easy_clicked)
+            self.medium_mode_button.draw_button()
+            self.hard_mode_button.draw_button()
 
         pygame.display.flip()  # Update of the screen.
 
