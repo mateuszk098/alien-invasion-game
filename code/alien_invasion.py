@@ -13,7 +13,6 @@ from spaceship import Spaceship
 from bullet import Bullet
 from alien import Alien
 from star import Star
-from button import Button
 from scoreboard import Scoreboard
 from menu import Menu
 
@@ -103,6 +102,8 @@ class AlienInvasion():
         ''' Sets game in the initial state and runs it. '''
         self.stats.reset_stats()
         self.scoreboard.prep_score()
+        self.scoreboard.prep_level()
+        self.scoreboard.prep_ships()
         self.aliens.empty()
         self.bullets.empty()
         self._create_fleet()
@@ -136,12 +137,15 @@ class AlienInvasion():
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points*len(aliens)  # type: ignore
             self.scoreboard.prep_score()
+            self.scoreboard.check_high_score()
 
         # Create new fleet with gameplay speedup.
         if not self.aliens:
             self.bullets.empty()
             self.settings.increase_speed()
             self._create_fleet()
+            self.stats.game_level += 1
+            self.scoreboard.prep_level()
 
     def _create_fleet(self) -> None:
         ''' Create new alien fleet. '''
@@ -153,7 +157,7 @@ class AlienInvasion():
         number_aliens_x: int = available_space_x // (space*alien_width)
 
         alien_height: int = alien.rect.height  # type: ignore
-        ship_height: int = self.ship.rect.height
+        ship_height: int = self.ship.rect.height  # type: ignore
         available_space_y: int = self.settings.screen_height - (4*alien_height) - ship_height
         number_rows: int = available_space_y // (2*alien_height)
 
@@ -170,7 +174,7 @@ class AlienInvasion():
         alien_height: int = alien.rect.height  # type: ignore
         alien.x = alien_width + space*alien_width*alien_number
         alien.rect.x = alien.x  # type: ignore
-        alien.rect.y = alien.rect.height + 2*alien_height*row_number  # type: ignore
+        alien.rect.y = 2*alien.rect.height + 2*alien_height*row_number  # type: ignore
         self.aliens.add(alien)
 
     def _check_fleet_edges(self) -> None:
@@ -217,6 +221,7 @@ class AlienInvasion():
 
         if self.stats.ships_left > 0:
             self.stats.ships_left -= 1
+            self.scoreboard.prep_ships()
             self._create_fleet()
         else:
             self.settings.reset_stars_speed()
