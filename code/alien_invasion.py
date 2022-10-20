@@ -15,6 +15,7 @@ from alien import Alien
 from star import Star
 from button import Button
 from scoreboard import Scoreboard
+from menu import Menu
 
 
 class AlienInvasion():
@@ -36,21 +37,13 @@ class AlienInvasion():
         self.stats: GameStats = GameStats(self)
         self.scoreboard: Scoreboard = Scoreboard(self)
         self.ship: Spaceship = Spaceship(self)
+        self.menu: Menu = Menu(self)
+
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self.stars = pygame.sprite.Group()
 
         self._create_stars()
-
-        self.play_button: Button = Button(self, 'Play', -100)
-        self.easy_mode_button: Button = Button(self, 'Easy Mode', -25)
-        self.medium_mode_button: Button = Button(self, 'Medium Mode', 50)
-        self.hard_mode_button: Button = Button(self, 'Hard Mode', 125)
-
-        self.easy_clicked: bool = False
-        self.medium_clicked: bool = False
-        self.hard_clicked: bool = False
-        #self.is_visible: bool = False
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -75,9 +68,7 @@ class AlienInvasion():
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos)
-                self._check_difficulty_button(mouse_pos)
+                self._check_mouse_events()
 
     def _check_keydown_events(self, event) -> None:
         ''' Reaction on key press. '''
@@ -100,53 +91,13 @@ class AlienInvasion():
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
-    def _check_play_button(self, mouse_pos: tuple[int, int]) -> None:
-        ''' Checks if the play button is clicked by mouse. '''
-        button_clicked: bool = self.play_button.rect.collidepoint(mouse_pos)
-        if button_clicked is True and self.stats.game_active is False:  # and self.is_visible is True:
+    def _check_mouse_events(self) -> None:
+        mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
+        if self.stats.game_active is False and self.menu.check_play_button(mouse_pos) is True:
             self.settings.initialize_dynamic_settings()
             self._start_game()
-
-    def _check_difficulty_button(self, mouse_pos: tuple[int, int]) -> None:
-        ''' Check if any difficulty button is clicked by mouse. '''
-        easy_clicked: bool = self.easy_mode_button.rect.collidepoint(mouse_pos)
-        medium_clicked: bool = self.medium_mode_button.rect.collidepoint(mouse_pos)
-        hard_clicked: bool = self.hard_mode_button.rect.collidepoint(mouse_pos)
-
         if self.stats.game_active is False:
-            self._switch_difficulty_mode(easy_clicked, medium_clicked, hard_clicked)
-
-    def _switch_difficulty_mode(self, easy_clicked, medium_clicked, hard_clicked) -> None:
-        ''' Switch difficulty button. Only one difficulty button can be clicked at a time. '''
-        if easy_clicked is True and self.easy_clicked is True:
-            self.easy_clicked = False
-            self.settings.reset_difficulty()
-        elif easy_clicked is True:
-            self.settings.switch_difficulty(1)
-            self.easy_clicked = True
-            self.medium_clicked = self.hard_clicked = False
-
-        if medium_clicked is True and self.medium_clicked is True:
-            self.medium_clicked = False
-            self.settings.reset_difficulty()
-        elif medium_clicked is True:
-            self.settings.switch_difficulty(2)
-            self.medium_clicked = True
-            self.easy_clicked = self.hard_clicked = False
-
-        if hard_clicked is True and self.hard_clicked is True:
-            self.hard_clicked = False
-            self.settings.reset_difficulty()
-        elif hard_clicked is True:
-            self.settings.switch_difficulty(3)
-            self.hard_clicked = True
-            self.easy_clicked = self.medium_clicked = False
-
-    def _reset_buttons(self) -> None:
-        ''' Reset difficulty buttons to default. '''
-        self.easy_clicked = False
-        self.medium_clicked = False
-        self.hard_clicked = False
+            self.menu.check_difficulty_button(mouse_pos)
 
     def _start_game(self) -> None:
         ''' Sets game in the initial state and runs it. '''
@@ -270,7 +221,7 @@ class AlienInvasion():
         else:
             self.settings.reset_stars_speed()
             self.settings.reset_difficulty()
-            self._reset_buttons()
+            self.menu.reset_buttons()
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
 
@@ -311,20 +262,15 @@ class AlienInvasion():
         self.screen.fill(self.settings.background_color)
         self.stars.draw(self.screen)
         self.ship.blitme()
+        self.aliens.draw(self.screen)
 
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()  # type: ignore
 
-        self.aliens.draw(self.screen)
-
         if self.stats.game_active is True:
             self.scoreboard.show_score()
-
-        if self.stats.game_active is False:
-            self.play_button.draw_button()
-            self.easy_mode_button.draw_button(self.easy_clicked)
-            self.medium_mode_button.draw_button(self.medium_clicked)
-            self.hard_mode_button.draw_button(self.hard_clicked)
+        else:
+            self.menu.draw_menu()
 
         pygame.display.flip()  # Update of the screen.
 
