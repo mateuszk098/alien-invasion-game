@@ -17,18 +17,18 @@ class Settings():
 
         # Settings related to spaceship.
         self.ship_speed: float
-        self.ship_limit: int = 1
+        self.ship_limit: int = 3
 
         # Settings related to bullet.
         self.bullet_speed: float
         self.bullet_width: int = 3
         self.bullet_height: int = 15
         self.bullet_color: int = RGB(255, 255, 255)
-        self.bullets_allowed: int = 30
+        self.bullets_allowed: int = 3
 
         # Settings related to alien ship.
         self.alien_speed: float
-        self.fleet_drop_speed: int = 50
+        self.fleet_drop_speed: int = 10
         self.fleet_direction: int
 
         # Settings related to stars.
@@ -57,3 +57,24 @@ class Settings():
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
         self.stars_speed *= self.speedup_scale
+
+    def switch_difficulty(self, mode: int = 1) -> None:
+        ''' Choose game difficulty level. '''
+        if mode == 1:  # Easy
+            self.ship_limit = 3
+            self.bullets_allowed = 5
+            self.fleet_drop_speed = 10
+        elif mode == 2:  # Medium
+            self.ship_limit = 2
+            self.bullets_allowed = 4
+            self.fleet_drop_speed = 15
+        elif mode == 3:  # Hard
+            self.ship_limit = 1
+            self.bullets_allowed = 3
+            self.fleet_drop_speed = 20
+
+    def reset_difficulty(self) -> None:
+        ''' Reset difficulty level to easy. '''
+        self.ship_limit = 3
+        self.bullets_allowed = 5
+        self.fleet_drop_speed = 10
