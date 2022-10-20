@@ -21,15 +21,16 @@ class Settings():
 
         # Settings related to bullet.
         self.bullet_speed: float
-        self.bullet_width: int = 3
+        self.bullet_width: int = 889
         self.bullet_height: int = 15
         self.bullet_color: int = RGB(255, 255, 255)
-        self.bullets_allowed: int = 3
+        self.bullets_allowed: int = 5
 
         # Settings related to alien ship.
         self.alien_speed: float
         self.fleet_drop_speed: int = 10
         self.fleet_direction: int
+        self.alien_points: int
 
         # Settings related to stars.
         self.stars_per_row: int = 10
@@ -39,6 +40,7 @@ class Settings():
         # Settings related to gameplay.
         self.space_between_aliens: int = 4
         self.speedup_scale: float = 1.1
+        self.score_scale: float = 1.1
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self) -> None:
@@ -47,6 +49,7 @@ class Settings():
         self.bullet_speed = 1.0
         self.alien_speed = 1.0
         self.fleet_direction = 1  # Right movement "1", left movement "-1".
+        self.alien_points = 50
 
     def reset_stars_speed(self) -> None:
         ''' Reset star speed. Must be done in separate method. '''
@@ -58,6 +61,7 @@ class Settings():
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
         self.stars_speed *= self.speedup_scale
+        self.alien_points = int(self.alien_points*self.score_scale)
 
     def switch_difficulty(self, mode: int = 1) -> None:
         ''' Choose game difficulty level. '''
@@ -82,3 +86,4 @@ class Settings():
         self.ship_limit = 3
         self.bullets_allowed = 5
         self.fleet_drop_speed = 10
+        self.space_between_aliens = 4
