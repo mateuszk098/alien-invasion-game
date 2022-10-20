@@ -182,10 +182,11 @@ class AlienInvasion():
     def _create_fleet(self) -> None:
         ''' Create new alien fleet. '''
         alien: Alien = Alien(self)
+        space: int = self.settings.space_between_aliens
 
         alien_width: int = alien.rect.width  # type: ignore
         available_space_x: int = self.settings.screen_width - (4*alien_width)
-        number_aliens_x: int = available_space_x // (2*alien_width)
+        number_aliens_x: int = available_space_x // (space*alien_width)
 
         alien_height: int = alien.rect.height  # type: ignore
         ship_height: int = self.ship.rect.height
@@ -200,9 +201,10 @@ class AlienInvasion():
     def _create_alien(self, alien_number: int, row_number: int) -> None:
         ''' Create new alien and add it to the row. '''
         alien: Alien = Alien(self)
+        space: int = self.settings.space_between_aliens
         alien_width: int = alien.rect.width  # type: ignore
         alien_height: int = alien.rect.height  # type: ignore
-        alien.x = alien_width + 2*alien_width*alien_number
+        alien.x = alien_width + space*alien_width*alien_number
         alien.rect.x = alien.x  # type: ignore
         alien.rect.y = alien.rect.height + 2*alien_height*row_number  # type: ignore
         self.aliens.add(alien)

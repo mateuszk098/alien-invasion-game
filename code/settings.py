@@ -36,7 +36,8 @@ class Settings():
         self.star_rows: int = 10
         self.stars_speed: float = 0.25
 
-        # Gameplay speed.
+        # Settings related to gameplay.
+        self.space_between_aliens: int = 4
         self.speedup_scale: float = 1.1
         self.initialize_dynamic_settings()
 
@@ -64,14 +65,17 @@ class Settings():
             self.ship_limit = 3
             self.bullets_allowed = 5
             self.fleet_drop_speed = 10
+            self.space_between_aliens = 4
         elif mode == 2:  # Medium
             self.ship_limit = 2
             self.bullets_allowed = 4
             self.fleet_drop_speed = 15
+            self.space_between_aliens = 3
         elif mode == 3:  # Hard
             self.ship_limit = 1
             self.bullets_allowed = 3
             self.fleet_drop_speed = 20
+            self.space_between_aliens = 2
 
     def reset_difficulty(self) -> None:
         ''' Reset difficulty level to easy. '''
