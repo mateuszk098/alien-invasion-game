@@ -13,7 +13,7 @@ class Settings():
         # Settings related to game screen.
         self.screen_width: int = 1280
         self.screen_height: int = 720
-        self.background_color: int = RGB(5, 5, 10)
+        self.background_color = (13, 12, 29)
 
         # Settings related to spaceship.
         self.ship_speed: float
@@ -23,7 +23,7 @@ class Settings():
         self.bullet_speed: float
         self.bullet_width: int = 889
         self.bullet_height: int = 15
-        self.bullet_color: int = RGB(255, 255, 255)
+        self.bullet_color = (255, 255, 255)
         self.bullets_allowed: int = 5
 
         # Settings related to alien ship.

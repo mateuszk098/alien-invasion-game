@@ -13,6 +13,7 @@ class GameStats():
         self.settings = ai_game.settings
         self.reset_stats()
         self.game_active: bool = False
+        self.high_score: int = 0
 
     def reset_stats(self) -> None:
         ''' Initialize statistical data, which can change during game. '''

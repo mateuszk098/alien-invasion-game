@@ -20,6 +20,7 @@ class Scoreboard():
         self.font = pygame.font.SysFont(None, 36)  # type: ignore
 
         self.prep_score()
+        #self.prep_high_score()
 
     def prep_score(self) -> None:
         ''' Transforms punctation into image. '''

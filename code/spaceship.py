@@ -15,7 +15,7 @@ class Spaceship():
         self.settings = ai_game.settings
 
         # Load the spaceship image and load its rect.
-        self.image = pygame.image.load('../images/spaceship1_resized.png')
+        self.image = pygame.image.load('../images/spaceship.png')
         self.rect = self.image.get_rect()
 
         # Every new spaceship occurs at te bottom of the screen.

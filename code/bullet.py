@@ -19,7 +19,7 @@ class Bullet(Sprite):
         self.color: int = self.settings.bullet_color
 
         # Create bullet rect and its position
-        self.image = pygame.image.load('../images/bullet2.png')
+        self.image = pygame.image.load('../images/bullet.png')
         self.rect: Rect = self.image.get_rect()
         # self.rect: pygame.Rect = pygame.Rect(
         #     0, 0, self.settings.bullet_width, self.settings.bullet_height)
