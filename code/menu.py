@@ -2,6 +2,8 @@
 General file with menu management.
 '''
 
+import pygame.font
+
 from button import Button
 
 
@@ -9,34 +11,63 @@ class Menu():
 
     def __init__(self, ai_game) -> None:
         ''' Initialize menu buttons in the game. '''
+        self.screen = ai_game.screen
+        self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
         self.stats = ai_game.stats
 
-        self.play_button: Button = Button(ai_game, 'Play', -50)
-        self.settings_button: Button = Button(ai_game, 'Settings', 25)
+        self.play_button: Button = Button(ai_game, 'Play', -105)
+        self.settings_button: Button = Button(ai_game, 'Settings', -35)
+        self.help_button: Button = Button(ai_game, 'Help', 35)
+        self.exit_button: Button = Button(ai_game, 'Exit', 105)
 
-        self.easy_mode_button: Button = Button(ai_game, 'Easy Mode', -125)
-        self.medium_mode_button: Button = Button(ai_game, 'Medium Mode', -50)
-        self.hard_mode_button: Button = Button(ai_game, 'Hard Mode', 25)
-        self.back_button: Button = Button(ai_game, 'Back', 100)
+        self.easy_mode_button: Button = Button(ai_game, 'Easy Mode', -105)
+        self.medium_mode_button: Button = Button(ai_game, 'Medium Mode', -35)
+        self.hard_mode_button: Button = Button(ai_game, 'Hard Mode', 35)
+        self.back_button: Button = Button(ai_game, 'Back', 105)
 
         self.menu_visible: bool = True
+        self.help_visible: bool = False
         self.settings_visible: bool = False
         self.easy_clicked: bool = False
         self.medium_clicked: bool = False
         self.hard_clicked: bool = False
+
+        self.text_color: tuple[int, int, int] = (255, 255, 255)
+        self.font = pygame.font.SysFont('freesansbold', 36)
+        self._prep_help_window()
 
     def draw_menu(self) -> None:
         ''' Display the menu/settings on the screen. '''
         if self.menu_visible is True:
             self.play_button.draw_button()
             self.settings_button.draw_button()
+            self.exit_button.draw_button()
+            self.help_button.draw_button()
 
         if self.settings_visible is True:
             self.easy_mode_button.draw_button(self.easy_clicked)
             self.medium_mode_button.draw_button(self.medium_clicked)
             self.hard_mode_button.draw_button(self.hard_clicked)
             self.back_button.draw_button()
+
+        if self.help_visible is True:
+            self.show_help()
+
+    def _prep_help_window(self) -> None:
+        ''' Transforms message into image. '''
+        help_str: str = f'Welcome to Aliens Invasion!'
+        self.help_image = self.font.render(
+            help_str, True, self.text_color, self.settings.background_color)
+
+        # Display this on the top.
+        self.help_rect = self.help_image.get_rect()
+        self.help_rect.centerx = self.screen_rect.centerx
+        self.help_rect.centery = self.screen_rect.centery
+
+    def show_help(self) -> None:
+        ''' Display help message on the screen. '''
+        self.screen.blit(self.help_image, self.help_rect)
 
     def check_play_button(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the play button is clicked by mouse. '''
@@ -52,6 +83,20 @@ class Menu():
             return True
         return False
 
+    def check_exit_button(self, mouse_pos: tuple[int, int]) -> bool:
+        ''' Checks if the exit button is clicked by mouse. '''
+        button_clicked: bool = self.exit_button.rect.collidepoint(mouse_pos)
+        if button_clicked is True and self.menu_visible is True:
+            return True
+        return False
+
+    def check_help_button(self, mouse_pos: tuple[int, int]) -> bool:
+        ''' Checks if the help button is clicked by mouse. '''
+        button_clicked: bool = self.help_button.rect.collidepoint(mouse_pos)
+        if button_clicked is True and self.menu_visible is True:
+            return True
+        return False
+
     def enter_settings(self) -> None:
         ''' Changes flags related to enter settings. '''
         self.menu_visible = False
@@ -63,6 +108,16 @@ class Menu():
         self.menu_visible = True
         self.settings_visible = False
         self.stats.settings_active = False
+
+    def enter_help(self) -> None:
+        self.menu_visible = False
+        self.help_visible = True
+        self.stats.help_active = True
+
+    def exit_help(self) -> None:
+        self.menu_visible = True
+        self.help_visible = False
+        self.stats.help_active = False
 
     def reset_mode_buttons(self) -> None:
         ''' Reset difficulty buttons to default. '''

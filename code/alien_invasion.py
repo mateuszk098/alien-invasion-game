@@ -77,6 +77,8 @@ class AlienInvasion():
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_ESCAPE:
+            self.menu.exit_help()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
         elif event.key == pygame.K_g and self.stats.game_active is False:
@@ -99,11 +101,17 @@ class AlienInvasion():
             self.settings.initialize_dynamic_settings()
             self._start_game()
 
+        if self.menu.check_help_button(mouse_pos) is True:
+            print('b')
+            self.menu.enter_help()
+
         # Game mode management.
-        if self.stats.game_active is False and self.menu.check_settings_button(mouse_pos) is True:
+        if self.stats.help_active is False and self.menu.check_settings_button(mouse_pos) is True:
             self.menu.enter_settings()
         elif self.stats.settings_active is True:
             self.menu.game_mode_management(mouse_pos)
+        elif self.menu.check_exit_button(mouse_pos) is True:
+            sys.exit()
 
     def _start_game(self) -> None:
         ''' Sets game in the initial state and runs it. '''
