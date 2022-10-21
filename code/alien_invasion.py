@@ -152,12 +152,12 @@ class AlienInvasion():
         alien: Alien = Alien(self)
         space: int = self.settings.space_between_aliens
 
-        alien_width: int = alien.rect.width  # type: ignore
+        alien_width: int = alien.rect.width
         available_space_x: int = self.settings.screen_width - (4*alien_width)
         number_aliens_x: int = available_space_x // (space*alien_width)
 
-        alien_height: int = alien.rect.height  # type: ignore
-        ship_height: int = self.ship.rect.height  # type: ignore
+        alien_height: int = alien.rect.height
+        ship_height: int = self.ship.rect.height
         available_space_y: int = self.settings.screen_height - (4*alien_height) - ship_height
         number_rows: int = available_space_y // (2*alien_height)
 
@@ -170,11 +170,11 @@ class AlienInvasion():
         ''' Create new alien and add it to the row. '''
         alien: Alien = Alien(self)
         space: int = self.settings.space_between_aliens
-        alien_width: int = alien.rect.width  # type: ignore
-        alien_height: int = alien.rect.height  # type: ignore
+        alien_width: int = alien.rect.width
+        alien_height: int = alien.rect.height
         alien.x = alien_width + space*alien_width*alien_number
-        alien.rect.x = alien.x  # type: ignore
-        alien.rect.y = 2*alien.rect.height + 2*alien_height*row_number  # type: ignore
+        alien.rect.x = alien.x
+        alien.rect.y = 2*alien.rect.height + 2*alien_height*row_number
         self.aliens.add(alien)
 
     def _check_fleet_edges(self) -> None:
@@ -196,7 +196,7 @@ class AlienInvasion():
         self.aliens.update()
 
         # Check collision betwenn spaceship and alien ship.
-        if pygame.sprite.spritecollideany(self.ship, self.aliens) is not None:  # type: ignore
+        if pygame.sprite.spritecollideany(self.ship, self.aliens) is not None:
             self._ship_hit()
 
         self._check_aliens_bottom()
@@ -240,7 +240,7 @@ class AlienInvasion():
             for _ in range(self.settings.stars_per_row):
                 star: Star = Star(self)
                 star.y += pixels_per_row*row
-                star.rect.y = star.y  # type: ignore
+                star.rect.y = int(star.y)
                 self.stars.add(star)
 
     def _update_stars(self) -> None:
@@ -259,7 +259,7 @@ class AlienInvasion():
             new_star: Star = Star(self)
             # Provide effect that stars coming on the screen naturally.
             new_star.y -= pixels_per_row
-            new_star.rect.y = new_star.y  # type: ignore
+            new_star.rect.y = int(new_star.y)
             self.stars.add(new_star)
 
     def _update_screen(self) -> None:

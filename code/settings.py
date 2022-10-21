@@ -8,29 +8,31 @@ from ctypes.wintypes import RGB
 class Settings():
     ''' Holds all settings of game. '''
 
+    # Settings related to gameplay.
+    ship_speed: float
+    bullet_speed: float
+    alien_speed: float
+    fleet_direction: int
+
     def __init__(self) -> None:
         ''' Initialize settings of game. '''
         # Settings related to game screen.
         self.screen_width: int = 1280
         self.screen_height: int = 720
-        self.background_color = (13, 12, 29)
+        self.background_color: tuple[int, int, int] = (13, 12, 29)
 
         # Settings related to spaceship.
-        self.ship_speed: float
-        self.ship_limit: int = 3
+        self.ship_limit: int = 2
 
         # Settings related to bullet.
-        self.bullet_speed: float
-        self.bullet_width: int = 889
+        self.bullet_width: int = 3
         self.bullet_height: int = 15
-        self.bullet_color = (255, 255, 255)
-        self.bullets_allowed: int = 5
+        self.bullet_color: tuple[int, int, int] = (255, 255, 255)
+        self.bullets_allowed: int = 4
 
         # Settings related to alien ship.
-        self.alien_speed: float
-        self.fleet_drop_speed: int = 10
-        self.fleet_direction: int
-        self.alien_points: int
+        self.fleet_drop_speed: int = 15
+        self.alien_points: int = 50
 
         # Settings related to stars.
         self.stars_per_row: int = 10
@@ -38,7 +40,7 @@ class Settings():
         self.stars_speed: float = 0.25
 
         # Settings related to gameplay.
-        self.space_between_aliens: int = 4
+        self.space_between_aliens: int = 3
         self.speedup_scale: float = 1.1
         self.score_scale: float = 1.1
         self.initialize_dynamic_settings()
@@ -49,7 +51,6 @@ class Settings():
         self.bullet_speed = 1.0
         self.alien_speed = 1.0
         self.fleet_direction = 1  # Right movement "1", left movement "-1".
-        self.alien_points = 50
 
     def reset_stars_speed(self) -> None:
         ''' Reset star speed. Must be done in separate method. '''
@@ -63,7 +64,7 @@ class Settings():
         self.stars_speed *= self.speedup_scale
         self.alien_points = int(self.alien_points*self.score_scale)
 
-    def switch_difficulty(self, mode: int = 1) -> None:
+    def switch_difficulty(self, mode: int = 2) -> None:
         ''' Choose game difficulty level. '''
         if mode == 1:  # Easy
             self.ship_limit = 3
@@ -82,8 +83,8 @@ class Settings():
             self.space_between_aliens = 2
 
     def reset_difficulty(self) -> None:
-        ''' Reset difficulty level to easy. '''
-        self.ship_limit = 3
-        self.bullets_allowed = 5
-        self.fleet_drop_speed = 10
-        self.space_between_aliens = 4
+        ''' Reset difficulty level to medium. '''
+        self.ship_limit = 2
+        self.bullets_allowed = 4
+        self.fleet_drop_speed = 15
+        self.space_between_aliens = 3

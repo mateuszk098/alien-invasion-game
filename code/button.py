@@ -2,11 +2,15 @@
 File with class representing game button.
 '''
 
+import pygame
 import pygame.font
 
 
 class Button():
-    def __init__(self, ai_game, msg, offset=0) -> None:
+    ''' Class representing menu button. '''
+
+    def __init__(self, ai_game, msg: str, offset: int = 0) -> None:
+        ''' Initialize default button properties.'''
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
@@ -14,10 +18,10 @@ class Button():
         self.height: int = 50
         self.button_color: tuple[int, ...] = (0, 255, 0)
         self.button_color_clicked: tuple[int, ...] = (0, 60, 0)
-        self.text_color: tuple[int, ...] = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 48)  # type: ignore
+        self.text_color: tuple[int, int, int] = (255, 255, 255)
+        self.font = pygame.font.SysFont('freesansbold', 48)
 
-        self.rect = pygame.Rect(0, 0, self.width, self.height)  # type: ignore
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
         self.rect.y += offset
 
@@ -35,6 +39,6 @@ class Button():
 
     def _prep_msg(self, msg) -> None:
         ''' Puts message on the rect and center the message. '''
-        self.msg_image = self.font.render(msg, True, self.text_color)  # type: ignore
+        self.msg_image = self.font.render(msg, True, self.text_color)
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center

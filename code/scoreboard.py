@@ -20,8 +20,8 @@ class Scoreboard():
         self.stats = ai_game.stats
 
         # Font settings.
-        self.text_color: tuple[int, ...] = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 36)  # type: ignore
+        self.text_color: tuple[int, int, int] = (255, 255, 255)
+        self.font = pygame.font.SysFont('freesansbold', 36)
 
         self.prep_score()
         self.prep_high_score()
@@ -32,7 +32,7 @@ class Scoreboard():
         ''' Transforms current score into image. '''
         score_str: str = f'Score: {self.stats.score:,}'
         self.score_image = self.font.render(
-            score_str, True, self.text_color, self.settings.background_color)  # type: ignore
+            score_str, True, self.text_color, self.settings.background_color)
 
         # Display this in the right-top corner.
         self.score_rect = self.score_image.get_rect()
@@ -50,7 +50,7 @@ class Scoreboard():
         ''' Transforms best score into image. '''
         high_score_str: str = f'Best Score: {self.stats.high_score:,}'
         self.high_score_image = self.font.render(
-            high_score_str, True, self.text_color, self.settings.background_color)  # type: ignore
+            high_score_str, True, self.text_color, self.settings.background_color)
 
         # Display this on the top.
         self.high_score_rect = self.high_score_image.get_rect()
@@ -66,7 +66,7 @@ class Scoreboard():
     def prep_level(self) -> None:
         level_str: str = f'Level: {self.stats.game_level}'
         self.level_image = self.font.render(
-            level_str, True, self.text_color, self.settings.background_color)  # type: ignore
+            level_str, True, self.text_color, self.settings.background_color)
 
         # Display this under the score.
         self.level_rect = self.level_image.get_rect()
@@ -78,6 +78,6 @@ class Scoreboard():
         self.ships = Group()
         for ship_number in range(self.stats.ships_left):
             ship: Spaceship = Spaceship(self.ai_game, resized=True)
-            ship.rect.x = self.screen_rect.left + 20 + ship_number*(ship.rect.width + 20)  # type: ignore
-            ship.rect.y = self.score_rect.top  # type: ignore
+            ship.rect.x = self.screen_rect.left + 20 + ship_number*(ship.rect.width + 20)
+            ship.rect.y = self.score_rect.top
             self.ships.add(ship)

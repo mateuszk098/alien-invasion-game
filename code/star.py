@@ -12,7 +12,7 @@ from pygame.rect import Rect
 class Star(Sprite):
     ''' Class representing a individual star in the space. '''
 
-    __my_stars: tuple[str, ...] = ('star1.png', 'star2.png', 'star3.png', 'star4.png',
+    __MY_STARS: tuple[str, ...] = ('star1.png', 'star2.png', 'star3.png', 'star4.png',
                                    'star5.png', 'star6.png', 'star7.png', 'star8.png',
                                    'star9.png', 'star10.png', 'star11.png', 'star12.png',
                                    'star13.png', 'star14.png', 'star15.png')
@@ -23,7 +23,7 @@ class Star(Sprite):
         self.settings = ai_game.settings
 
         # Load the random star image and load its rect.
-        self.image = pygame.image.load(f'../images/{random.choice(self.__my_stars)}')
+        self.image = pygame.image.load(f'../images/{random.choice(self.__MY_STARS)}')
         self.rect: Rect = self.image.get_rect()
 
         # Place star at the top row.

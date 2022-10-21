@@ -5,11 +5,12 @@ General file representing bullet.
 import pygame
 from pygame.sprite import Sprite
 from pygame.rect import Rect
-from pygame.surface import Surface
 
 
 class Bullet(Sprite):
     ''' Represents bullet fired by a spaceship. '''
+
+    __BULLET_IMG: str = '../images/bullet.png'
 
     def __init__(self, ai_game) -> None:
         ''' Create bullet in current spaceship position. '''
@@ -19,10 +20,9 @@ class Bullet(Sprite):
         self.color: int = self.settings.bullet_color
 
         # Create bullet rect and its position
-        self.image = pygame.image.load('../images/bullet.png')
+        self.image = pygame.image.load(self.__BULLET_IMG)
         self.rect: Rect = self.image.get_rect()
-        # self.rect: pygame.Rect = pygame.Rect(
-        #     0, 0, self.settings.bullet_width, self.settings.bullet_height)
+        # self.rect: Rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
         self.y: float = float(self.rect.y)
 
