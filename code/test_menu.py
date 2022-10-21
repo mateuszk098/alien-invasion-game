@@ -25,6 +25,7 @@ class BlueWindow():
 
     def run_game(self) -> None:
         while True:
+            self.screen.fill((21, 24, 56))
             self._check_events()
             self.menu.draw_menu()
             pygame.display.flip()  # Update of the screen.
@@ -36,8 +37,14 @@ class BlueWindow():
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
-                self.menu.check_play_button(mouse_pos)
-                self.menu.check_difficulty_button(mouse_pos)
+                if self.menu.check_play_button(mouse_pos) is True:
+                    print('play')
+
+                if self.menu.check_settings_button(mouse_pos) is True:
+                    self.menu.enter_settings()
+                    print('settings')
+                elif self.stats.settings_active is True:
+                    self.menu.game_mode_management(mouse_pos)
 
 
 if __name__ == '__main__':

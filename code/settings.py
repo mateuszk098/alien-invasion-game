@@ -2,8 +2,6 @@
 General file to game settings management.
 '''
 
-from ctypes.wintypes import RGB
-
 
 class Settings():
     ''' Holds all settings of game. '''

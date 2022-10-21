@@ -2,8 +2,6 @@
 General file with class representing game statistics.
 '''
 
-import pygame
-
 
 class GameStats():
     ''' Class representing game statistics. '''
@@ -16,6 +14,7 @@ class GameStats():
         ''' Initialize statistics. '''
         self.settings = ai_game.settings
         self.game_active: bool = False
+        self.settings_active: bool = False
         self.high_score: int = 0
         self.reset_stats()
 

@@ -91,12 +91,19 @@ class AlienInvasion():
             self.ship.moving_left = False
 
     def _check_mouse_events(self) -> None:
+        ''' Reaction to mouse click. '''
         mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
+
+        # Start the game.
         if self.stats.game_active is False and self.menu.check_play_button(mouse_pos) is True:
             self.settings.initialize_dynamic_settings()
             self._start_game()
-        if self.stats.game_active is False:
-            self.menu.check_difficulty_button(mouse_pos)
+
+        # Game mode management.
+        if self.stats.game_active is False and self.menu.check_settings_button(mouse_pos) is True:
+            self.menu.enter_settings()
+        elif self.stats.settings_active is True:
+            self.menu.game_mode_management(mouse_pos)
 
     def _start_game(self) -> None:
         ''' Sets game in the initial state and runs it. '''
@@ -225,8 +232,7 @@ class AlienInvasion():
             self._create_fleet()
         else:
             self.settings.reset_stars_speed()
-            self.settings.reset_difficulty()
-            self.menu.reset_buttons()
+            self.menu.reset_mode_buttons()
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
 
