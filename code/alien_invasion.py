@@ -7,6 +7,8 @@ from time import sleep
 
 import pygame
 from pygame.surface import Surface
+from pygame.sprite import Group
+from pygame.sprite import Sprite
 
 from scoreboard import Scoreboard
 from game_stats import GameStats
@@ -39,9 +41,9 @@ class AlienInvasion():
         self.ship: Spaceship = Spaceship(self)
         self.menu: Menu = Menu(self)
 
-        self.bullets = pygame.sprite.Group()
-        self.aliens = pygame.sprite.Group()
-        self.stars = pygame.sprite.Group()
+        self.bullets: Group = pygame.sprite.Group()
+        self.aliens: Group = pygame.sprite.Group()
+        self.stars: Group = pygame.sprite.Group()
 
         self._create_stars()
 
@@ -121,8 +123,8 @@ class AlienInvasion():
         self.scoreboard.prep_ships()
         self.aliens.empty()
         self.bullets.empty()
-        self._create_fleet()
         self.ship.center_ship()
+        self._create_fleet()
         self.menu.game_active = True
         pygame.mouse.set_visible(False)
 
@@ -144,7 +146,7 @@ class AlienInvasion():
 
     def _check_bullet_alien_collisions(self) -> None:
         ''' Reaction to collision between bullet and alien ship.'''
-        collisions = pygame.sprite.groupcollide(
+        collisions: dict[Sprite, Sprite] = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)  # True means to remove object.
 
         if collisions:
@@ -158,9 +160,9 @@ class AlienInvasion():
         if not self.aliens:
             self.bullets.empty()
             self.settings.increase_speed()
-            self._create_fleet()
             self.stats.game_level += 1
             self.scoreboard.prep_level()
+            self._create_fleet()
 
     def _create_fleet(self) -> None:
         ''' Create new alien fleet. '''
@@ -192,6 +194,17 @@ class AlienInvasion():
         alien.rect.y = 2*alien.rect.height + 2*alien_height*row_number
         self.aliens.add(alien)
 
+    def _update_aliens(self) -> None:
+        ''' Update all aliens position on the screen. '''
+        self._check_fleet_edges()
+        self.aliens.update()
+
+        # Check collision betwenn spaceship and alien ship.
+        if pygame.sprite.spritecollideany(self.ship, self.aliens) is not None:
+            self._ship_hit()
+
+        self._check_aliens_bottom()
+
     def _check_fleet_edges(self) -> None:
         ''' Reaction if any alien comes to the screen edge. '''
         for alien in self.aliens.sprites():
@@ -204,17 +217,6 @@ class AlienInvasion():
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed  # type: ignore
         self.settings.fleet_direction *= -1
-
-    def _update_aliens(self) -> None:
-        ''' Update all aliens position on the screen. '''
-        self._check_fleet_edges()
-        self.aliens.update()
-
-        # Check collision betwenn spaceship and alien ship.
-        if pygame.sprite.spritecollideany(self.ship, self.aliens) is not None:
-            self._ship_hit()
-
-        self._check_aliens_bottom()
 
     def _check_aliens_bottom(self) -> None:
         ''' Calls `_ship_hit()` if any alien ship comes to the bottom of the screen. '''
