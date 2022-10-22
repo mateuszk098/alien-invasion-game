@@ -3,8 +3,9 @@ General file with class to user spaceship management.
 '''
 
 import pygame
-from pygame.rect import Rect
 from pygame.sprite import Sprite
+from pygame.surface import Surface
+from pygame.rect import Rect
 
 
 class Spaceship(Sprite):
@@ -16,15 +17,14 @@ class Spaceship(Sprite):
     def __init__(self, ai_game, resized=False) -> None:
         ''' Initialization of spaceship and its initial position. '''
         super().__init__()
-        self.screen = ai_game.screen
-        self.screen_rect = ai_game.screen.get_rect()
+        self.screen: Surface = ai_game.screen
+        self.screen_rect: Rect = ai_game.screen.get_rect()
         self.settings = ai_game.settings
 
         # Load the spaceship image and load its rect.
+        self.image: Surface = pygame.image.load(self.__NORMAL_SHIP)
         if resized is True:
             self.image = pygame.image.load(self.__RESIZED_SHIP)
-        else:
-            self.image = pygame.image.load(self.__NORMAL_SHIP)
         self.rect: Rect = self.image.get_rect()
 
         # Every new spaceship occurs at te bottom of the screen.

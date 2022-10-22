@@ -4,6 +4,7 @@ General file with alien class.
 
 import pygame
 from pygame.sprite import Sprite
+from pygame.surface import Surface
 from pygame.rect import Rect
 
 
@@ -15,12 +16,12 @@ class Alien(Sprite):
     def __init__(self, ai_game) -> None:
         ''' Initialize the alien ship. '''
         super().__init__()
-        self.screen = ai_game.screen
+        self.screen: Surface = ai_game.screen
         self.screen_rect: Rect = self.screen.get_rect()
         self.settings = ai_game.settings
 
         # Load the alien ship image and load its rect.
-        self.image = pygame.image.load(self.__ALIEN_IMG)
+        self.image: Surface = pygame.image.load(self.__ALIEN_IMG)
         self.rect: Rect = self.image.get_rect()
 
         # Place alien ship near the top-left screen edge.

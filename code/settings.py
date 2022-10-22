@@ -50,10 +50,6 @@ class Settings():
         self.alien_speed = 1.0
         self.fleet_direction = 1  # Right movement "1", left movement "-1".
 
-    def reset_stars_speed(self) -> None:
-        ''' Reset star speed. Must be done in separate method. '''
-        self.stars_speed = 0.25
-
     def increase_speed(self) -> None:
         ''' Increase gameplay speed. '''
         self.ship_speed *= self.speedup_scale
@@ -61,6 +57,10 @@ class Settings():
         self.alien_speed *= self.speedup_scale
         self.stars_speed *= self.speedup_scale
         self.alien_points = int(self.alien_points*self.score_scale)
+
+    def reset_stars_speed(self) -> None:
+        ''' Reset star speed. Must be done in separate method. '''
+        self.stars_speed = 0.25
 
     def switch_difficulty(self, mode: int = 2) -> None:
         ''' Choose game difficulty level. '''

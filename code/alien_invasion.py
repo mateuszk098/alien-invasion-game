@@ -6,14 +6,15 @@ import sys
 from time import sleep
 
 import pygame
+from pygame.surface import Surface
 
-from settings import Settings
+from scoreboard import Scoreboard
 from game_stats import GameStats
 from spaceship import Spaceship
+from settings import Settings
 from bullet import Bullet
 from alien import Alien
 from star import Star
-from scoreboard import Scoreboard
 from menu import Menu
 
 
@@ -26,7 +27,7 @@ class AlienInvasion():
         pygame.display.set_caption('Alien Invasion')
 
         self.settings: Settings = Settings()
-        self.screen = pygame.display.set_mode(
+        self.screen: Surface = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
         # Full screen.
         # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -123,7 +124,7 @@ class AlienInvasion():
         self._create_fleet()
         self.ship.center_ship()
         self.menu.game_active = True
-        # pygame.mouse.set_visible(False)
+        pygame.mouse.set_visible(False)
 
     def _fire_bullet(self) -> None:
         ''' Create new bullet and add it to group. '''

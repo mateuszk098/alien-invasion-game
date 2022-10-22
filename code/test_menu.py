@@ -37,14 +37,21 @@ class BlueWindow():
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
+
+                if self.menu.check_exit_button(mouse_pos) is True:
+                    sys.exit()
+
                 if self.menu.check_play_button(mouse_pos) is True:
-                    print('play')
+                    self.settings.initialize_dynamic_settings()
+
+                if self.menu.check_help_button(mouse_pos) is True:
+                    self.menu.enter_help()
+
+                if self.menu.settings_active is True:
+                    self.menu.game_mode_management(mouse_pos)
 
                 if self.menu.check_settings_button(mouse_pos) is True:
                     self.menu.enter_settings()
-                    print('settings')
-                elif self.stats.settings_active is True:
-                    self.menu.game_mode_management(mouse_pos)
 
 
 if __name__ == '__main__':

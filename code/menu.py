@@ -3,6 +3,8 @@ General file with menu management.
 '''
 
 import pygame.font
+from pygame.surface import Surface
+from pygame.rect import Rect
 
 from button import Button
 
@@ -11,8 +13,8 @@ class Menu():
 
     def __init__(self, ai_game) -> None:
         ''' Initialize menu buttons in the game. '''
-        self.screen = ai_game.screen
-        self.screen_rect = self.screen.get_rect()
+        self.screen: Surface = ai_game.screen
+        self.screen_rect: Rect = self.screen.get_rect()
         self.settings = ai_game.settings
 
         self.play_button: Button = Button(ai_game, 'Play', -105)
@@ -26,7 +28,7 @@ class Menu():
         self.back_button: Button = Button(ai_game, 'Back', 105)
 
         self.game_active: bool = False
-        
+
         self.menu_active: bool = True
         self.settings_active: bool = False
         self.help_active: bool = False
@@ -38,6 +40,17 @@ class Menu():
         self.text_color: tuple[int, int, int] = (255, 255, 255)
         self.font = pygame.font.SysFont('freesansbold', 36)
         self._prep_help_window()
+
+    def _prep_help_window(self) -> None:
+        ''' Transforms message into image. '''
+        help_str: str = f'Welcome to Aliens Invasion!'
+        self.help_image: Surface = self.font.render(
+            help_str, True, self.text_color, self.settings.background_color)
+
+        # Display this on the top.
+        self.help_rect: Rect = self.help_image.get_rect()
+        self.help_rect.centerx = self.screen_rect.centerx
+        self.help_rect.centery = self.screen_rect.centery
 
     def draw_menu(self) -> None:
         ''' Display the menu/settings/help on the screen. '''
@@ -55,17 +68,6 @@ class Menu():
 
         if self.help_active is True:
             self.show_help()
-
-    def _prep_help_window(self) -> None:
-        ''' Transforms message into image. '''
-        help_str: str = f'Welcome to Aliens Invasion!'
-        self.help_image = self.font.render(
-            help_str, True, self.text_color, self.settings.background_color)
-
-        # Display this on the top.
-        self.help_rect = self.help_image.get_rect()
-        self.help_rect.centerx = self.screen_rect.centerx
-        self.help_rect.centery = self.screen_rect.centery
 
     def show_help(self) -> None:
         ''' Display help message on the screen. '''
@@ -134,11 +136,6 @@ class Menu():
         self._switch_mode(easy_clicked, medium_clicked, hard_clicked)
         self._check_back_button(back_clicked)
 
-    def _check_back_button(self, back_clicked) -> None:
-        ''' Checks if the back button is clicked by mouse. '''
-        if back_clicked is True:
-            self.exit_settings()
-
     def _switch_mode(self, easy_clicked, medium_clicked, hard_clicked) -> None:
         ''' Switch difficulty button. Only one difficulty button can be clicked at a time. '''
         if easy_clicked is True and self.easy_pressed is True:
@@ -164,3 +161,8 @@ class Menu():
             self.settings.switch_difficulty(3)
             self.hard_pressed = True
             self.easy_pressed = self.medium_pressed = False
+
+    def _check_back_button(self, back_clicked) -> None:
+        ''' Checks if the back button is clicked by mouse. '''
+        if back_clicked is True:
+            self.exit_settings()
