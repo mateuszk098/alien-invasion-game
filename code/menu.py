@@ -24,9 +24,9 @@ class Menu():
         self.help_button: Button = Button(ai_game, 'Help', 35)
         self.exit_button: Button = Button(ai_game, 'Exit', 105)
 
-        self.easy_mode_button: Button = Button(ai_game, 'Easy Mode', -105)
-        self.medium_mode_button: Button = Button(ai_game, 'Medium Mode', -35)
-        self.hard_mode_button: Button = Button(ai_game, 'Hard Mode', 35)
+        self.easy_mode_button: Button = Button(ai_game, 'Perseus Arm', -105)
+        self.medium_mode_button: Button = Button(ai_game, 'Outer Arm', -35)
+        self.hard_mode_button: Button = Button(ai_game, 'Norma Arm', 35)
         self.back_button: Button = Button(ai_game, 'Back', 105)
 
         self.game_active: bool = False
@@ -72,20 +72,15 @@ class Menu():
 
     def show_help(self, text_vertical_offset: int = 36) -> None:
         ''' Displays the help message on the screen. '''
-        help_text: str = 'Quas corporis unde sit inventore consequuntur aliquid facilis quis. '\
-            'Sit quia quo nisi eos aperiam. Molestiae hic incidunt voluptatem '\
-            'aut suscipit sit assumenda at. Ad autem fugit sapiente officia. '\
-            'Velit dolore soluta officiis est repellat et quis et. Vero et '\
-            'repellat rerum qui beatae. Placeat soluta est animi in dolore quae. '\
-            'Quia dolorum est non modi.'
-        text_lines: list[str] = textwrap.wrap(help_text, 70)
+        help_text: str = '''Welcome to Aliens Invasion! The Milky Way has been attacked by hostile creatures. You have been chosen by the Starfleet general to be the captain of the "Eagle 2" spaceship. The Eagle 2 is the best spaceship of Starfleet and one of the engineering miracles. The Eagle 2 has a modern guidance system and hypersonic missiles, which should help shoot aliens down. You cannot allow aliens to arrive on Earth. We believe in You. Press "Esc" to return to the control centre. Press "g" or click "Play" to go on the mission. Press "r" during the mission to return to the base. Click "Settings" to travel to a more dangerous part of the galaxy. Press "q" or click "Exit" to give up.'''
+        text_lines: list[str] = textwrap.wrap(help_text, 50)
 
         for line_number, text_line in enumerate(text_lines):
             cent: Surface = self.font.render(
                 text_line, True, self.text_color, self.settings.background_color)
             cent_rect: Rect = cent.get_rect()
             cent_rect.centerx = self.screen_rect.centerx
-            cent_rect.y = 40 + line_number*text_vertical_offset
+            cent_rect.y = 60 + line_number*text_vertical_offset
             self.screen.blit(cent, cent_rect)
 
     def check_play_button(self, mouse_pos: tuple[int, int]) -> bool:
