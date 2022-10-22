@@ -13,9 +13,6 @@ class GameStats():
     def __init__(self, ai_game) -> None:
         ''' Initialize statistics. '''
         self.settings = ai_game.settings
-        self.game_active: bool = False
-        self.settings_active: bool = False
-        self.help_active: bool = False
         self.high_score: int = 0
         self.reset_stats()
 

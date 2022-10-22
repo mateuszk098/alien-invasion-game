@@ -14,7 +14,6 @@ class Menu():
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
-        self.stats = ai_game.stats
 
         self.play_button: Button = Button(ai_game, 'Play', -105)
         self.settings_button: Button = Button(ai_game, 'Settings', -35)
@@ -26,32 +25,35 @@ class Menu():
         self.hard_mode_button: Button = Button(ai_game, 'Hard Mode', 35)
         self.back_button: Button = Button(ai_game, 'Back', 105)
 
-        self.menu_visible: bool = True
-        self.help_visible: bool = False
-        self.settings_visible: bool = False
-        self.easy_clicked: bool = False
-        self.medium_clicked: bool = False
-        self.hard_clicked: bool = False
+        self.game_active: bool = False
+        
+        self.menu_active: bool = True
+        self.settings_active: bool = False
+        self.help_active: bool = False
+
+        self.easy_pressed: bool = False
+        self.medium_pressed: bool = False
+        self.hard_pressed: bool = False
 
         self.text_color: tuple[int, int, int] = (255, 255, 255)
         self.font = pygame.font.SysFont('freesansbold', 36)
         self._prep_help_window()
 
     def draw_menu(self) -> None:
-        ''' Display the menu/settings on the screen. '''
-        if self.menu_visible is True:
+        ''' Display the menu/settings/help on the screen. '''
+        if self.menu_active is True:
             self.play_button.draw_button()
             self.settings_button.draw_button()
             self.exit_button.draw_button()
             self.help_button.draw_button()
 
-        if self.settings_visible is True:
-            self.easy_mode_button.draw_button(self.easy_clicked)
-            self.medium_mode_button.draw_button(self.medium_clicked)
-            self.hard_mode_button.draw_button(self.hard_clicked)
+        if self.settings_active is True:
+            self.easy_mode_button.draw_button(self.easy_pressed)
+            self.medium_mode_button.draw_button(self.medium_pressed)
+            self.hard_mode_button.draw_button(self.hard_pressed)
             self.back_button.draw_button()
 
-        if self.help_visible is True:
+        if self.help_active is True:
             self.show_help()
 
     def _prep_help_window(self) -> None:
@@ -72,58 +74,54 @@ class Menu():
     def check_play_button(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the play button is clicked by mouse. '''
         button_clicked: bool = self.play_button.rect.collidepoint(mouse_pos)
-        if button_clicked is True and self.menu_visible is True:
+        if button_clicked is True and self.menu_active is True:
             return True
         return False
 
     def check_settings_button(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the settings button is clicked by mouse. '''
         button_clicked: bool = self.settings_button.rect.collidepoint(mouse_pos)
-        if button_clicked is True and self.settings_visible is False:
+        if button_clicked is True and self.menu_active is True:
             return True
         return False
 
     def check_exit_button(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the exit button is clicked by mouse. '''
         button_clicked: bool = self.exit_button.rect.collidepoint(mouse_pos)
-        if button_clicked is True and self.menu_visible is True:
+        if button_clicked is True and self.menu_active is True:
             return True
         return False
 
     def check_help_button(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the help button is clicked by mouse. '''
         button_clicked: bool = self.help_button.rect.collidepoint(mouse_pos)
-        if button_clicked is True and self.menu_visible is True:
+        if button_clicked is True and self.menu_active is True:
             return True
         return False
 
     def enter_settings(self) -> None:
         ''' Changes flags related to enter settings. '''
-        self.menu_visible = False
-        self.settings_visible = True
-        self.stats.settings_active = True
+        self.menu_active = False
+        self.settings_active = True
 
     def exit_settings(self) -> None:
         ''' Changes flags related to exit settings. '''
-        self.menu_visible = True
-        self.settings_visible = False
-        self.stats.settings_active = False
+        self.menu_active = True
+        self.settings_active = False
 
     def enter_help(self) -> None:
-        self.menu_visible = False
-        self.help_visible = True
-        self.stats.help_active = True
+        self.menu_active = False
+        self.help_active = True
 
     def exit_help(self) -> None:
-        self.menu_visible = True
-        self.help_visible = False
-        self.stats.help_active = False
+        self.menu_active = True
+        self.help_active = False
 
     def reset_mode_buttons(self) -> None:
         ''' Reset difficulty buttons to default. '''
-        self.easy_clicked = False
-        self.medium_clicked = False
-        self.hard_clicked = False
+        self.easy_pressed = False
+        self.medium_pressed = False
+        self.hard_pressed = False
 
     def game_mode_management(self, mouse_pos: tuple[int, int]) -> None:
         ''' Management of game difficulty mode. '''
@@ -143,26 +141,26 @@ class Menu():
 
     def _switch_mode(self, easy_clicked, medium_clicked, hard_clicked) -> None:
         ''' Switch difficulty button. Only one difficulty button can be clicked at a time. '''
-        if easy_clicked is True and self.easy_clicked is True:
-            self.easy_clicked = False
+        if easy_clicked is True and self.easy_pressed is True:
+            self.easy_pressed = False
             self.settings.reset_difficulty()
         elif easy_clicked is True:
             self.settings.switch_difficulty(1)
-            self.easy_clicked = True
-            self.medium_clicked = self.hard_clicked = False
+            self.easy_pressed = True
+            self.medium_pressed = self.hard_pressed = False
 
-        if medium_clicked is True and self.medium_clicked is True:
-            self.medium_clicked = False
+        if medium_clicked is True and self.medium_pressed is True:
+            self.medium_pressed = False
             self.settings.reset_difficulty()
         elif medium_clicked is True:
             self.settings.switch_difficulty(2)
-            self.medium_clicked = True
-            self.easy_clicked = self.hard_clicked = False
+            self.medium_pressed = True
+            self.easy_pressed = self.hard_pressed = False
 
-        if hard_clicked is True and self.hard_clicked is True:
-            self.hard_clicked = False
+        if hard_clicked is True and self.hard_pressed is True:
+            self.hard_pressed = False
             self.settings.reset_difficulty()
         elif hard_clicked is True:
             self.settings.switch_difficulty(3)
-            self.hard_clicked = True
-            self.easy_clicked = self.medium_clicked = False
+            self.hard_pressed = True
+            self.easy_pressed = self.medium_pressed = False

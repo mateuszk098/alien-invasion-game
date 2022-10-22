@@ -10,7 +10,7 @@ class Button():
     ''' Class representing menu button. '''
 
     def __init__(self, ai_game, msg: str, offset: int = 0) -> None:
-        ''' Initialize default button properties.'''
+        ''' Initialize default button properties. Offset = 0 means center of screen. '''
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 

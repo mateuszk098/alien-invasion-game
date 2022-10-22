@@ -50,7 +50,7 @@ class AlienInvasion():
             self._check_events()
             self._update_stars()
 
-            if self.stats.game_active is True:
+            if self.menu.game_active is True:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
@@ -81,7 +81,7 @@ class AlienInvasion():
             self.menu.exit_help()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
-        elif event.key == pygame.K_g and self.stats.game_active is False:
+        elif event.key == pygame.K_g and self.menu.game_active is False:
             self.settings.initialize_dynamic_settings()
             self._start_game()
 
@@ -96,22 +96,21 @@ class AlienInvasion():
         ''' Reaction to mouse click. '''
         mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
 
-        # Start the game.
-        if self.stats.game_active is False and self.menu.check_play_button(mouse_pos) is True:
+        if self.menu.check_exit_button(mouse_pos) is True:
+            sys.exit()
+
+        if self.menu.check_play_button(mouse_pos) is True:
             self.settings.initialize_dynamic_settings()
             self._start_game()
 
         if self.menu.check_help_button(mouse_pos) is True:
-            print('b')
             self.menu.enter_help()
 
-        # Game mode management.
-        if self.stats.help_active is False and self.menu.check_settings_button(mouse_pos) is True:
-            self.menu.enter_settings()
-        elif self.stats.settings_active is True:
+        if self.menu.settings_active is True:
             self.menu.game_mode_management(mouse_pos)
-        elif self.menu.check_exit_button(mouse_pos) is True:
-            sys.exit()
+
+        if self.menu.check_settings_button(mouse_pos) is True:
+            self.menu.enter_settings()
 
     def _start_game(self) -> None:
         ''' Sets game in the initial state and runs it. '''
@@ -123,12 +122,12 @@ class AlienInvasion():
         self.bullets.empty()
         self._create_fleet()
         self.ship.center_ship()
-        self.stats.game_active = True
-        pygame.mouse.set_visible(False)
+        self.menu.game_active = True
+        # pygame.mouse.set_visible(False)
 
     def _fire_bullet(self) -> None:
         ''' Create new bullet and add it to group. '''
-        if len(self.bullets) < self.settings.bullets_allowed and self.stats.game_active is True:
+        if len(self.bullets) < self.settings.bullets_allowed and self.menu.game_active is True:
             new_bullet: Bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
@@ -241,7 +240,7 @@ class AlienInvasion():
         else:
             self.settings.reset_stars_speed()
             self.menu.reset_mode_buttons()
-            self.stats.game_active = False
+            self.menu.game_active = False
             pygame.mouse.set_visible(True)
 
         sleep(1.0)
@@ -286,7 +285,7 @@ class AlienInvasion():
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()  # type: ignore
 
-        if self.stats.game_active is True:
+        if self.menu.game_active is True:
             self.scoreboard.show_score()
         else:
             self.menu.draw_menu()
