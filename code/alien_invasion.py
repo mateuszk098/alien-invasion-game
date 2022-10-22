@@ -80,10 +80,12 @@ class AlienInvasion():
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
-        elif event.key == pygame.K_ESCAPE:
-            self.menu.exit_help()
+        elif event.key == pygame.K_r and self.menu.game_active is True:
+            self._reset_game()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key == pygame.K_ESCAPE:
+            self.menu.exit_help()
         elif event.key == pygame.K_g and self.menu.game_active is False:
             self.settings.initialize_dynamic_settings()
             self._start_game()
@@ -127,6 +129,17 @@ class AlienInvasion():
         self._create_fleet()
         self.menu.game_active = True
         pygame.mouse.set_visible(False)
+
+    def _reset_game(self) -> None:
+        ''' Reset current game and return to the menu. '''
+        self.aliens.empty()
+        self.bullets.empty()
+        self.ship.center_ship()
+        self.settings.reset_stars_speed()
+        self.menu.reset_mode_buttons()
+        self.menu.exit_settings()
+        self.menu.game_active = False
+        pygame.mouse.set_visible(True)
 
     def _fire_bullet(self) -> None:
         ''' Create new bullet and add it to group. '''

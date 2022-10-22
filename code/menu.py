@@ -2,6 +2,8 @@
 General file with menu management.
 '''
 
+import textwrap
+
 import pygame.font
 from pygame.surface import Surface
 from pygame.rect import Rect
@@ -39,7 +41,6 @@ class Menu():
 
         self.text_color: tuple[int, int, int] = (255, 255, 255)
         self.font = pygame.font.SysFont('freesansbold', 36)
-        self._prep_help_window()
 
     def _prep_help_window(self) -> None:
         ''' Transforms message into image. '''
@@ -69,9 +70,23 @@ class Menu():
         if self.help_active is True:
             self.show_help()
 
-    def show_help(self) -> None:
-        ''' Display help message on the screen. '''
-        self.screen.blit(self.help_image, self.help_rect)
+    def show_help(self, text_vertical_offset: int = 36) -> None:
+        ''' Displays the help message on the screen. '''
+        help_text: str = 'Quas corporis unde sit inventore consequuntur aliquid facilis quis. '\
+            'Sit quia quo nisi eos aperiam. Molestiae hic incidunt voluptatem '\
+            'aut suscipit sit assumenda at. Ad autem fugit sapiente officia. '\
+            'Velit dolore soluta officiis est repellat et quis et. Vero et '\
+            'repellat rerum qui beatae. Placeat soluta est animi in dolore quae. '\
+            'Quia dolorum est non modi.'
+        text_lines: list[str] = textwrap.wrap(help_text, 70)
+
+        for line_number, text_line in enumerate(text_lines):
+            cent: Surface = self.font.render(
+                text_line, True, self.text_color, self.settings.background_color)
+            cent_rect: Rect = cent.get_rect()
+            cent_rect.centerx = self.screen_rect.centerx
+            cent_rect.y = 40 + line_number*text_vertical_offset
+            self.screen.blit(cent, cent_rect)
 
     def check_play_button(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the play button is clicked by mouse. '''
