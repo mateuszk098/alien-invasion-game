@@ -12,4 +12,16 @@ _**"Welcome to Aliens Invasion! The Milky Way has been attacked by hostile creat
 
 ![](https://github.com/mateuszk098/aliens_invasion_game/blob/master/src/gameplay.gif)
 
+# **Game Control**
+**In the game, one has three difficulty levels. The default mode where we lead the game is "Outer Arm", one of the Milky Way arms. That mode corresponds to a medium difficulty level. The remaining levels are "Perseus Arm" (easy) and "Norma Arm" (hard). Each of these levels corresponds to a different number of aliens, the number of allowed bullets fired in one moment, spaceships, and aliens' downwards speed. These levels can be changed in the game settings.**
 
+---
+**Primary control in the game:**
+- **Press the "g" button or click "Start" to start the game in default mode.**
+- **Press the "r" button during the game to reset it and return to the menu.**
+- **Press the "space" to fire a bullet.**
+- **Press the left or right "arrow" to control the spaceship.**
+- **Click "Settings" to change the game difficulty level.**
+- **Click "Help" to learn something about the game and control.**
+- **Press the "Esc" button to close the help message.**
+---
