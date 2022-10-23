@@ -4,7 +4,7 @@
 
 _**"Welcome to Aliens Invasion! The Milky Way has been attacked by hostile creatures. You have been chosen by the Starfleet general to be the captain of the "Eagle 2" spaceship. The Eagle 2 is the best spaceship of Starfleet and one of the engineering miracles. The Eagle 2 has a modern guidance system and hypersonic missiles, which should help shoot aliens down. You cannot allow aliens to arrive on Earth. We believe in You."**_
 
-![](https://github.com/mateuszk098/aliens_invasion_game/blob/master/src/game_menu.gif)
+![](https://github.com/mateuszk098/aliens_invasion_game/blob/master/src/menu_gif.gif)
 
 
 # **What is this?**
