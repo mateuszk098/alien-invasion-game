@@ -16,7 +16,8 @@ class Star(Sprite):
     __MY_STARS: tuple[str, ...] = ('star1.png', 'star2.png', 'star3.png', 'star4.png',
                                    'star5.png', 'star6.png', 'star7.png', 'star8.png',
                                    'star9.png', 'star10.png', 'star11.png', 'star12.png',
-                                   'star13.png', 'star14.png', 'star15.png')
+                                   'star13.png', 'star14.png', 'star15.png', 'star16.png',
+                                   'star17.png', 'star18.png', 'star19.png', 'star20.png')
 
     def __init__(self, ai_game) -> None:
         ''' Initialize a random star in random position (but confined in y direction). '''

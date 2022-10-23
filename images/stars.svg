@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="true"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.90583672"
-     inkscape:cx="356.02443"
-     inkscape:cy="922.90363"
+     inkscape:zoom="0.45291836"
+     inkscape:cx="115.91493"
+     inkscape:cy="850.04282"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -413,6 +413,138 @@
          in2="result2"
          id="feComposite5012" />
     </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter5014-5-5"
+       x="-0.87484878"
+       y="-0.93001947"
+       width="2.7496976"
+       height="2.8600389"
+       inkscape:label="Blotting Paper"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Inkblot on blotting paper">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="9.767703"
+         id="feGaussianBlur5016-6-1"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix8396-7-9" />
+      <feGaussianBlur
+         id="feGaussianBlur8398-0-5"
+         stdDeviation="3"
+         in="fbSourceGraphic"
+         result="result1" />
+      <feTurbulence
+         id="feTurbulence8400-1-3"
+         type="turbulence"
+         baseFrequency="0.05"
+         numOctaves="5"
+         result="result0" />
+      <feDisplacementMap
+         in2="result0"
+         id="feDisplacementMap8402-4-3"
+         in="result1"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="3"
+         result="result2" />
+      <feBlend
+         in2="result2"
+         id="feBlend8404-4-0"
+         result="result5"
+         in="result2"
+         mode="multiply" />
+      <feGaussianBlur
+         id="feGaussianBlur8406-2-1"
+         stdDeviation="5"
+         in="result2"
+         result="result4" />
+      <feComposite
+         in2="result5"
+         id="feComposite8408-9-6"
+         operator="arithmetic"
+         in="result4"
+         k2="0.25"
+         k3="1"
+         k1="1"
+         result="result6"
+         k4="0" />
+      <feComposite
+         in2="result2"
+         id="feComposite8410-8-6"
+         operator="in" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter5014-9"
+       x="-0.60422614"
+       y="-0.64233052"
+       width="2.2084523"
+       height="2.284661"
+       inkscape:label="Blotting Paper"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Inkblot on blotting paper">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="4.2715045"
+         id="feGaussianBlur5016-65"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix8396-3" />
+      <feGaussianBlur
+         id="feGaussianBlur8398-7"
+         stdDeviation="3"
+         in="fbSourceGraphic"
+         result="result1" />
+      <feTurbulence
+         id="feTurbulence8400-2"
+         type="turbulence"
+         baseFrequency="0.05"
+         numOctaves="5"
+         result="result0" />
+      <feDisplacementMap
+         in2="result0"
+         id="feDisplacementMap8402-6"
+         in="result1"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="3"
+         result="result2" />
+      <feBlend
+         in2="result2"
+         id="feBlend8404-1"
+         result="result5"
+         in="result2"
+         mode="multiply" />
+      <feGaussianBlur
+         id="feGaussianBlur8406-7"
+         stdDeviation="5"
+         in="result2"
+         result="result4" />
+      <feComposite
+         in2="result5"
+         id="feComposite8408-7"
+         operator="arithmetic"
+         in="result4"
+         k2="0.25"
+         k3="1"
+         k1="1"
+         result="result6"
+         k4="0" />
+      <feComposite
+         in2="result2"
+         id="feComposite8410-0"
+         operator="in" />
+    </filter>
   </defs>
   <g
      inkscape:label="Layer 1"
@@ -425,17 +557,17 @@
        cy="53.699581"
        rx="24.371347"
        ry="22.925589"
-       inkscape:export-filename="C:\Users\Mateusz\path942.png"
+       inkscape:export-filename="C:\Users\Mateusz\Downloads\path341.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" />
     <ellipse
        style="mix-blend-mode:normal;fill:#ead9b6;fill-opacity:1;stroke-width:4;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5014-5)"
        id="path942-5"
-       cx="151.39151"
-       cy="53.906124"
+       cx="158.40161"
+       cy="54.490299"
        rx="24.371347"
        ry="22.925589"
-       inkscape:export-filename="C:\Users\Mateusz\Downloads\path942-5.png"
+       inkscape:export-filename="C:\Users\Mateusz\Downloads\path641.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" />
     <ellipse
@@ -456,19 +588,41 @@
        cy="134.56721"
        rx="27.517258"
        ry="30"
-       transform="matrix(0.17460366,0,0.42550194,0.70876366,85.66567,71.84358)"
+       transform="matrix(0.17460366,0,0.42550194,0.70876366,91.507414,71.84358)"
        inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\aliens_invasion_game\images\path880-9.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" />
     <ellipse
        style="fill:#ecdbb3;fill-opacity:1;stroke-width:5.48464;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5015)"
        id="path4916"
-       cx="57.4562"
-       cy="265.61087"
+       cx="55.119503"
+       cy="267.94757"
        rx="30"
        ry="15"
        inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\aliens_invasion_game\images\path4916.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" />
+    <ellipse
+       style="mix-blend-mode:normal;fill:#e0ab87;fill-opacity:1;stroke-width:4;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5014-5-5)"
+       id="path942-5-9"
+       cx="153.92996"
+       cy="262.00226"
+       rx="24.371347"
+       ry="22.925589"
+       inkscape:export-filename="C:\Users\Mateusz\Downloads\path942-5.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"
+       transform="matrix(-0.61502653,-0.29275426,0.39285261,-0.8239111,164.80443,541.33398)" />
+    <ellipse
+       style="mix-blend-mode:normal;fill:#86c0f8;fill-opacity:1;stroke-width:4;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5014-9)"
+       id="path942-4"
+       cx="54.912395"
+       cy="359.55936"
+       rx="24.371347"
+       ry="22.925589"
+       inkscape:export-filename="C:\Users\Mateusz\Downloads\path942.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"
+       transform="matrix(0.7688075,0.46043908,-0.35113065,1.0081405,138.65556,-12.438083)" />
   </g>
 </svg>
