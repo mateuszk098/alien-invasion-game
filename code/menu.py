@@ -41,21 +41,12 @@ class Menu():
 
         self.text_color: tuple[int, int, int] = (255, 255, 255)
         self.font = pygame.font.SysFont('freesansbold', 36)
-
-    def _prep_help_window(self) -> None:
-        ''' Transforms message into image. '''
-        help_str: str = f'Welcome to Aliens Invasion!'
-        self.help_image: Surface = self.font.render(
-            help_str, True, self.text_color, self.settings.background_color)
-
-        # Display this on the top.
-        self.help_rect: Rect = self.help_image.get_rect()
-        self.help_rect.centerx = self.screen_rect.centerx
-        self.help_rect.centery = self.screen_rect.centery
+        self.title_font = pygame.font.SysFont('freesansbols', 72)
 
     def draw_menu(self) -> None:
         ''' Display the menu/settings/help on the screen. '''
         if self.menu_active is True:
+            self.show_title()
             self.play_button.draw_button()
             self.settings_button.draw_button()
             self.exit_button.draw_button()
@@ -70,9 +61,27 @@ class Menu():
         if self.help_active is True:
             self.show_help()
 
+    def show_title(self) -> None:
+        ''' Displays the game title on the screen. '''
+        title: str = 'Aliens Invasion!'
+        title_img: Surface = self.title_font.render(
+            title, True, self.text_color, self.settings.background_color)
+        title_rect: Rect = title_img.get_rect()
+        title_rect.centerx = self.screen_rect.centerx
+        title_rect.y = 100
+        self.screen.blit(title_img, title_rect)
+
     def show_help(self, text_vertical_offset: int = 36) -> None:
         ''' Displays the help message on the screen. '''
-        help_text: str = '''Welcome to Aliens Invasion! The Milky Way has been attacked by hostile creatures. You have been chosen by the Starfleet general to be the captain of the "Eagle 2" spaceship. The Eagle 2 is the best spaceship of Starfleet and one of the engineering miracles. The Eagle 2 has a modern guidance system and hypersonic missiles, which should help shoot aliens down. You cannot allow aliens to arrive on Earth. We believe in You. Press "Esc" to return to the control centre. Press "g" or click "Play" to go on the mission. Press "r" during the mission to return to the base. Click "Settings" to travel to a more dangerous part of the galaxy. Press "q" or click "Exit" to give up.'''
+        help_text: str = 'Welcome to Aliens Invasion! The Milky Way has been attacked by '\
+            'hostile creatures. You have been chosen by the Starfleet general to be the '\
+            'captain of the "Eagle 2" spaceship. The Eagle 2 is the best spaceship of Starfleet '\
+            'and one of the engineering miracles. The Eagle 2 has a modern guidance system and '\
+            'hypersonic missiles, which should help shoot aliens down. You cannot allow '\
+            'aliens to arrive on Earth. We believe in You. Press "Esc" to return to the control '\
+            'centre. Press "g" or click "Play" to go on the mission. Press "r" during the mission '\
+            'to return to the base. Click "Settings" to travel to a more dangerous part of the '\
+            'galaxy. Press "q" or click "Exit" to give up.'
         text_lines: list[str] = textwrap.wrap(help_text, 50)
 
         for line_number, text_line in enumerate(text_lines):
