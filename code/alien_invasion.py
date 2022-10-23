@@ -32,7 +32,8 @@ class AlienInvasion():
         self.screen: Surface = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
         # Full screen.
-        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        # flags: int = pygame.FULLSCREEN | pygame.DOUBLEBUF
+        # self.screen: Surface = pygame.display.set_mode((0, 0), flags, 16)
         # self.settings.screen_width = self.screen.get_rect().width
         # self.settings.screen_height = self.screen.get_rect().height
 
@@ -46,18 +47,15 @@ class AlienInvasion():
         self.stars: Group = pygame.sprite.Group()
 
         self._create_stars()
+        self.clock = pygame.time.Clock()
+        pygame.event.set_allowed(
+            [pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP, pygame.MOUSEBUTTONDOWN])
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
         while True:
+            self.clock.tick(self.settings.fps)
             self._check_events()
-            self._update_stars()
-
-            if self.menu.game_active is True:
-                self.ship.update()
-                self._update_bullets()
-                self._update_aliens()
-
             self._update_screen()
 
     def _check_events(self) -> None:
@@ -294,14 +292,17 @@ class AlienInvasion():
     def _update_screen(self) -> None:
         ''' Updates the screen. '''
         self.screen.fill(self.settings.background_color)
+        self._update_stars()
         self.stars.draw(self.screen)
         self.ship.blitme()
-        self.aliens.draw(self.screen)
-
-        for bullet in self.bullets.sprites():
-            bullet.draw_bullet()  # type: ignore
 
         if self.menu.game_active is True:
+            self.ship.update()
+            self._update_aliens()
+            self.aliens.draw(self.screen)
+            self._update_bullets()
+            for bullet in self.bullets.sprites():
+                bullet.draw_bullet()  # type: ignore
             self.scoreboard.show_score()
         else:
             self.menu.draw_menu()

@@ -24,7 +24,8 @@ class Star(Sprite):
         self.settings = ai_game.settings
 
         # Load the random star image and load its rect.
-        self.image: Surface = pygame.image.load(f'../images/{random.choice(self.__MY_STARS)}')
+        star_path: str = f'../images/{random.choice(self.__MY_STARS)}'
+        self.image: Surface = pygame.image.load(star_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
         # Place star at the top row.

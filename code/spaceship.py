@@ -22,9 +22,10 @@ class Spaceship(Sprite):
         self.settings = ai_game.settings
 
         # Load the spaceship image and load its rect.
-        self.image: Surface = pygame.image.load(self.__NORMAL_SHIP)
+        ship_path: str = self.__NORMAL_SHIP
         if resized is True:
-            self.image = pygame.image.load(self.__RESIZED_SHIP)
+            ship_path = self.__RESIZED_SHIP
+        self.image: Surface = pygame.image.load(ship_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
         # Every new spaceship occurs at te bottom of the screen.

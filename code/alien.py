@@ -21,7 +21,7 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         # Load the alien ship image and load its rect.
-        self.image: Surface = pygame.image.load(self.__ALIEN_IMG)
+        self.image: Surface = pygame.image.load(self.__ALIEN_IMG).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
         # Place alien ship near the top-left screen edge.

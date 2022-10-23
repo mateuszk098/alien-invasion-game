@@ -21,7 +21,7 @@ class Bullet(Sprite):
         self.color: int = self.settings.bullet_color
 
         # Create bullet rect and its position
-        self.image: Surface = pygame.image.load(self.__BULLET_IMG)
+        self.image: Surface = pygame.image.load(self.__BULLET_IMG).convert_alpha()
         self.rect: Rect = self.image.get_rect()
         # self.rect: Rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
