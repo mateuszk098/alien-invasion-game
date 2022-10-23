@@ -25,10 +25,8 @@ class Settings():
         self.ship_limit: int = 2
 
         # Settings related to bullet.
-        self.bullet_width: int = 3
-        self.bullet_height: int = 15
-        self.bullet_color: tuple[int, int, int] = (255, 255, 255)
-        self.bullets_allowed: int = 4
+        self.player_allowed_bullets: int = 4
+        self.aliens_allowed_bullets: int = 1
 
         # Settings related to alien ship.
         self.fleet_drop_speed: int = 2*self.dt
@@ -68,23 +66,23 @@ class Settings():
         ''' Choose game difficulty level. '''
         if mode == 1:  # Easy
             self.ship_limit = 3
-            self.bullets_allowed = 5
+            self.player_allowed_bullets = 5
             self.fleet_drop_speed = self.dt
             self.space_between_aliens = 4
         elif mode == 2:  # Medium
             self.ship_limit = 2
-            self.bullets_allowed = 4
+            self.player_allowed_bullets = 4
             self.fleet_drop_speed = 2*self.dt
             self.space_between_aliens = 3
         elif mode == 3:  # Hard
             self.ship_limit = 1
-            self.bullets_allowed = 3
+            self.player_allowed_bullets = 3
             self.fleet_drop_speed = 3*self.dt
             self.space_between_aliens = 2
 
     def reset_difficulty(self) -> None:
         ''' Reset difficulty level to medium. '''
         self.ship_limit = 2
-        self.bullets_allowed = 4
+        self.player_allowed_bullets = 4
         self.fleet_drop_speed = 2*self.dt
         self.space_between_aliens = 3

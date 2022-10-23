@@ -3,10 +3,12 @@ General file with class used to game management.
 '''
 
 import sys
+import random
 from time import sleep
 
 import pygame
 from pygame.surface import Surface
+from pygame.rect import Rect
 from pygame.sprite import Group
 from pygame.sprite import Sprite
 
@@ -31,6 +33,7 @@ class AlienInvasion():
         self.settings: Settings = Settings()
         self.screen: Surface = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
+        self.screen_rect: Rect = self.screen.get_rect()
         # Full screen.
         # flags: int = pygame.FULLSCREEN | pygame.DOUBLEBUF
         # self.screen: Surface = pygame.display.set_mode((0, 0), flags, 16)
@@ -42,8 +45,9 @@ class AlienInvasion():
         self.ship: Spaceship = Spaceship(self)
         self.menu: Menu = Menu(self)
 
-        self.bullets: Group = pygame.sprite.Group()
-        self.aliens: Group = pygame.sprite.Group()
+        self.player_bullets: Group = pygame.sprite.Group()
+        self.aliens_bullets: Group = pygame.sprite.Group()
+        self.aliens_ships: Group = pygame.sprite.Group()
         self.stars: Group = pygame.sprite.Group()
 
         self._create_stars()
@@ -81,7 +85,7 @@ class AlienInvasion():
         elif event.key == pygame.K_r and self.menu.game_active is True:
             self._reset_game()
         elif event.key == pygame.K_SPACE:
-            self._fire_bullet()
+            self._fire_bullet('player')
         elif event.key == pygame.K_ESCAPE:
             self.menu.exit_help()
         elif event.key == pygame.K_g and self.menu.game_active is False:
@@ -121,8 +125,8 @@ class AlienInvasion():
         self.scoreboard.prep_score()
         self.scoreboard.prep_level()
         self.scoreboard.prep_ships()
-        self.aliens.empty()
-        self.bullets.empty()
+        self.aliens_ships.empty()
+        self.player_bullets.empty()
         self.ship.center_ship()
         self._create_fleet()
         self.menu.game_active = True
@@ -130,8 +134,8 @@ class AlienInvasion():
 
     def _reset_game(self) -> None:
         ''' Reset current game and return to the menu. '''
-        self.aliens.empty()
-        self.bullets.empty()
+        self.aliens_ships.empty()
+        self.player_bullets.empty()
         self.ship.center_ship()
         self.settings.reset_stars_speed()
         self.menu.reset_mode_buttons()
@@ -139,26 +143,39 @@ class AlienInvasion():
         self.menu.game_active = False
         pygame.mouse.set_visible(True)
 
-    def _fire_bullet(self) -> None:
+    def _fire_bullet(self, owner: str) -> None:
         ''' Create new bullet and add it to group. '''
-        if len(self.bullets) < self.settings.bullets_allowed and self.menu.game_active is True:
-            new_bullet: Bullet = Bullet(self)
-            self.bullets.add(new_bullet)
+
+        if self.menu.game_active is True:
+            if len(self.player_bullets) < self.settings.player_allowed_bullets and owner == 'player':
+                player_bullet: Bullet = Bullet(self, owner)
+                self.player_bullets.add(player_bullet)
+            if len(self.aliens_bullets) < self.settings.aliens_allowed_bullets and owner == 'alien':
+                alien_bullet: Bullet = Bullet(self, owner)
+                self.aliens_bullets.add(alien_bullet)
 
     def _update_bullets(self) -> None:
         ''' Update of bullets positions and remove bullets from out of screen. '''
-        self.bullets.update()
-        # Remove bullets out of the screen.
-        for bullet in self.bullets.copy():
-            if bullet.rect.bottom <= 0:  # type: ignore
-                self.bullets.remove(bullet)
+        self.player_bullets.update()
+        self.aliens_bullets.update()
+
+        for player_bullet in self.player_bullets.copy():  # Remove player bullets from out of screen.
+            if player_bullet.rect.bottom <= 0:  # type: ignore
+                self.player_bullets.remove(player_bullet)
+
+        for alien_bullet in self.aliens_bullets.copy():  # Remove aliens bullets from out of screen.
+            if alien_bullet.rect.top >= self.screen_rect.bottom:  # type: ignore
+                self.aliens_bullets.remove(alien_bullet)
 
         self._check_bullet_alien_collisions()
 
     def _check_bullet_alien_collisions(self) -> None:
         ''' Reaction to collision between bullet and alien ship.'''
         collisions: dict[Sprite, Sprite] = pygame.sprite.groupcollide(
-            self.bullets, self.aliens, True, True)  # True means to remove object.
+            self.player_bullets, self.aliens_ships, True, True)  # True means to remove object.
+
+        bullets_collisions: dict[Sprite, Sprite] = pygame.sprite.groupcollide(
+            self.player_bullets, self.aliens_bullets, True, True)  # True means to remove object.
 
         if collisions:
             # Count every alien if bullet hit several aliens.
@@ -167,9 +184,12 @@ class AlienInvasion():
             self.scoreboard.prep_score()
             self.scoreboard.check_high_score()
 
+        if pygame.sprite.spritecollideany(self.ship, self.aliens_bullets) is not None:
+            self._ship_hit()
+
         # Create new fleet with gameplay speedup.
-        if not self.aliens:
-            self.bullets.empty()
+        if not self.aliens_ships:
+            self.player_bullets.empty()
             self.settings.increase_speed()
             self.stats.game_level += 1
             self.scoreboard.prep_level()
@@ -203,36 +223,36 @@ class AlienInvasion():
         alien.x = alien_width + space*alien_width*alien_number
         alien.rect.x = alien.x
         alien.rect.y = 2*alien.rect.height + 2*alien_height*row_number
-        self.aliens.add(alien)
+        self.aliens_ships.add(alien)
 
     def _update_aliens(self) -> None:
         ''' Update all aliens position on the screen. '''
         self._check_fleet_edges()
-        self.aliens.update()
+        self.aliens_ships.update()
 
         # Check collision betwenn spaceship and alien ship.
-        if pygame.sprite.spritecollideany(self.ship, self.aliens) is not None:
+        if pygame.sprite.spritecollideany(self.ship, self.aliens_ships) is not None:
             self._ship_hit()
 
         self._check_aliens_bottom()
 
     def _check_fleet_edges(self) -> None:
         ''' Reaction if any alien comes to the screen edge. '''
-        for alien in self.aliens.sprites():
+        for alien in self.aliens_ships.sprites():
             if alien.check_edges() is True:  # type: ignore
                 self._change_fleet_direction()
                 break
 
     def _change_fleet_direction(self) -> None:
         ''' Shifts the whole alien fleet and changes direction of movement. '''
-        for alien in self.aliens.sprites():
+        for alien in self.aliens_ships.sprites():
             alien.rect.y += self.settings.fleet_drop_speed  # type: ignore
         self.settings.fleet_direction *= -1
 
     def _check_aliens_bottom(self) -> None:
         ''' Calls `_ship_hit()` if any alien ship comes to the bottom of the screen. '''
         screen_rect = self.screen.get_rect()
-        for alien in self.aliens.sprites():
+        for alien in self.aliens_ships.sprites():
             if alien.rect.bottom >= screen_rect.bottom:  # type: ignore
                 self._ship_hit()
                 break
@@ -243,8 +263,8 @@ class AlienInvasion():
         Clears aliens and bullets Group, creates new alien fleet,
         and centers the spaceship.
         '''
-        self.aliens.empty()
-        self.bullets.empty()
+        self.aliens_ships.empty()
+        self.player_bullets.empty()
         self.ship.center_ship()
 
         if self.stats.ships_left > 0:
@@ -299,9 +319,11 @@ class AlienInvasion():
         if self.menu.game_active is True:
             self.ship.update()
             self._update_aliens()
-            self.aliens.draw(self.screen)
+            self.aliens_ships.draw(self.screen)
             self._update_bullets()
-            for bullet in self.bullets.sprites():
+            for bullet in self.player_bullets.sprites():
+                bullet.draw_bullet()  # type: ignore
+            for bullet in self.aliens_bullets.sprites():
                 bullet.draw_bullet()  # type: ignore
             self.scoreboard.show_score()
         else:
