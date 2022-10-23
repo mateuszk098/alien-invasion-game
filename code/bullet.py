@@ -28,16 +28,18 @@ class Bullet(Sprite):
         if owner == 'player':
             self.rect.midtop = ai_game.ship.rect.midtop
             self.direction: int = -1
+            self.bullet_speed: float = self.settings.bullet_speed
         elif owner == 'alien':
             random_alien = random.choice(list(ai_game.aliens_ships))
             self.rect.midbottom = random_alien.rect.midbottom
             self.direction = 1
+            self.bullet_speed = self.settings.aliens_bullet_speed
 
         self.y: float = float(self.rect.y)
 
     def update(self, *args, **kwargs) -> None:
         ''' Bullet movement of the screen. '''
-        self.y += self.direction*self.settings.bullet_speed
+        self.y += self.direction*self.bullet_speed
         self.rect.y = int(self.y)
 
     def draw_bullet(self) -> None:

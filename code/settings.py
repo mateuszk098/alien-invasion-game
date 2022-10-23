@@ -9,6 +9,7 @@ class Settings():
     # Settings related to gameplay.
     ship_speed: float
     bullet_speed: float
+    aliens_bullet_speed: float
     alien_speed: float
     fleet_direction: int
 
@@ -26,7 +27,7 @@ class Settings():
 
         # Settings related to bullet.
         self.player_allowed_bullets: int = 4
-        self.aliens_allowed_bullets: int = 1
+        self.aliens_allowed_bullets: int = 2
 
         # Settings related to alien ship.
         self.fleet_drop_speed: int = 2*self.dt
@@ -48,6 +49,7 @@ class Settings():
         self.ship_speed = 0.75*self.dt
         self.bullet_speed = 0.75*self.dt
         self.alien_speed = 0.25*self.dt
+        self.aliens_bullet_speed = 0.4*self.dt
         self.fleet_direction = 1  # Right movement "1", left movement "-1".
 
     def increase_speed(self) -> None:
@@ -55,6 +57,7 @@ class Settings():
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
+        self.aliens_bullet_speed *= self.speedup_scale
         self.stars_speed *= self.speedup_scale
         self.alien_points = int(self.alien_points*self.score_scale)
 
