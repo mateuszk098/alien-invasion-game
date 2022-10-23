@@ -13,7 +13,10 @@ from pygame.rect import Rect
 class Bullet(Sprite):
     ''' Represents bullet fired by a spaceship. '''
 
-    __BULLET_IMG: str = '../images/bullet.png'
+    __PLAYER_BULLET_IMG: str = '../images/player_bullet.png'
+    __ALIEN_BULLET_PATH: str = '../images/alien_bullet.png'
+    direction: int
+    bullet_speed: float
 
     def __init__(self, ai_game, owner: str) -> None:
         ''' Create bullet in current spaceship position. '''
@@ -21,15 +24,16 @@ class Bullet(Sprite):
         self.screen: Surface = ai_game.screen
         self.settings = ai_game.settings
 
-        # Create bullet rect and its position
-        self.image: Surface = pygame.image.load(self.__BULLET_IMG).convert_alpha()
-        self.rect: Rect = self.image.get_rect()
-
         if owner == 'player':
+            # Create bullet rect and its position
+            self.image: Surface = pygame.image.load(self.__PLAYER_BULLET_IMG).convert_alpha()
+            self.rect: Rect = self.image.get_rect()
             self.rect.midtop = ai_game.ship.rect.midtop
-            self.direction: int = -1
-            self.bullet_speed: float = self.settings.bullet_speed
+            self.direction = -1
+            self.bullet_speed = self.settings.bullet_speed
         elif owner == 'alien':
+            self.image = pygame.image.load(self.__ALIEN_BULLET_PATH).convert_alpha()
+            self.rect = self.image.get_rect()
             random_alien = random.choice(list(ai_game.aliens_ships))
             self.rect.midbottom = random_alien.rect.midbottom
             self.direction = 1

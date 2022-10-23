@@ -18,7 +18,7 @@ class Spaceship(Sprite):
         ''' Initialization of spaceship and its initial position. '''
         super().__init__()
         self.screen: Surface = ai_game.screen
-        self.screen_rect: Rect = ai_game.screen.get_rect()
+        self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
         # Load the spaceship image and load its rect.

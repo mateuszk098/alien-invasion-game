@@ -36,7 +36,7 @@ class Settings():
         # Settings related to stars.
         self.stars_per_row: int = 10
         self.star_rows: int = 10
-        self.stars_speed: float = 0.25*self.dt
+        self.stars_speed: float = 0.2*self.dt
 
         # Settings related to gameplay.
         self.space_between_aliens: int = 3
@@ -48,8 +48,8 @@ class Settings():
         ''' Initialize settings, which can change dynamically during game. '''
         self.ship_speed = 0.75*self.dt
         self.bullet_speed = 0.75*self.dt
-        self.alien_speed = 0.25*self.dt
-        self.aliens_bullet_speed = 0.4*self.dt
+        self.alien_speed = 0.2*self.dt
+        self.aliens_bullet_speed = 0.3*self.dt
         self.fleet_direction = 1  # Right movement "1", left movement "-1".
 
     def increase_speed(self) -> None:
@@ -63,7 +63,7 @@ class Settings():
 
     def reset_stars_speed(self) -> None:
         ''' Reset star speed. Must be done in separate method. '''
-        self.stars_speed = 0.25*self.dt
+        self.stars_speed = 0.2*self.dt
 
     def switch_difficulty(self, mode: int = 2) -> None:
         ''' Choose game difficulty level. '''

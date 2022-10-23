@@ -37,8 +37,9 @@ class AlienInvasion():
         # Full screen.
         # flags: int = pygame.FULLSCREEN | pygame.DOUBLEBUF
         # self.screen: Surface = pygame.display.set_mode((0, 0), flags, 16)
-        # self.settings.screen_width = self.screen.get_rect().width
-        # self.settings.screen_height = self.screen.get_rect().height
+        # self.screen_rect: Rect = self.screen.get_rect()
+        # self.settings.screen_width = self.screen_rect.width
+        # self.settings.screen_height = self.screen_rect.height
 
         self.stats: GameStats = GameStats(self)
         self.scoreboard: Scoreboard = Scoreboard(self)
@@ -123,10 +124,10 @@ class AlienInvasion():
         self.scoreboard.prep_score()
         self.scoreboard.prep_level()
         self.scoreboard.prep_ships()
+        self.ship.center_ship()
         # self.player_bullets.empty()
         # self.aliens_bullets.empty()
-        # self.aliens_ships.empty()
-        # self.ship.center_ship()
+        self.aliens_ships.empty()
         self._create_fleet()
         self.menu.game_active = True
         pygame.mouse.set_visible(False)
@@ -219,6 +220,7 @@ class AlienInvasion():
         '''
         alien: Alien = Alien(self)
         space: int = self.settings.space_between_aliens
+        print(space)
 
         alien_width: int = alien.rect.width
         available_space_x: int = self.settings.screen_width - (4*alien_width)
@@ -354,7 +356,6 @@ class AlienInvasion():
 
             for player_bullet in self.player_bullets.sprites():
                 player_bullet.draw_bullet()  # type: ignore
-
             for alien_bullet in self.aliens_bullets.sprites():
                 alien_bullet.draw_bullet()  # type: ignore
 

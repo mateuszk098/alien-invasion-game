@@ -16,8 +16,7 @@ class Alien(Sprite):
     def __init__(self, ai_game) -> None:
         ''' Initialize the alien ship. '''
         super().__init__()
-        self.screen: Surface = ai_game.screen
-        self.screen_rect: Rect = self.screen.get_rect()
+        self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
         # Load the alien ship image and load its rect.
