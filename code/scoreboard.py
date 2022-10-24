@@ -17,7 +17,7 @@ class Scoreboard():
         ''' Initialize game statistics. '''
         self.ai_game = ai_game
         self.screen: Surface = ai_game.screen
-        self.screen_rect: Rect = self.screen.get_rect()
+        self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
         self.stats = ai_game.stats
 

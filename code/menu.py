@@ -16,7 +16,7 @@ class Menu():
     def __init__(self, ai_game) -> None:
         ''' Initialize menu buttons in the game. '''
         self.screen: Surface = ai_game.screen
-        self.screen_rect: Rect = self.screen.get_rect()
+        self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
         self.play_button: Button = Button(ai_game, 'Play', -105)
