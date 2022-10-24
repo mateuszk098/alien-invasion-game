@@ -25,3 +25,6 @@ _**"Welcome to Aliens Invasion! The Milky Way has been attacked by hostile creat
 - **Click "Help" to learn something about the game and control.**
 - **Press the "Esc" button to close the help message.**
 ---
+
+# **Where to find images/sounds to use?**
+**If you want to modify the player's spaceship, bullets etc., you can visit [pixabay](https://pixabay.com/) website. To find different free sound effects or general game music themes, visit [mixkit](https://mixkit.co/) website.**
