@@ -15,6 +15,7 @@ class Bullet(Sprite):
 
     __PLAYER_BULLET_IMG: str = '../images/player_bullet.png'
     __ALIEN_BULLET_PATH: str = '../images/alien_bullet.png'
+    __FIRE_SOUND_PATH: str = '../sounds/fire.wav'
     direction: int
     bullet_speed: float
 
@@ -31,6 +32,7 @@ class Bullet(Sprite):
             self.rect.midtop = ai_game.ship.rect.midtop
             self.direction = -1
             self.bullet_speed = self.settings.bullet_speed
+            self.fire_sound = pygame.mixer.Sound(self.__FIRE_SOUND_PATH)
         elif owner == 'alien':
             self.image = pygame.image.load(self.__ALIEN_BULLET_PATH).convert_alpha()
             self.rect = self.image.get_rect()

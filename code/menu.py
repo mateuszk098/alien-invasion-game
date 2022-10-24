@@ -161,7 +161,6 @@ class Menu():
             self.easy_pressed = False
             self.settings.reset_difficulty()
         elif easy_clicked is True:
-            print('easy')
             self.settings.switch_difficulty(1)
             self.easy_pressed = True
             self.medium_pressed = self.hard_pressed = False
@@ -170,7 +169,6 @@ class Menu():
             self.medium_pressed = False
             self.settings.reset_difficulty()
         elif medium_clicked is True:
-            print('medium')
             self.settings.switch_difficulty(2)
             self.medium_pressed = True
             self.easy_pressed = self.hard_pressed = False
@@ -179,7 +177,6 @@ class Menu():
             self.hard_pressed = False
             self.settings.reset_difficulty()
         elif hard_clicked is True:
-            print('hard')
             self.settings.switch_difficulty(3)
             self.hard_pressed = True
             self.easy_pressed = self.medium_pressed = False

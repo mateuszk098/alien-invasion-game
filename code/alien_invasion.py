@@ -3,7 +3,6 @@ General file with class used to game management.
 '''
 
 import sys
-import random
 from time import sleep
 
 import pygame
@@ -25,10 +24,17 @@ from menu import Menu
 class AlienInvasion():
     ''' General class to game management. '''
 
+    __MUSIC_PATH: str = '../sounds/infected_vibes.mp3'
+
     def __init__(self) -> None:
         ''' Game initialization. '''
+        pygame.mixer.pre_init(44100, -16, 2, 4096)
         pygame.init()  # Initialization of screen.
         pygame.display.set_caption('Alien Invasion')
+
+        pygame.mixer.music.load(self.__MUSIC_PATH)
+        pygame.mixer.music.set_volume(0.25)
+        pygame.mixer.music.play(-1)
 
         self.settings: Settings = Settings()
         self.screen: Surface = pygame.display.set_mode(
@@ -52,9 +58,9 @@ class AlienInvasion():
         self.stars: Group = pygame.sprite.Group()
 
         self._create_stars()
+
         self.clock = pygame.time.Clock()
-        pygame.event.set_allowed(
-            [pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP, pygame.MOUSEBUTTONDOWN])
+        pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP, pygame.MOUSEBUTTONDOWN])
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -125,8 +131,6 @@ class AlienInvasion():
         self.scoreboard.prep_level()
         self.scoreboard.prep_ships()
         self.ship.center_ship()
-        # self.player_bullets.empty()
-        # self.aliens_bullets.empty()
         self.aliens_ships.empty()
         self._create_fleet()
         self.menu.game_active = True
@@ -144,6 +148,7 @@ class AlienInvasion():
             self.aliens_ships.empty()
             self.ship.center_ship()
             self.settings.reset_stars_speed()
+            self.menu.exit_settings()
             self.menu.game_active = False
             pygame.mouse.set_visible(True)
 
@@ -156,6 +161,7 @@ class AlienInvasion():
             # Fire player's bullet.
             if len(self.player_bullets) < self.settings.player_allowed_bullets and owner == 'player':
                 player_bullet: Bullet = Bullet(self, owner)
+                player_bullet.fire_sound.play()
                 self.player_bullets.add(player_bullet)
             # Fire alien's bullet.
             if len(self.aliens_bullets) < self.settings.aliens_allowed_bullets and owner == 'alien':
@@ -201,6 +207,7 @@ class AlienInvasion():
             # Count every alien if player's bullet hit several aliens.
             for aliens in player_bullet_and_alien_ship.values():
                 self.stats.score += self.settings.alien_points*len(aliens)  # type: ignore
+
             self.scoreboard.prep_score()
             self.scoreboard.check_high_score()
 
@@ -220,15 +227,13 @@ class AlienInvasion():
         '''
         alien: Alien = Alien(self)
         space: int = self.settings.space_between_aliens
-        print(space)
 
         alien_width: int = alien.rect.width
         available_space_x: int = self.settings.screen_width - (4*alien_width)
         number_aliens_x: int = available_space_x // (space*alien_width)
 
         alien_height: int = alien.rect.height
-        ship_height: int = self.ship.rect.height
-        available_space_y: int = self.settings.screen_height - (4*alien_height) - ship_height
+        available_space_y: int = self.settings.screen_height // 2
         number_rows: int = available_space_y // (2*alien_height)
 
         # Create the fleet

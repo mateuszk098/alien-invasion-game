@@ -70,16 +70,19 @@ class Settings():
         if mode == 1:  # Easy
             self.ship_limit = 3
             self.player_allowed_bullets = 5
+            self.aliens_allowed_bullets = 1
             self.fleet_drop_speed = self.dt
             self.space_between_aliens = 4
         elif mode == 2:  # Medium
             self.ship_limit = 2
             self.player_allowed_bullets = 4
+            self.aliens_allowed_bullets = 2
             self.fleet_drop_speed = 2*self.dt
             self.space_between_aliens = 3
         elif mode == 3:  # Hard
             self.ship_limit = 1
             self.player_allowed_bullets = 3
+            self.aliens_allowed_bullets = 3
             self.fleet_drop_speed = 3*self.dt
             self.space_between_aliens = 2
 
@@ -87,5 +90,6 @@ class Settings():
         ''' Reset difficulty level to medium. '''
         self.ship_limit = 2
         self.player_allowed_bullets = 4
+        self.aliens_allowed_bullets = 2
         self.fleet_drop_speed = 2*self.dt
         self.space_between_aliens = 3

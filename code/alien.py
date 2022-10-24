@@ -11,7 +11,7 @@ from pygame.rect import Rect
 class Alien(Sprite):
     ''' Class representing a individual alien ship. '''
 
-    __ALIEN_IMG: str = '../images/alienship.png'
+    __ALIEN_PATH: str = '../images/alienship.png'
 
     def __init__(self, ai_game) -> None:
         ''' Initialize the alien ship. '''
@@ -20,13 +20,12 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         # Load the alien ship image and load its rect.
-        self.image: Surface = pygame.image.load(self.__ALIEN_IMG).convert_alpha()
+        self.image: Surface = pygame.image.load(self.__ALIEN_PATH).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
         # Place alien ship near the top-left screen edge.
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
-
         self.x: float = float(self.rect.x)
 
     def check_edges(self) -> bool:
