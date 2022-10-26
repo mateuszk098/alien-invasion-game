@@ -5,6 +5,9 @@ General module with menu management implementation.
 import textwrap
 
 import pygame as pg
+from pygame.surface import Surface
+from pygame.rect import Rect
+
 from button import Button
 
 
@@ -23,8 +26,8 @@ class Menu():
 
     def __init__(self, ai_game) -> None:
         ''' Initialize menu buttons in the game. '''
-        self.screen = ai_game.screen
-        self.screen_rect = ai_game.screen_rect
+        self.screen: Surface = ai_game.screen
+        self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
         self.play_button: Button = Button(ai_game, 'Play', -105)

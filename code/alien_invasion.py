@@ -5,7 +5,7 @@ General file with class used to game management.
 import sys
 from time import sleep
 
-import pygame
+import pygame as pg
 from pygame.surface import Surface
 from pygame.rect import Rect
 from pygame.sprite import Group
@@ -28,16 +28,16 @@ class AlienInvasion():
 
     def __init__(self) -> None:
         ''' Game initialization. '''
-        pygame.mixer.pre_init(44100, -16, 2, 4096)
-        pygame.init()  # Initialization of screen.
-        pygame.display.set_caption('Aliens Invasion')
+        pg.mixer.pre_init(44100, -16, 2, 4096)
+        pg.init()  # Initialization of screen.
+        pg.display.set_caption('Aliens Invasion')
 
-        pygame.mixer.music.load(self.__MUSIC_PATH)
-        pygame.mixer.music.set_volume(0.25)
-        pygame.mixer.music.play(-1)
+        pg.mixer.music.load(self.__MUSIC_PATH)
+        pg.mixer.music.set_volume(0.25)
+        pg.mixer.music.play(-1)
 
         self.settings: Settings = Settings()
-        self.screen: Surface = pygame.display.set_mode(
+        self.screen: Surface = pg.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
         self.screen_rect: Rect = self.screen.get_rect()
         # Full screen.
@@ -52,16 +52,15 @@ class AlienInvasion():
         self.ship: Spaceship = Spaceship(self)
         self.menu: Menu = Menu(self)
 
-        self.player_bullets: Group = pygame.sprite.Group()
-        self.aliens_bullets: Group = pygame.sprite.Group()
-        self.aliens_ships: Group = pygame.sprite.Group()
-        self.stars: Group = pygame.sprite.Group()
+        self.player_bullets: Group = pg.sprite.Group()
+        self.aliens_bullets: Group = pg.sprite.Group()
+        self.aliens_ships: Group = pg.sprite.Group()
+        self.stars: Group = pg.sprite.Group()
 
         self._create_stars()
 
-        self.clock = pygame.time.Clock()
-        pygame.event.set_allowed(
-            [pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP, pygame.MOUSEBUTTONDOWN])
+        self.clock = pg.time.Clock()
+        pg.event.set_allowed([pg.QUIT, pg.KEYDOWN, pg.KEYUP, pg.MOUSEBUTTONDOWN])
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -72,43 +71,43 @@ class AlienInvasion():
 
     def _check_events(self) -> None:
         ''' Check reaction to button press/release and mouse interaction. '''
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pg.KEYDOWN:
                 self._check_keydown_events(event)
-            elif event.type == pygame.KEYUP:
+            elif event.type == pg.KEYUP:
                 self._check_keyup_events(event)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pg.MOUSEBUTTONDOWN:
                 self._check_mouse_events()
 
     def _check_keydown_events(self, event) -> None:
         ''' Reaction on key press. '''
-        if event.key == pygame.K_RIGHT:
+        if event.key == pg.K_RIGHT:
             self.ship.moving_right = True
-        elif event.key == pygame.K_LEFT:
+        elif event.key == pg.K_LEFT:
             self.ship.moving_left = True
-        elif event.key == pygame.K_q:
+        elif event.key == pg.K_q:
             sys.exit()
-        elif event.key == pygame.K_r:
+        elif event.key == pg.K_r:
             self._reset_game()
-        elif event.key == pygame.K_SPACE:
+        elif event.key == pg.K_SPACE:
             self._fire_bullet('player')
-        elif event.key == pygame.K_ESCAPE:
+        elif event.key == pg.K_ESCAPE:
             self.menu.exit_help()
-        elif event.key == pygame.K_g and self.menu.game_active is False:
+        elif event.key == pg.K_g:
             self._start_game()
 
     def _check_keyup_events(self, event) -> None:
         ''' Reaction on key release. '''
-        if event.key == pygame.K_RIGHT:
+        if event.key == pg.K_RIGHT:
             self.ship.moving_right = False
-        elif event.key == pygame.K_LEFT:
+        elif event.key == pg.K_LEFT:
             self.ship.moving_left = False
 
     def _check_mouse_events(self) -> None:
         ''' Reaction to mouse click. '''
-        mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
+        mouse_pos: tuple[int, int] = pg.mouse.get_pos()
         if self.menu.check_exit_button(mouse_pos) is True:
             sys.exit()
         if self.menu.check_play_button(mouse_pos) is True:
@@ -125,15 +124,14 @@ class AlienInvasion():
         Resets current statistics, prepares scoreboard
         and aliens fleet and starts the game.
         '''
-        self.stats.reset_stats()
-        self.scoreboard.prepare_current_score()
-        self.scoreboard.prepare_current_level()
-        self.scoreboard.prepare_remaining_player_ships()
-        self.ship.centre_spaceship()
-        self.aliens_ships.empty()
-        self._create_fleet()
-        self.menu.game_active = True
-        pygame.mouse.set_visible(False)
+        if self.menu.game_active is False:
+            self.scoreboard.prepare_current_score()
+            self.scoreboard.prepare_current_level()
+            self.scoreboard.prepare_remaining_player_ships()
+            self.ship.centre_spaceship()
+            self._create_fleet()
+            pg.mouse.set_visible(False)
+            self.menu.game_active = True
 
     def _reset_game(self) -> None:
         ''' 
@@ -146,10 +144,11 @@ class AlienInvasion():
             self.aliens_bullets.empty()
             self.aliens_ships.empty()
             self.ship.centre_spaceship()
+            self.stats.reset_stats()
             self.settings.reset_gameplay_speedup()
             self.menu.exit_settings()
             self.menu.game_active = False
-            pygame.mouse.set_visible(True)
+            pg.mouse.set_visible(True)
 
     def _fire_bullet(self, owner: str) -> None:
         ''' 
@@ -192,14 +191,14 @@ class AlienInvasion():
         calculation after shooting the alien ship and for game speedup if we have
         shot every alien.
         '''
-        player_bullet_and_alien_ship: dict[Sprite, Sprite] = pygame.sprite.groupcollide(
+        player_bullet_and_alien_ship: dict[Sprite, Sprite] = pg.sprite.groupcollide(
             self.player_bullets, self.aliens_ships, True, True)  # True means to remove object.
 
-        player_bullet_and_alien_bullet: dict[Sprite, Sprite] = pygame.sprite.groupcollide(
+        player_bullet_and_alien_bullet: dict[Sprite, Sprite] = pg.sprite.groupcollide(
             self.player_bullets, self.aliens_bullets, True, True)
 
         # Collision between alien's bullet and player's spaceship.
-        if pygame.sprite.spritecollideany(self.ship, self.aliens_bullets) is not None:
+        if pg.sprite.spritecollideany(self.ship, self.aliens_bullets) is not None:
             self._ship_hit()
 
         if player_bullet_and_alien_ship:
@@ -219,6 +218,7 @@ class AlienInvasion():
             self.stats.current_level += 1
             self.scoreboard.prepare_current_level()
             self._create_fleet()
+            print("Not aliens ", self.settings.points_for_alien)
 
     def _create_fleet(self) -> None:
         '''
@@ -265,7 +265,7 @@ class AlienInvasion():
         self.aliens_ships.update()
 
         # Check collision betwenn spaceship and alien ship.
-        if pygame.sprite.spritecollideany(self.ship, self.aliens_ships) is not None:
+        if pg.sprite.spritecollideany(self.ship, self.aliens_ships) is not None:
             self._ship_hit()
 
         self._check_aliens_bottom()
@@ -306,9 +306,12 @@ class AlienInvasion():
             self.scoreboard.prepare_remaining_player_ships()
             self._create_fleet()
         else:
+            self.aliens_ships.empty()
             self.settings.reset_gameplay_speedup()
+            self.stats.reset_stats()
             self.menu.game_active = False
-            pygame.mouse.set_visible(True)
+            pg.mouse.set_visible(True)
+            print("Ship hit ", self.settings.points_for_alien)
 
         sleep(1.0)
 
@@ -368,10 +371,4 @@ class AlienInvasion():
         else:
             self.menu.draw_menu()
 
-        pygame.display.flip()  # Update of the screen.
-
-
-if __name__ == '__main__':
-    # Instance of game
-    ai: AlienInvasion = AlienInvasion()
-    ai.run_game()
+        pg.display.flip()  # Update of the screen.

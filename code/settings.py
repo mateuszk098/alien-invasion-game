@@ -17,7 +17,7 @@ class Settings():
         self.dt: int = 1000//self.fps
 
         # Settings related to spaceship.
-        self.player_ship_speed: float = 0.75*self.dt
+        self.player_ship_speed: float = 750/self.fps
         self.player_ships_limit: int = 2
 
         # Settings related to bullet.
@@ -49,6 +49,7 @@ class Settings():
         self.alien_ship_speed = 0.2*self.dt
         self.alien_bullet_speed = 0.3*self.dt
         self.points_for_alien = 50
+        self.aliens_fleet_direction = 1
         self.star_speed = 0.2*self.dt
 
     def increase_gameplay_speed(self) -> None:

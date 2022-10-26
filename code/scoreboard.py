@@ -3,6 +3,8 @@ General module with scoreboard implementation.
 '''
 
 import pygame as pg
+from pygame.surface import Surface
+from pygame.rect import Rect
 
 from spaceship import Spaceship
 
@@ -13,8 +15,8 @@ class Scoreboard():
     def __init__(self, ai_game) -> None:
         ''' Initialize scoreboard. '''
         self.ai_game = ai_game
-        self.screen = ai_game.screen
-        self.screen_rect = ai_game.screen_rect
+        self.screen: Surface = ai_game.screen
+        self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
         self.stats = ai_game.stats
 
@@ -32,8 +34,8 @@ class Scoreboard():
         color = self.text_color
         background = self.settings.background_color
 
-        self.current_score_img = self.text_font.render(text, True, color, background)
-        self.current_score_rect = self.current_score_img.get_rect()
+        self.current_score_img: Surface = self.text_font.render(text, True, color, background)
+        self.current_score_rect: Rect = self.current_score_img.get_rect()
         self.current_score_rect.right = self.screen_rect.right - 20
         self.current_score_rect.top = 20
 
@@ -43,8 +45,8 @@ class Scoreboard():
         color = self.text_color
         background = self.settings.background_color
 
-        self.highest_score_img = self.text_font.render(text, True, color, background)
-        self.highest_score_rect = self.highest_score_img.get_rect()
+        self.highest_score_img: Surface = self.text_font.render(text, True, color, background)
+        self.highest_score_rect: Rect = self.highest_score_img.get_rect()
         self.highest_score_rect.centerx = self.screen_rect.centerx
         self.highest_score_rect.top = self.current_score_rect.top
 
@@ -57,8 +59,8 @@ class Scoreboard():
         color = self.text_color
         background = self.settings.background_color
 
-        self.current_level_img = self.text_font.render(text, True, color, background)
-        self.current_level_rect = self.current_level_img.get_rect()
+        self.current_level_img: Surface = self.text_font.render(text, True, color, background)
+        self.current_level_rect: Rect = self.current_level_img.get_rect()
         self.current_level_rect.right = self.current_score_rect.right
         self.current_level_rect.top = self.current_score_rect.bottom + 10
 
