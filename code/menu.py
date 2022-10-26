@@ -40,7 +40,6 @@ class Menu():
         self.hard_mode_button: Button = Button(ai_game, 'Norma Arm', 35)
         self.back_button: Button = Button(ai_game, 'Back', 105)
 
-        self.game_active: bool = False
         self.menu_active: bool = True
         self.settings_active: bool = False
         self.help_active: bool = False

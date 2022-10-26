@@ -49,15 +49,17 @@ class AlienInvasion():
 
         self.stats: GameStats = GameStats(self)
         self.scoreboard: Scoreboard = Scoreboard(self)
-        self.ship: Spaceship = Spaceship(self)
+        self.player_ship: Spaceship = Spaceship(self)
         self.menu: Menu = Menu(self)
 
         self.player_bullets: Group = pg.sprite.Group()
         self.aliens_bullets: Group = pg.sprite.Group()
         self.aliens_ships: Group = pg.sprite.Group()
-        self.stars: Group = pg.sprite.Group()
 
+        self.stars: Group = pg.sprite.Group()
         self._create_stars()
+
+        self.game_active: bool = False
 
         self.clock = pg.time.Clock()
         pg.event.set_allowed([pg.QUIT, pg.KEYDOWN, pg.KEYUP, pg.MOUSEBUTTONDOWN])
@@ -84,9 +86,9 @@ class AlienInvasion():
     def _check_keydown_events(self, event) -> None:
         ''' Reaction on key press. '''
         if event.key == pg.K_RIGHT:
-            self.ship.moving_right = True
+            self.player_ship.moving_right = True
         elif event.key == pg.K_LEFT:
-            self.ship.moving_left = True
+            self.player_ship.moving_left = True
         elif event.key == pg.K_q:
             sys.exit()
         elif event.key == pg.K_r:
@@ -101,9 +103,9 @@ class AlienInvasion():
     def _check_keyup_events(self, event) -> None:
         ''' Reaction on key release. '''
         if event.key == pg.K_RIGHT:
-            self.ship.moving_right = False
+            self.player_ship.moving_right = False
         elif event.key == pg.K_LEFT:
-            self.ship.moving_left = False
+            self.player_ship.moving_left = False
 
     def _check_mouse_events(self) -> None:
         ''' Reaction to mouse click. '''
@@ -124,14 +126,14 @@ class AlienInvasion():
         Resets current statistics, prepares scoreboard
         and aliens fleet and starts the game.
         '''
-        if self.menu.game_active is False:
+        if self.game_active is False:
             self.scoreboard.prepare_current_score()
             self.scoreboard.prepare_current_level()
             self.scoreboard.prepare_remaining_player_ships()
-            self.ship.centre_spaceship()
+            self.player_ship.centre_spaceship()
             self._create_fleet()
             pg.mouse.set_visible(False)
-            self.menu.game_active = True
+            self.game_active = True
 
     def _reset_game(self) -> None:
         ''' 
@@ -139,23 +141,22 @@ class AlienInvasion():
         set the player's ship to the screen centre, set the star's speed
         to default, and return to the menu.
         '''
-        if self.menu.game_active is True:
+        if self.game_active is True:
             self.player_bullets.empty()
             self.aliens_bullets.empty()
             self.aliens_ships.empty()
-            self.ship.centre_spaceship()
+            self.player_ship.centre_spaceship()
             self.stats.reset_stats()
             self.settings.reset_gameplay_speedup()
-            self.menu.exit_settings()
-            self.menu.game_active = False
             pg.mouse.set_visible(True)
+            self.game_active = False
 
     def _fire_bullet(self, owner: str) -> None:
         ''' 
         If possible, create a new player's or alien's bullet
         and add it to the appropriate group. 
         '''
-        if self.menu.game_active is True:
+        if self.game_active is True:
             # Fire player's bullet.
             if len(self.player_bullets) < self.settings.player_allowed_bullets and owner == 'player':
                 player_bullet: Bullet = Bullet(self, owner)
@@ -198,14 +199,13 @@ class AlienInvasion():
             self.player_bullets, self.aliens_bullets, True, True)
 
         # Collision between alien's bullet and player's spaceship.
-        if pg.sprite.spritecollideany(self.ship, self.aliens_bullets) is not None:
+        if pg.sprite.spritecollideany(self.player_ship, self.aliens_bullets) is not None:
             self._ship_hit()
 
         if player_bullet_and_alien_ship:
             # Count every alien if player's bullet hit several aliens.
             for aliens in player_bullet_and_alien_ship.values():
-                # type: ignore
-                self.stats.current_score += self.settings.points_for_alien*len(aliens)
+                self.stats.current_score += self.settings.points_for_alien*len(aliens)  # type: ignore
 
             self.scoreboard.prepare_current_score()
             self.scoreboard.check_the_highest_score()
@@ -265,7 +265,7 @@ class AlienInvasion():
         self.aliens_ships.update()
 
         # Check collision betwenn spaceship and alien ship.
-        if pg.sprite.spritecollideany(self.ship, self.aliens_ships) is not None:
+        if pg.sprite.spritecollideany(self.player_ship, self.aliens_ships) is not None:
             self._ship_hit()
 
         self._check_aliens_bottom()
@@ -299,7 +299,7 @@ class AlienInvasion():
         self.aliens_ships.empty()
         self.player_bullets.empty()
         self.aliens_bullets.empty()
-        self.ship.centre_spaceship()
+        self.player_ship.centre_spaceship()
 
         if self.stats.remaining_player_ships > 0:
             self.stats.remaining_player_ships -= 1
@@ -309,7 +309,7 @@ class AlienInvasion():
             self.aliens_ships.empty()
             self.settings.reset_gameplay_speedup()
             self.stats.reset_stats()
-            self.menu.game_active = False
+            self.game_active = False
             pg.mouse.set_visible(True)
             print("Ship hit ", self.settings.points_for_alien)
 
@@ -353,10 +353,10 @@ class AlienInvasion():
         self.screen.fill(self.settings.background_color)
         self._update_stars()
         self.stars.draw(self.screen)
-        self.ship.draw_scapeship()
+        self.player_ship.draw_scapeship()
 
-        if self.menu.game_active is True:
-            self.ship.update()
+        if self.game_active is True:
+            self.player_ship.update()
             self._update_aliens()
             self.aliens_ships.draw(self.screen)
             self._fire_bullet('alien')
