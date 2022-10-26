@@ -113,16 +113,12 @@ class AlienInvasion():
             mouse_pos: tuple[int, int] = pg.mouse.get_pos()
             if self.menu.check_exit_button(mouse_pos):
                 sys.exit()
-
             if self.menu.check_play_button(mouse_pos):
                 self._start_game()
-
             if self.menu.check_help_button(mouse_pos):
                 self.menu.show_help()
-
             if self.menu.settings_active:
                 self.menu.game_mode_management(mouse_pos)
-
             if self.menu.check_settings_button(mouse_pos):
                 self.menu.show_settings()
 
@@ -131,8 +127,10 @@ class AlienInvasion():
         Resets current statistics, prepares scoreboard
         and aliens fleet and starts the game.
         '''
-
         if not self.game_active:
+            self.aliens_ships.empty()
+            self.stats.reset_stats()
+            self.settings.reset_gameplay_speedup()
             self.scoreboard.prepare_current_score()
             self.scoreboard.prepare_current_level()
             self.scoreboard.prepare_remaining_player_ships()
@@ -152,8 +150,8 @@ class AlienInvasion():
             self.aliens_bullets.empty()
             self.aliens_ships.empty()
             self.player_ship.centre_spaceship()
-            self.stats.reset_stats()
             self.settings.reset_gameplay_speedup()
+            self.menu.return_to_menu()
             pg.mouse.set_visible(True)
             self.game_active = False
 
@@ -303,20 +301,20 @@ class AlienInvasion():
         round if the player has remaining ships.
         '''
         self.aliens_ships.empty()
-        self.player_bullets.empty()
         self.aliens_bullets.empty()
+        self.player_bullets.empty()
         self.player_ship.centre_spaceship()
 
         if self.stats.remaining_player_ships > 0:
             self.stats.remaining_player_ships -= 1
-            # self.scoreboard.prepare_remaining_player_ships()
+            self.scoreboard.prepare_remaining_player_ships()
             self._create_fleet()
         else:
-            self.aliens_ships.empty()
-            self.settings.reset_gameplay_speedup()
             self.stats.reset_stats()
-            self.game_active = False
+            self.settings.reset_gameplay_speedup()
+            self.menu.return_to_menu()
             pg.mouse.set_visible(True)
+            self.game_active = False
 
         sleep(1.0)
 
