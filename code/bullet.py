@@ -4,7 +4,7 @@ General file representing bullet.
 
 import random
 
-import pygame
+import pygame as pg
 from pygame.sprite import Sprite
 from pygame.surface import Surface
 from pygame.rect import Rect
@@ -27,19 +27,19 @@ class Bullet(Sprite):
 
         if owner == 'player':
             # Create bullet rect and its position
-            self.image: Surface = pygame.image.load(self.__PLAYER_BULLET_IMG).convert_alpha()
+            self.image: Surface = pg.image.load(self.__PLAYER_BULLET_IMG).convert_alpha()
             self.rect: Rect = self.image.get_rect()
             self.rect.midtop = ai_game.ship.rect.midtop
             self.direction = -1
-            self.bullet_speed = self.settings.bullet_speed
-            self.fire_sound = pygame.mixer.Sound(self.__FIRE_SOUND_PATH)
+            self.bullet_speed = self.settings.player_bullet_speed
+            self.fire_sound = pg.mixer.Sound(self.__FIRE_SOUND_PATH)
         elif owner == 'alien':
-            self.image = pygame.image.load(self.__ALIEN_BULLET_PATH).convert_alpha()
+            self.image = pg.image.load(self.__ALIEN_BULLET_PATH).convert_alpha()
             self.rect = self.image.get_rect()
             random_alien = random.choice(list(ai_game.aliens_ships))
             self.rect.midbottom = random_alien.rect.midbottom
             self.direction = 1
-            self.bullet_speed = self.settings.aliens_bullet_speed
+            self.bullet_speed = self.settings.alien_bullet_speed
 
         self.y: float = float(self.rect.y)
 

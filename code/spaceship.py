@@ -1,15 +1,15 @@
 '''
-General file with class to user spaceship management.
+General module with the player's spaceship implementation.
 '''
 
-import pygame
+import pygame as pg
 from pygame.sprite import Sprite
 from pygame.surface import Surface
 from pygame.rect import Rect
 
 
 class Spaceship(Sprite):
-    ''' Class to user spaceship management. '''
+    ''' Class representing player's spaceship. '''
 
     __RESIZED_SHIP: str = '../images/spaceship_resized.png'
     __NORMAL_SHIP: str = '../images/spaceship.png'
@@ -21,36 +21,35 @@ class Spaceship(Sprite):
         self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
-        # Load the spaceship image and load its rect.
         ship_path: str = self.__NORMAL_SHIP
         if resized is True:
             ship_path = self.__RESIZED_SHIP
-        self.image: Surface = pygame.image.load(ship_path).convert_alpha()
-        self.rect: Rect = self.image.get_rect()
 
-        # Every new spaceship occurs at te bottom of the screen.
+        self.image: Surface = pg.image.load(ship_path).convert_alpha()
+        self.rect: Rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
 
-        # Position and moving.
-        self.x: float = float(self.rect.x)  # Position is represented as a float
+        # Position is represented as a float - more accurate position tracking.
+        self.x: float = float(self.rect.x)
         self.moving_right: bool = False
         self.moving_left: bool = False
 
     def update(self, *args, **kwargs) -> None:
-        ''' Update of the spaceship position considering flag indicating its moving. '''
+        ''' Update the spaceship x-position by its speed defined in settings. '''
         if self.moving_right is True and self.rect.right < self.screen_rect.right:
-            self.x += self.settings.ship_speed
+            self.x += self.settings.player_ship_speed
+
         # Usage of elif - priority for moving right.
         if self.moving_left is True and self.rect.left > 0:
-            self.x -= self.settings.ship_speed
+            self.x -= self.settings.player_ship_speed
 
         self.rect.x = int(self.x)
 
-    def center_ship(self) -> None:
-        ''' Place the ship in the center of the screen. '''
+    def centre_spaceship(self) -> None:
+        ''' Place the spaceship in the centre of the screen. '''
         self.rect.midbottom = self.screen_rect.midbottom
         self.x = float(self.rect.x)
 
-    def blitme(self) -> None:
+    def draw_scapeship(self) -> None:
         ''' Displays the spaceship in current position on the screen. '''
         self.screen.blit(self.image, self.rect)

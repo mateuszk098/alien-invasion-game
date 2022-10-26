@@ -42,7 +42,7 @@ class BlueWindow():
                     sys.exit()
 
                 if self.menu.check_play_button(mouse_pos) is True:
-                    self.settings.initialize_dynamic_settings()
+                    self.settings.reset_gameplay_speedup()
 
                 if self.menu.check_help_button(mouse_pos) is True:
                     self.menu.enter_help()

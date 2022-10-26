@@ -97,7 +97,6 @@ class AlienInvasion():
         elif event.key == pygame.K_ESCAPE:
             self.menu.exit_help()
         elif event.key == pygame.K_g and self.menu.game_active is False:
-            self.settings.initialize_dynamic_settings()
             self._start_game()
 
     def _check_keyup_events(self, event) -> None:
@@ -113,7 +112,6 @@ class AlienInvasion():
         if self.menu.check_exit_button(mouse_pos) is True:
             sys.exit()
         if self.menu.check_play_button(mouse_pos) is True:
-            self.settings.initialize_dynamic_settings()
             self._start_game()
         if self.menu.check_help_button(mouse_pos) is True:
             self.menu.enter_help()
@@ -131,7 +129,7 @@ class AlienInvasion():
         self.scoreboard.prepare_current_score()
         self.scoreboard.prepare_current_level()
         self.scoreboard.prepare_remaining_player_ships()
-        self.ship.center_ship()
+        self.ship.centre_spaceship()
         self.aliens_ships.empty()
         self._create_fleet()
         self.menu.game_active = True
@@ -147,8 +145,8 @@ class AlienInvasion():
             self.player_bullets.empty()
             self.aliens_bullets.empty()
             self.aliens_ships.empty()
-            self.ship.center_ship()
-            self.settings.reset_stars_speed()
+            self.ship.centre_spaceship()
+            self.settings.reset_gameplay_speedup()
             self.menu.exit_settings()
             self.menu.game_active = False
             pygame.mouse.set_visible(True)
@@ -165,7 +163,7 @@ class AlienInvasion():
                 player_bullet.fire_sound.play()
                 self.player_bullets.add(player_bullet)
             # Fire alien's bullet.
-            if len(self.aliens_bullets) < self.settings.aliens_allowed_bullets and owner == 'alien':
+            if len(self.aliens_bullets) < self.settings.alien_allowed_bullets and owner == 'alien':
                 alien_bullet: Bullet = Bullet(self, owner)
                 self.aliens_bullets.add(alien_bullet)
 
@@ -207,7 +205,8 @@ class AlienInvasion():
         if player_bullet_and_alien_ship:
             # Count every alien if player's bullet hit several aliens.
             for aliens in player_bullet_and_alien_ship.values():
-                self.stats.current_score += self.settings.alien_points*len(aliens)  # type: ignore
+                # type: ignore
+                self.stats.current_score += self.settings.points_for_alien*len(aliens)
 
             self.scoreboard.prepare_current_score()
             self.scoreboard.check_the_highest_score()
@@ -216,7 +215,7 @@ class AlienInvasion():
         if not self.aliens_ships:
             self.player_bullets.empty()
             self.aliens_bullets.empty()
-            self.settings.increase_speed()
+            self.settings.increase_gameplay_speed()
             self.stats.current_level += 1
             self.scoreboard.prepare_current_level()
             self._create_fleet()
@@ -281,8 +280,8 @@ class AlienInvasion():
     def _change_fleet_direction(self) -> None:
         ''' Shifts the whole alien fleet and changes the direction of its movement. '''
         for alien in self.aliens_ships.sprites():
-            alien.rect.y += self.settings.fleet_drop_speed  # type: ignore
-        self.settings.fleet_direction *= -1
+            alien.rect.y += self.settings.aliens_fleet_drop_speed  # type: ignore
+        self.settings.aliens_fleet_direction *= -1
 
     def _check_aliens_bottom(self) -> None:
         ''' We lose the current round if any aliens arrive at the screen's bottom edge. '''
@@ -300,14 +299,14 @@ class AlienInvasion():
         self.aliens_ships.empty()
         self.player_bullets.empty()
         self.aliens_bullets.empty()
-        self.ship.center_ship()
+        self.ship.centre_spaceship()
 
         if self.stats.remaining_player_ships > 0:
             self.stats.remaining_player_ships -= 1
             self.scoreboard.prepare_remaining_player_ships()
             self._create_fleet()
         else:
-            self.settings.reset_stars_speed()
+            self.settings.reset_gameplay_speedup()
             self.menu.game_active = False
             pygame.mouse.set_visible(True)
 
@@ -315,9 +314,9 @@ class AlienInvasion():
 
     def _create_stars(self) -> None:
         ''' Creates outer space with a constant number of stars in the current frame. '''
-        pixels_per_row: int = self.settings.screen_height // self.settings.star_rows
+        pixels_per_row: int = self.settings.screen_height // self.settings.stars_rows
 
-        for row in range(self.settings.star_rows):
+        for row in range(self.settings.stars_rows):
             for _ in range(self.settings.stars_per_row):
                 star: Star = Star(self)
                 star.y += pixels_per_row*row
@@ -336,10 +335,10 @@ class AlienInvasion():
             if star.rect.top > self.screen_rect.bottom:  # type: ignore
                 self.stars.remove(star)
 
-        pixels_per_row: int = self.settings.screen_height // self.settings.star_rows
+        pixels_per_row: int = self.settings.screen_height // self.settings.stars_rows
 
         # Add new star.
-        if len(self.stars) < self.settings.stars_per_row*self.settings.star_rows:
+        if len(self.stars) < self.settings.stars_per_row*self.settings.stars_rows:
             new_star: Star = Star(self)
             # Provides effect that stars coming on the screen naturally.
             new_star.y -= pixels_per_row
@@ -351,7 +350,7 @@ class AlienInvasion():
         self.screen.fill(self.settings.background_color)
         self._update_stars()
         self.stars.draw(self.screen)
-        self.ship.blitme()
+        self.ship.draw_scapeship()
 
         if self.menu.game_active is True:
             self.ship.update()

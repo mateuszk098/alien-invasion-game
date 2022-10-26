@@ -3,8 +3,6 @@ General module with a menu's button implementation.
 '''
 
 import pygame as pg
-from pygame.surface import Surface
-from pygame.rect import Rect
 
 
 class Button():

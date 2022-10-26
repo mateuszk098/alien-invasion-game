@@ -38,5 +38,5 @@ class Alien(Sprite):
 
     def update(self, *args, **kwargs) -> None:
         ''' Updates alien ship x-position by speed displacement defined in settings. '''
-        self.x += self.settings.alien_speed*self.settings.fleet_direction
+        self.x += self.settings.alien_ship_speed*self.settings.aliens_fleet_direction
         self.rect.x = int(self.x)
