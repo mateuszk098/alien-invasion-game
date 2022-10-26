@@ -29,13 +29,15 @@ class AlienInvasion():
     def __init__(self) -> None:
         ''' Game initialization. '''
         pg.mixer.pre_init(44100, -16, 2, 4096)
-        pg.init()  # Initialization of screen.
+        pg.init()
         pg.display.set_caption('Aliens Invasion')
+        pg.event.set_allowed([pg.QUIT, pg.KEYDOWN, pg.KEYUP, pg.MOUSEBUTTONDOWN])
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.25)
-        pg.mixer.music.play(-1)
+        # pg.mixer.music.play(-1)
 
+        self.clock = pg.time.Clock()
         self.game_active: bool = False
 
         self.settings: Settings = Settings()
@@ -43,26 +45,23 @@ class AlienInvasion():
             (self.settings.screen_width, self.settings.screen_height))
         self.screen_rect: Rect = self.screen.get_rect()
         # Full screen.
-        # flags: int = pygame.FULLSCREEN | pygame.DOUBLEBUF
-        # self.screen: Surface = pygame.display.set_mode((0, 0), flags, 16)
+        # self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
         # self.screen_rect: Rect = self.screen.get_rect()
         # self.settings.screen_width = self.screen_rect.width
         # self.settings.screen_height = self.screen_rect.height
 
+        self.menu: Menu = Menu(self)
         self.stats: GameStats = GameStats(self)
         self.scoreboard: Scoreboard = Scoreboard(self)
-        self.player_ship: Spaceship = Spaceship(self)
-        self.menu: Menu = Menu(self)
 
+        self.player_ship: Spaceship = Spaceship(self)
         self.player_bullets: Group = pg.sprite.Group()
-        self.aliens_bullets: Group = pg.sprite.Group()
+
         self.aliens_ships: Group = pg.sprite.Group()
+        self.aliens_bullets: Group = pg.sprite.Group()
 
         self.stars: Group = pg.sprite.Group()
         self._create_stars()
-
-        self.clock = pg.time.Clock()
-        pg.event.set_allowed([pg.QUIT, pg.KEYDOWN, pg.KEYUP, pg.MOUSEBUTTONDOWN])
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -127,10 +126,8 @@ class AlienInvasion():
         Resets current statistics, prepares scoreboard
         and aliens fleet and starts the game.
         '''
-        if not self.game_active:
-            self.aliens_ships.empty()
+        if not self.game_active:  # Due to the possibility of "g" press.
             self.stats.reset_stats()
-            self.settings.reset_gameplay_speedup()
             self.scoreboard.prepare_current_score()
             self.scoreboard.prepare_current_level()
             self.scoreboard.prepare_remaining_player_ships()
@@ -196,6 +193,15 @@ class AlienInvasion():
         calculation after shooting the alien ship and for game speedup if we have
         shot every alien.
         '''
+        # Create a new fleet with a gameplay speedup.
+        if not self.aliens_ships:
+            self.player_bullets.empty()
+            self.aliens_bullets.empty()
+            self.settings.increase_gameplay_speed()
+            self.stats.current_level += 1
+            self.scoreboard.prepare_current_level()
+            self._create_fleet()
+
         player_bullet_and_alien_ship: dict[Sprite, Sprite] = pg.sprite.groupcollide(
             self.player_bullets, self.aliens_ships, True, True)  # True means to remove object.
 
@@ -213,16 +219,6 @@ class AlienInvasion():
 
             self.scoreboard.prepare_current_score()
             self.scoreboard.check_the_highest_score()
-
-        # Create a new fleet with a gameplay speedup.
-        if not self.aliens_ships:
-            self.player_bullets.empty()
-            self.aliens_bullets.empty()
-            self.settings.increase_gameplay_speed()
-            self.stats.current_level += 1
-            self.scoreboard.prepare_current_level()
-            self._create_fleet()
-            print("Not aliens ", self.settings.points_for_alien)
 
     def _create_fleet(self) -> None:
         '''
@@ -268,8 +264,8 @@ class AlienInvasion():
         self._check_fleet_edges()
         self.aliens_ships.update()
 
-        # Check collision betwenn spaceship and alien ship.
-        if pg.sprite.spritecollideany(self.player_ship, self.aliens_ships) is not None:
+        # Check collision between player's spaceship and alien's ship.
+        if pg.sprite.spritecollideany(self.player_ship, self.aliens_ships):
             self._ship_hit()
 
         self._check_aliens_bottom()
@@ -310,7 +306,6 @@ class AlienInvasion():
             self.scoreboard.prepare_remaining_player_ships()
             self._create_fleet()
         else:
-            self.stats.reset_stats()
             self.settings.reset_gameplay_speedup()
             self.menu.return_to_menu()
             pg.mouse.set_visible(True)
@@ -359,6 +354,7 @@ class AlienInvasion():
         self.player_ship.draw_spaceship()
 
         if self.game_active is True:
+            self.scoreboard.show_scoreboard_and_stats()
             self.player_ship.update()
             self._update_aliens()
             self.aliens_ships.draw(self.screen)
@@ -369,9 +365,13 @@ class AlienInvasion():
                 player_bullet.draw_bullet()  # type: ignore
             for alien_bullet in self.aliens_bullets.sprites():
                 alien_bullet.draw_bullet()  # type: ignore
-
-            self.scoreboard.show_scoreboard_and_stats()
         else:
             self.menu.draw_menu()
 
         pg.display.flip()  # Update of the screen.
+
+        # print(f"Ship Speed: {self.settings.player_ship_speed:.1f}, Player Bullet Speed: {self.settings.player_bullet_speed:.1f}, Alien Ship Speed: {self.settings.alien_ship_speed:.1f}, Alien Bullet Speed: {self.settings.alien_bullet_speed:.1f}, Points: {self.settings.points_for_alien:.1f}, Stars Speed: {self.settings.star_speed:.1f}")
+
+        # print(f"Ships: {self.settings.player_ships_limit}, Player Bullets: {self.settings.player_allowed_bullets}, Alien Bullets: {self.settings.alien_allowed_bullets}, Drop Speed: {self.settings.aliens_fleet_drop_speed}")
+
+        # print(f"Stars: {len(self.stars)}, Aliens: {len(self.aliens_ships)}, Bullets: {len(self.player_bullets)}, Alien Bullets: {len(self.aliens_bullets)},")
