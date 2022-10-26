@@ -50,6 +50,6 @@ class Spaceship(Sprite):
         self.rect.midbottom = self.screen_rect.midbottom
         self.x = float(self.rect.x)
 
-    def draw_scapeship(self) -> None:
+    def draw_spaceship(self) -> None:
         ''' Displays the spaceship in current position on the screen. '''
         self.screen.blit(self.image, self.rect)

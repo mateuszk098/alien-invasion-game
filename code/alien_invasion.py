@@ -36,6 +36,8 @@ class AlienInvasion():
         pg.mixer.music.set_volume(0.25)
         pg.mixer.music.play(-1)
 
+        self.game_active: bool = False
+
         self.settings: Settings = Settings()
         self.screen: Surface = pg.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
@@ -58,8 +60,6 @@ class AlienInvasion():
 
         self.stars: Group = pg.sprite.Group()
         self._create_stars()
-
-        self.game_active: bool = False
 
         self.clock = pg.time.Clock()
         pg.event.set_allowed([pg.QUIT, pg.KEYDOWN, pg.KEYUP, pg.MOUSEBUTTONDOWN])
@@ -96,7 +96,7 @@ class AlienInvasion():
         elif event.key == pg.K_SPACE:
             self._fire_bullet('player')
         elif event.key == pg.K_ESCAPE:
-            self.menu.exit_help()
+            self.menu.return_to_menu()
         elif event.key == pg.K_g:
             self._start_game()
 
@@ -109,24 +109,30 @@ class AlienInvasion():
 
     def _check_mouse_events(self) -> None:
         ''' Reaction to mouse click. '''
-        mouse_pos: tuple[int, int] = pg.mouse.get_pos()
-        if self.menu.check_exit_button(mouse_pos) is True:
-            sys.exit()
-        if self.menu.check_play_button(mouse_pos) is True:
-            self._start_game()
-        if self.menu.check_help_button(mouse_pos) is True:
-            self.menu.enter_help()
-        if self.menu.settings_active is True:
-            self.menu.game_mode_management(mouse_pos)
-        if self.menu.check_settings_button(mouse_pos) is True:
-            self.menu.enter_settings()
+        if not self.game_active:
+            mouse_pos: tuple[int, int] = pg.mouse.get_pos()
+            if self.menu.check_exit_button(mouse_pos):
+                sys.exit()
+
+            if self.menu.check_play_button(mouse_pos):
+                self._start_game()
+
+            if self.menu.check_help_button(mouse_pos):
+                self.menu.show_help()
+
+            if self.menu.settings_active:
+                self.menu.game_mode_management(mouse_pos)
+
+            if self.menu.check_settings_button(mouse_pos):
+                self.menu.show_settings()
 
     def _start_game(self) -> None:
         ''' 
         Resets current statistics, prepares scoreboard
         and aliens fleet and starts the game.
         '''
-        if self.game_active is False:
+
+        if not self.game_active:
             self.scoreboard.prepare_current_score()
             self.scoreboard.prepare_current_level()
             self.scoreboard.prepare_remaining_player_ships()
@@ -141,7 +147,7 @@ class AlienInvasion():
         set the player's ship to the screen centre, set the star's speed
         to default, and return to the menu.
         '''
-        if self.game_active is True:
+        if self.game_active:
             self.player_bullets.empty()
             self.aliens_bullets.empty()
             self.aliens_ships.empty()
@@ -156,7 +162,7 @@ class AlienInvasion():
         If possible, create a new player's or alien's bullet
         and add it to the appropriate group. 
         '''
-        if self.game_active is True:
+        if self.game_active:
             # Fire player's bullet.
             if len(self.player_bullets) < self.settings.player_allowed_bullets and owner == 'player':
                 player_bullet: Bullet = Bullet(self, owner)
@@ -303,7 +309,7 @@ class AlienInvasion():
 
         if self.stats.remaining_player_ships > 0:
             self.stats.remaining_player_ships -= 1
-            self.scoreboard.prepare_remaining_player_ships()
+            # self.scoreboard.prepare_remaining_player_ships()
             self._create_fleet()
         else:
             self.aliens_ships.empty()
@@ -311,7 +317,6 @@ class AlienInvasion():
             self.stats.reset_stats()
             self.game_active = False
             pg.mouse.set_visible(True)
-            print("Ship hit ", self.settings.points_for_alien)
 
         sleep(1.0)
 
@@ -353,7 +358,7 @@ class AlienInvasion():
         self.screen.fill(self.settings.background_color)
         self._update_stars()
         self.stars.draw(self.screen)
-        self.player_ship.draw_scapeship()
+        self.player_ship.draw_spaceship()
 
         if self.game_active is True:
             self.player_ship.update()

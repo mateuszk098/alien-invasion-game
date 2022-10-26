@@ -45,7 +45,7 @@ class BlueWindow():
                     self.settings.reset_gameplay_speedup()
 
                 if self.menu.check_help_button(mouse_pos) is True:
-                    self.menu.enter_help()
+                    self.menu.show_help()
 
                 if self.menu.settings_active is True:
                     self.menu.game_mode_management(mouse_pos)

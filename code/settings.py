@@ -17,7 +17,7 @@ class Settings():
         self.dt: int = 1000//self.fps
 
         # Settings related to spaceship.
-        self.player_ship_speed: float = 750/self.fps
+        self.player_ship_speed: float = 0.75*self.dt
         self.player_ships_limit: int = 2
 
         # Settings related to bullet.

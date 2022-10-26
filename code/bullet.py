@@ -29,7 +29,7 @@ class Bullet(Sprite):
             # Create bullet rect and its position
             self.image: Surface = pg.image.load(self.__PLAYER_BULLET_IMG).convert_alpha()
             self.rect: Rect = self.image.get_rect()
-            self.rect.midtop = ai_game.ship.rect.midtop
+            self.rect.midtop = ai_game.player_ship.rect.midtop
             self.direction = -1
             self.bullet_speed = self.settings.player_bullet_speed
             self.fire_sound = pg.mixer.Sound(self.__FIRE_SOUND_PATH)
