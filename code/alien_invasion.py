@@ -30,7 +30,7 @@ class AlienInvasion():
         ''' Game initialization. '''
         pygame.mixer.pre_init(44100, -16, 2, 4096)
         pygame.init()  # Initialization of screen.
-        pygame.display.set_caption('Alien Invasion')
+        pygame.display.set_caption('Aliens Invasion')
 
         pygame.mixer.music.load(self.__MUSIC_PATH)
         pygame.mixer.music.set_volume(0.25)
@@ -60,7 +60,8 @@ class AlienInvasion():
         self._create_stars()
 
         self.clock = pygame.time.Clock()
-        pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP, pygame.MOUSEBUTTONDOWN])
+        pygame.event.set_allowed(
+            [pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP, pygame.MOUSEBUTTONDOWN])
 
     def run_game(self) -> None:
         ''' Main loop of the game. '''
@@ -127,9 +128,9 @@ class AlienInvasion():
         and aliens fleet and starts the game.
         '''
         self.stats.reset_stats()
-        self.scoreboard.prep_score()
-        self.scoreboard.prep_level()
-        self.scoreboard.prep_ships()
+        self.scoreboard.prepare_current_score()
+        self.scoreboard.prepare_current_level()
+        self.scoreboard.prepare_remaining_player_ships()
         self.ship.center_ship()
         self.aliens_ships.empty()
         self._create_fleet()
@@ -206,18 +207,18 @@ class AlienInvasion():
         if player_bullet_and_alien_ship:
             # Count every alien if player's bullet hit several aliens.
             for aliens in player_bullet_and_alien_ship.values():
-                self.stats.score += self.settings.alien_points*len(aliens)  # type: ignore
+                self.stats.current_score += self.settings.alien_points*len(aliens)  # type: ignore
 
-            self.scoreboard.prep_score()
-            self.scoreboard.check_high_score()
+            self.scoreboard.prepare_current_score()
+            self.scoreboard.check_the_highest_score()
 
         # Create a new fleet with a gameplay speedup.
         if not self.aliens_ships:
             self.player_bullets.empty()
             self.aliens_bullets.empty()
             self.settings.increase_speed()
-            self.stats.game_level += 1
-            self.scoreboard.prep_level()
+            self.stats.current_level += 1
+            self.scoreboard.prepare_current_level()
             self._create_fleet()
 
     def _create_fleet(self) -> None:
@@ -273,7 +274,7 @@ class AlienInvasion():
     def _check_fleet_edges(self) -> None:
         ''' Change the fleet movement's direction if any alien comes to the screen edge. '''
         for alien in self.aliens_ships.sprites():
-            if alien.check_edges() is True:  # type: ignore
+            if alien.check_left_right_screen_edge() is True:  # type: ignore
                 self._change_fleet_direction()
                 break
 
@@ -301,9 +302,9 @@ class AlienInvasion():
         self.aliens_bullets.empty()
         self.ship.center_ship()
 
-        if self.stats.ships_left > 0:
-            self.stats.ships_left -= 1
-            self.scoreboard.prep_ships()
+        if self.stats.remaining_player_ships > 0:
+            self.stats.remaining_player_ships -= 1
+            self.scoreboard.prepare_remaining_player_ships()
             self._create_fleet()
         else:
             self.settings.reset_stars_speed()
@@ -364,7 +365,7 @@ class AlienInvasion():
             for alien_bullet in self.aliens_bullets.sprites():
                 alien_bullet.draw_bullet()  # type: ignore
 
-            self.scoreboard.show_score()
+            self.scoreboard.show_scoreboard_and_stats()
         else:
             self.menu.draw_menu()
 

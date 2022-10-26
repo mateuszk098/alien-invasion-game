@@ -50,6 +50,7 @@ class Settings():
         self.bullet_speed = 0.75*self.dt
         self.alien_speed = 0.2*self.dt
         self.aliens_bullet_speed = 0.3*self.dt
+        self.alien_points = 50
         self.fleet_direction = 1  # Right movement "1", left movement "-1".
 
     def increase_speed(self) -> None:

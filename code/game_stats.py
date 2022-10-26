@@ -1,23 +1,22 @@
 '''
-General file with class representing game statistics.
+General module with game statistics implementation.
 '''
 
 
 class GameStats():
     ''' Class representing game statistics. '''
 
-    ships_left: int
-    score: int
-    game_level: int
-
     def __init__(self, ai_game) -> None:
-        ''' Initialize statistics. '''
+        ''' Initialize game statistics. '''
         self.settings = ai_game.settings
-        self.high_score: int = 0
-        self.reset_stats()
+
+        self.highest_score: int = 0
+        self.current_score: int = 0
+        self.current_level: int = 1
+        self.remaining_player_ships: int = self.settings.ship_limit
 
     def reset_stats(self) -> None:
-        ''' Initialize statistical data, which can change during game. '''
-        self.ships_left = self.settings.ship_limit
-        self.score = 0
-        self.game_level = 1
+        ''' Resets statistical data, which can change during the game. '''
+        self.current_score = 0
+        self.current_level = 1
+        self.remaining_player_ships = self.settings.ship_limit
