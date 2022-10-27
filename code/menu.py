@@ -21,8 +21,9 @@ class Menu():
         'hypersonic missiles, which should help shoot aliens down. You cannot allow '\
         'aliens to arrive on Earth. We believe in You. Press "Esc" to return to the control '\
         'centre. Press "g" or click "Play" to go on the mission. Press "r" during the mission '\
-        'to return to the base. Click "Settings" to travel to a more dangerous part of the '\
-        'galaxy. Press "q" or click "Exit" to give up.'
+        'to return to the base. Press "s" or click "Settings" to travel to a more dangerous part of the '\
+        'galaxy. Press "1", "2" or "3" being in settings to choose your mission or click appropriate option. '\
+        'Press "q" or click "Exit" to give up.'
 
     def __init__(self, ai_game) -> None:
         ''' Initialize menu buttons in the game. '''
@@ -91,7 +92,7 @@ class Menu():
         color = self.help_text_color
         background = self.settings.background_color
 
-        text_lines: list[str] = textwrap.wrap(text, 50)
+        text_lines: list[str] = textwrap.wrap(text, 60)
 
         for line_number, text_line in enumerate(text_lines):
             line_img = self.help_text_font.render(text_line, True, color, background)

@@ -17,13 +17,14 @@ _**"Welcome to Aliens Invasion! The Milky Way has been attacked by hostile creat
 
 ---
 **Primary control in the game:**
-- **Press the "g" button or click "Start" to start the game in default mode.**
+- **Press the "g" button or click "Start" to start the game in the default mode.**
 - **Press the "r" button during the game to reset it and return to the menu.**
-- **Press the "space" to fire a bullet.**
+- **Press the "space" button to fire a bullet.**
 - **Press the left or right "arrow" to control the spaceship.**
-- **Click "Settings" to change the game difficulty level.**
-- **Click "Help" to learn something about the game and control.**
-- **Press the "Esc" button to close the help message.**
+- **Press the "s" button or click "Settings" to change the game difficulty level.**
+- **Press the "1", "2" or "3" button or click appropriate option to switch difficulty mode.**"
+- **Press the "h" button or click "Help" to learn something about the game and control.**
+- **Press the "Esc" button to return to the menu.**
 ---
 
 ## **Where to find images/sounds to use?**
