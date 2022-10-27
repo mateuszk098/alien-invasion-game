@@ -388,4 +388,4 @@ class AlienInvasion():
 
         # print(f"Ships: {self.settings.player_ships_limit}, Player Bullets: {self.settings.player_allowed_bullets}, Alien Bullets: {self.settings.alien_allowed_bullets}, Drop Speed: {self.settings.aliens_fleet_drop_speed}")
 
-        print(f"Stars: {len(self.stars)}, Aliens: {len(self.aliens_ships)}, Bullets: {len(self.player_bullets)}, Alien Bullets: {len(self.aliens_bullets)}")
+        # print(f"Stars: {len(self.stars)}, Aliens: {len(self.aliens_ships)}, Bullets: {len(self.player_bullets)}, Alien Bullets: {len(self.aliens_bullets)}")

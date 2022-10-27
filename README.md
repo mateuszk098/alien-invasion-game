@@ -7,12 +7,12 @@ _**"Welcome to Aliens Invasion! The Milky Way has been attacked by hostile creat
 ![](https://github.com/mateuszk098/aliens_invasion_game/blob/master/src/menu.gif)
 
 
-# **What is this?**
+## **What is this?**
 **This is a simple 2D game where the player takes on the role of the captain of the "Eagle 2" spaceship. The player's task is not to allow aliens to arrive on Earth. For this purpose, the Eagle 2 is equipped with hypersonic bullets, enabling it to shoot aliens down and probably save Earth if the player is skilful enough. The game core is one of the projects proposed in "_Python Crash Course_" by Eric Matthes, but the whole game was significantly enhanced by me.**
 
 ![](https://github.com/mateuszk098/aliens_invasion_game/blob/master/src/gameplay.gif)
 
-# **Game Control**
+## **Game control**
 **In the game, one has three difficulty levels. The default mode where we lead the game is "Outer Arm", one of the Milky Way arms. That mode corresponds to a medium difficulty level. The remaining levels are "Perseus Arm" (easy) and "Norma Arm" (hard). Each of these levels corresponds to a different number of aliens, the number of allowed bullets fired in one moment, spaceships, and aliens' downwards speed. These levels can be changed in the game settings.**
 
 ---
@@ -26,5 +26,5 @@ _**"Welcome to Aliens Invasion! The Milky Way has been attacked by hostile creat
 - **Press the "Esc" button to close the help message.**
 ---
 
-# **Where to find images/sounds to use?**
+## **Where to find images/sounds to use?**
 **If you want to modify the player's spaceship, bullets etc., you can visit [pixabay](https://pixabay.com/) website. To find different free sound effects or general game music themes, visit [mixkit](https://mixkit.co/) website.**
