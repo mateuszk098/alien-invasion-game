@@ -88,20 +88,26 @@ class AlienInvasion():
             self.player_ship.moving_right = True
         if event.key == pg.K_LEFT:
             self.player_ship.moving_left = True
-        if event.key == pg.K_q:
-            sys.exit()
-        if event.key == pg.K_r:
-            self._reset_game()
-        if event.key == pg.K_SPACE:
-            self._fire_bullet('player')
-        if event.key == pg.K_ESCAPE:
-            self.menu.return_to_menu()
-        if event.key == pg.K_h:
-            self.menu.show_help()
         if event.key == pg.K_g:
             self._start_game()
+        if event.key == pg.K_SPACE:
+            self._fire_bullet('player')
+        if event.key == pg.K_r:
+            self._reset_game()
         if event.key == pg.K_s:
             self.menu.show_settings()
+        if event.key == pg.K_1:
+            self.menu.switch_to_easy_mode()
+        if event.key == pg.K_2:
+            self.menu.switch_to_medium_mode()
+        if event.key == pg.K_3:
+            self.menu.switch_to_hard_mode()
+        if event.key == pg.K_h:
+            self.menu.show_help()
+        if event.key == pg.K_ESCAPE:
+            self.menu.return_to_menu()
+        if event.key == pg.K_q:
+            sys.exit()
 
     def _check_keyup_events(self, event) -> None:
         ''' Reaction on key release. '''
@@ -114,16 +120,22 @@ class AlienInvasion():
         ''' Reaction to mouse click. '''
         if not self.game_active:
             mouse_pos: tuple[int, int] = pg.mouse.get_pos()
-            if self.menu.check_exit_button(mouse_pos):
-                sys.exit()
             if self.menu.check_play_button(mouse_pos):
                 self._start_game()
+            if self.menu.check_exit_button(mouse_pos):
+                sys.exit()
             if self.menu.check_help_button(mouse_pos):
                 self.menu.show_help()
-            if self.menu.settings_active:
-                self.menu.game_mode_management(mouse_pos)
+            if self.menu.check_easy_button(mouse_pos):
+                self.menu.switch_to_easy_mode()
+            if self.menu.check_medium_button(mouse_pos):
+                self.menu.switch_to_medium_mode()
+            if self.menu.check_hard_button(mouse_pos):
+                self.menu.switch_to_hard_mode()
             if self.menu.check_settings_button(mouse_pos):
                 self.menu.show_settings()
+            if self.menu.check_exit_from_settings(mouse_pos):
+                self.menu.return_to_menu()
 
     def _start_game(self) -> None:
         ''' 

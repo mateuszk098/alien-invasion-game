@@ -5,7 +5,7 @@ Simple pygame blue window.
 
 import sys
 
-import pygame
+import pygame as pg
 
 from menu import Menu
 from settings import Settings
@@ -16,10 +16,11 @@ class BlueWindow():
     ''' Simple class representing a blue pygame window. '''
 
     def __init__(self) -> None:
-        pygame.init()
+        pg.init()
         self.settings: Settings = Settings()
         self.stats: GameStats = GameStats(self)
-        self.screen = pygame.display.set_mode((1280, 720))
+        self.screen = pg.display.set_mode((1280, 720))
+        self.screen_rect = self.screen.get_rect()
         self.screen.fill((21, 24, 56))  # Blue screen.
         self.menu: Menu = Menu(self)
 
@@ -28,30 +29,44 @@ class BlueWindow():
             self.screen.fill((21, 24, 56))
             self._check_events()
             self.menu.draw_menu()
-            pygame.display.flip()  # Update of the screen.
+            pg.display.flip()  # Update of the screen.
 
     def _check_events(self) -> None:
         ''' Check reaction to button press/release and mouse interaction. '''
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
                 sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos: tuple[int, int] = pygame.mouse.get_pos()
-
-                if self.menu.check_exit_button(mouse_pos) is True:
+            elif event.type == pg.KEYDOWN:
+                if event.key == pg.K_q:
                     sys.exit()
-
-                if self.menu.check_play_button(mouse_pos) is True:
-                    self.settings.reset_gameplay_speedup()
-
-                if self.menu.check_help_button(mouse_pos) is True:
+                if event.key == pg.K_ESCAPE:
+                    self.menu.return_to_menu()
+                if event.key == pg.K_h:
                     self.menu.show_help()
-
-                if self.menu.settings_active is True:
-                    self.menu.game_mode_management(mouse_pos)
-
-                if self.menu.check_settings_button(mouse_pos) is True:
-                    self.menu.enter_settings()
+                if event.key == pg.K_s:
+                    self.menu.show_settings()
+                if event.key == pg.K_1:
+                    self.menu.switch_to_easy_mode()
+                if event.key == pg.K_2:
+                    self.menu.switch_to_medium_mode()
+                if event.key == pg.K_3:
+                    self.menu.switch_to_hard_mode()
+            elif event.type == pg.MOUSEBUTTONDOWN:
+                mouse_pos: tuple[int, int] = pg.mouse.get_pos()
+                if self.menu.check_exit_button(mouse_pos):
+                    sys.exit()
+                if self.menu.check_help_button(mouse_pos):
+                    self.menu.show_help()
+                if self.menu.check_easy_button(mouse_pos):
+                    self.menu.switch_to_easy_mode()
+                if self.menu.check_medium_button(mouse_pos):
+                    self.menu.switch_to_medium_mode()
+                if self.menu.check_hard_button(mouse_pos):
+                    self.menu.switch_to_hard_mode()
+                if self.menu.check_settings_button(mouse_pos):
+                    self.menu.show_settings()
+                if self.menu.check_exit_from_settings(mouse_pos):
+                    self.menu.return_to_menu()
 
 
 if __name__ == '__main__':

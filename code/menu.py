@@ -115,10 +115,31 @@ class Menu():
             return True
         return False
 
-    def check_exit_button(self, mouse_pos: tuple[int, int]) -> bool:
-        ''' Checks if the exit button is pressed by mouse. '''
-        button_pressed: bool = self.exit_button.rect.collidepoint(mouse_pos)
-        if button_pressed and self.menu_active:
+    def check_easy_button(self, mouse_pos: tuple[int, int]) -> bool:
+        ''' Checks if the easy mode button is pressed by mouse. '''
+        button_pressed: bool = self.easy_mode_button.rect.collidepoint(mouse_pos)
+        if button_pressed and self.settings_active:
+            return True
+        return False
+
+    def check_medium_button(self, mouse_pos: tuple[int, int]) -> bool:
+        ''' Checks if the medium mode button is pressed by mouse. '''
+        button_pressed: bool = self.medium_mode_button.rect.collidepoint(mouse_pos)
+        if button_pressed and self.settings_active:
+            return True
+        return False
+
+    def check_hard_button(self, mouse_pos: tuple[int, int]) -> bool:
+        ''' Checks if the hard mode button is pressed by mouse. '''
+        button_pressed: bool = self.hard_mode_button.rect.collidepoint(mouse_pos)
+        if button_pressed and self.settings_active:
+            return True
+        return False
+
+    def check_exit_from_settings(self, mouse_pos) -> bool:
+        ''' Checks if the exit from settings button is pressed by mouse. '''
+        back_btn_pressed: bool = self.back_button.rect.collidepoint(mouse_pos)
+        if back_btn_pressed and self.settings_active:
             return True
         return False
 
@@ -129,14 +150,23 @@ class Menu():
             return True
         return False
 
+    def check_exit_button(self, mouse_pos: tuple[int, int]) -> bool:
+        ''' Checks if the exit button is pressed by mouse. '''
+        button_pressed: bool = self.exit_button.rect.collidepoint(mouse_pos)
+        if button_pressed and self.menu_active:
+            return True
+        return False
+
     def show_settings(self) -> None:
-        ''' Changes visibility of Menu to False, Settings to True. '''
+        ''' Changes visibility of Settings to True, Menu and Help to False. '''
         self.menu_active = False
         self.settings_active = True
+        self.help_active = False
 
     def show_help(self) -> None:
-        ''' Changes visibility of Menu to False, Help to True '''
+        ''' Changes visibility of Help to True, Menu and Settings to False, '''
         self.menu_active = False
+        self.settings_active = False
         self.help_active = True
 
     def return_to_menu(self) -> None:
@@ -145,47 +175,41 @@ class Menu():
         self.settings_active = False
         self.help_active = False
 
-    def game_mode_management(self, mouse_pos: tuple[int, int]) -> None:
+    def switch_to_easy_mode(self) -> None:
         ''' 
-        Checks if any button in the setting is pressed or released 
-        and switches game difficulty mode. 
+        Switches game difficulty level to easy if the button is pressed, 
+        otherwise, switches to medium level if released.
         '''
-        easy_btn_pressed: bool = self.easy_mode_button.rect.collidepoint(mouse_pos)
-        medium_btn_pressed: bool = self.medium_mode_button.rect.collidepoint(mouse_pos)
-        hard_btn_pressed: bool = self.hard_mode_button.rect.collidepoint(mouse_pos)
-        back_btn_pressed: bool = self.back_button.rect.collidepoint(mouse_pos)
-
-        # Check if game mode has been changed, otherwise exit settings.
-        self._switch_game_mode(easy_btn_pressed, medium_btn_pressed, hard_btn_pressed)
-        self._check_exit_from_settings(back_btn_pressed)
-
-    def _switch_game_mode(self, easy_btn_pressed, medium_btn_pressed, hard_btn_pressed) -> None:
-        ''' Switch difficulty button. Only one difficulty button can be pressed at a time. '''
-        if easy_btn_pressed and self.easy_btn_pressed:
+        if self.easy_btn_pressed and self.settings_active:
             self.easy_btn_pressed = False
             self.settings.reset_difficulty()
-        elif easy_btn_pressed:
+        elif self.settings_active:
             self.settings.switch_difficulty(1)
             self.easy_btn_pressed = True
             self.medium_btn_pressed = self.hard_btn_pressed = False
 
-        if medium_btn_pressed and self.medium_btn_pressed:
+    def switch_to_medium_mode(self) -> None:
+        ''' 
+        Switches game difficulty level to medium if the button is pressed, 
+        otherwise, switches to medium level if released.
+        '''
+        if self.medium_btn_pressed and self.settings_active:
             self.medium_btn_pressed = False
             self.settings.reset_difficulty()
-        elif medium_btn_pressed:
+        elif self.settings_active:
             self.settings.switch_difficulty(2)
             self.medium_btn_pressed = True
             self.easy_btn_pressed = self.hard_btn_pressed = False
 
-        if hard_btn_pressed and self.hard_btn_pressed:
+    def switch_to_hard_mode(self) -> None:
+        ''' 
+        Switches game difficulty level to hard if the button is pressed, 
+        otherwise, switches to medium level if released.
+        '''
+        if self.hard_btn_pressed and self.settings_active:
             self.hard_btn_pressed = False
             self.settings.reset_difficulty()
-        elif hard_btn_pressed:
+        elif self.settings_active:
             self.settings.switch_difficulty(3)
             self.hard_btn_pressed = True
             self.easy_btn_pressed = self.medium_btn_pressed = False
-
-    def _check_exit_from_settings(self, back_pressed) -> None:
-        ''' Exits from settings if the back button is pressed by the mouse. '''
-        if back_pressed:
-            self.return_to_menu()
