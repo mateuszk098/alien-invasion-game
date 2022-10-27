@@ -15,7 +15,8 @@ from scoreboard import Scoreboard
 from game_stats import GameStats
 from spaceship import Spaceship
 from settings import Settings
-from bullet import Bullet
+from bullet import PlayerBullet
+from bullet import AlienBullet
 from alien import Alien
 from star import Star
 from menu import Menu
@@ -91,7 +92,7 @@ class AlienInvasion():
         if event.key == pg.K_g:
             self._start_game()
         if event.key == pg.K_SPACE:
-            self._fire_bullet('player')
+            self._player_fire_bullet()
         if event.key == pg.K_r:
             self._reset_game()
         if event.key == pg.K_s:
@@ -139,7 +140,7 @@ class AlienInvasion():
 
     def _start_game(self) -> None:
         ''' 
-        Resets current statistics, prepares scoreboard
+        If not game_active, resets current statistics, prepares scoreboard
         and aliens fleet and starts the game.
         '''
         if not self.game_active:  # Due to the possibility of "g" press.
@@ -154,7 +155,7 @@ class AlienInvasion():
 
     def _reset_game(self) -> None:
         ''' 
-        Resets the current game, remove the remaining bullets and aliens,
+        If game_active, resets the current game, remove the remaining bullets and aliens,
         set the player's ship to the screen centre, set the star's speed
         to default, and return to the menu.
         '''
@@ -168,21 +169,18 @@ class AlienInvasion():
             pg.mouse.set_visible(True)
             self.game_active = False
 
-    def _fire_bullet(self, owner: str) -> None:
-        ''' 
-        If possible, create a new player's or alien's bullet
-        and add it to the appropriate group. 
-        '''
-        if self.game_active:
-            # Fire player's bullet.
-            if len(self.player_bullets) < self.settings.player_allowed_bullets and owner == 'player':
-                player_bullet: Bullet = Bullet(self, owner)
-                player_bullet.fire_sound.play()
-                self.player_bullets.add(player_bullet)
-            # Fire alien's bullet.
-            if len(self.aliens_bullets) < self.settings.alien_allowed_bullets and owner == 'alien':
-                alien_bullet: Bullet = Bullet(self, owner)
-                self.aliens_bullets.add(alien_bullet)
+    def _player_fire_bullet(self) -> None:
+        ''' If possible, create a new player's bullet and add it to the aliens_bullets group. '''
+        if self.game_active and len(self.player_bullets) < self.settings.player_allowed_bullets:
+            player_bullet: PlayerBullet = PlayerBullet(self)
+            player_bullet.fire_sound.play()
+            self.player_bullets.add(player_bullet)
+
+    def _alien_fire_bullet(self) -> None:
+        ''' If possible, create a new alien's bullet and add it to the aliens_bullets group. '''
+        if self.game_active and len(self.aliens_bullets) < self.settings.alien_allowed_bullets:
+            alien_bullet: AlienBullet = AlienBullet(self)
+            self.aliens_bullets.add(alien_bullet)
 
     def _update_bullets(self) -> None:
         ''' 
@@ -374,7 +372,7 @@ class AlienInvasion():
             self.player_ship.update()
             self._update_aliens()
             self.aliens_ships.draw(self.screen)
-            self._fire_bullet('alien')
+            self._alien_fire_bullet()
             self._update_bullets()
 
             for player_bullet in self.player_bullets.sprites():
@@ -386,8 +384,8 @@ class AlienInvasion():
 
         pg.display.flip()  # Update of the screen.
 
-        # print(f"Ship Speed: {self.settings.player_ship_speed:.1f}, Player Bullet Speed: {self.settings.player_bullet_speed:.1f}, Alien Ship Speed: {self.settings.alien_ship_speed:.1f}, Alien Bullet Speed: {self.settings.alien_bullet_speed:.1f}, Points: {self.settings.points_for_alien:.1f}, Stars Speed: {self.settings.star_speed:.1f}")
+        #print(f"Ship Speed: {self.settings.player_ship_speed:.1f}, Player Bullet Speed: {self.settings.player_bullet_speed:.1f}, Alien Ship Speed: {self.settings.alien_ship_speed:.1f}, Alien Bullet Speed: {self.settings.alien_bullet_speed:.1f}, Points: {self.settings.points_for_alien:.1f}, Stars Speed: {self.settings.star_speed:.1f}")
 
         # print(f"Ships: {self.settings.player_ships_limit}, Player Bullets: {self.settings.player_allowed_bullets}, Alien Bullets: {self.settings.alien_allowed_bullets}, Drop Speed: {self.settings.aliens_fleet_drop_speed}")
 
-        # print(f"Stars: {len(self.stars)}, Aliens: {len(self.aliens_ships)}, Bullets: {len(self.player_bullets)}, Alien Bullets: {len(self.aliens_bullets)},")
+        print(f"Stars: {len(self.stars)}, Aliens: {len(self.aliens_ships)}, Bullets: {len(self.player_bullets)}, Alien Bullets: {len(self.aliens_bullets)}")
