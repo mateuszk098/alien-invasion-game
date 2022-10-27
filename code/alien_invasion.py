@@ -35,7 +35,7 @@ class AlienInvasion():
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.25)
-        # pg.mixer.music.play(-1)
+        pg.mixer.music.play(-1)
 
         self.clock = pg.time.Clock()
         self.game_active: bool = False
@@ -75,35 +75,39 @@ class AlienInvasion():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 sys.exit()
-            elif event.type == pg.KEYDOWN:
+            if event.type == pg.KEYDOWN:
                 self._check_keydown_events(event)
-            elif event.type == pg.KEYUP:
+            if event.type == pg.KEYUP:
                 self._check_keyup_events(event)
-            elif event.type == pg.MOUSEBUTTONDOWN:
+            if event.type == pg.MOUSEBUTTONDOWN:
                 self._check_mouse_events()
 
     def _check_keydown_events(self, event) -> None:
         ''' Reaction on key press. '''
         if event.key == pg.K_RIGHT:
             self.player_ship.moving_right = True
-        elif event.key == pg.K_LEFT:
+        if event.key == pg.K_LEFT:
             self.player_ship.moving_left = True
-        elif event.key == pg.K_q:
+        if event.key == pg.K_q:
             sys.exit()
-        elif event.key == pg.K_r:
+        if event.key == pg.K_r:
             self._reset_game()
-        elif event.key == pg.K_SPACE:
+        if event.key == pg.K_SPACE:
             self._fire_bullet('player')
-        elif event.key == pg.K_ESCAPE:
+        if event.key == pg.K_ESCAPE:
             self.menu.return_to_menu()
-        elif event.key == pg.K_g:
+        if event.key == pg.K_h:
+            self.menu.show_help()
+        if event.key == pg.K_g:
             self._start_game()
+        if event.key == pg.K_s:
+            self.menu.show_settings()
 
     def _check_keyup_events(self, event) -> None:
         ''' Reaction on key release. '''
         if event.key == pg.K_RIGHT:
             self.player_ship.moving_right = False
-        elif event.key == pg.K_LEFT:
+        if event.key == pg.K_LEFT:
             self.player_ship.moving_left = False
 
     def _check_mouse_events(self) -> None:
