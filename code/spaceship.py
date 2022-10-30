@@ -28,6 +28,7 @@ class Spaceship(Sprite):
         self.image: Surface = pg.image.load(ship_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
+        self.rect.y -= 20
 
         # Position is represented as a float - more accurate position tracking.
         self.x: float = float(self.rect.x)
@@ -48,6 +49,7 @@ class Spaceship(Sprite):
     def centre_spaceship(self) -> None:
         ''' Place the spaceship in the centre of the screen. '''
         self.rect.midbottom = self.screen_rect.midbottom
+        self.rect.y -= 20
         self.x = float(self.rect.x)
 
     def draw_spaceship(self) -> None:

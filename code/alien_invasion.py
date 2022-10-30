@@ -36,10 +36,11 @@ class AlienInvasion():
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.25)
-        # pg.mixer.music.play(-1)
+        pg.mixer.music.play(-1)
 
         self.clock = pg.time.Clock()
         self.game_active: bool = False
+        self.game_paused: bool = False
 
         self.settings: Settings = Settings()
         # self.screen: Surface = pg.display.set_mode(
@@ -109,6 +110,13 @@ class AlienInvasion():
             self.menu.return_to_menu()
         if event.key == pg.K_q:
             sys.exit()
+        if event.key == pg.K_p:
+            self._pause_game()
+
+    def _pause_game(self) -> None:
+        ''' Pause the game if the gameplay is active. '''
+        if self.game_active:
+            self.game_paused = not self.game_paused
 
     def _check_keyup_events(self, event) -> None:
         ''' Reaction on key release. '''
@@ -159,7 +167,7 @@ class AlienInvasion():
         set the player's ship to the screen centre, set the star's speed
         to default, and return to the menu.
         '''
-        if self.game_active:
+        if self.game_active and not self.game_paused:
             self.player_bullets.empty()
             self.aliens_bullets.empty()
             self.aliens_ships.empty()
@@ -365,21 +373,23 @@ class AlienInvasion():
         self.screen.fill(self.settings.background_color)
         self._update_stars()
         self.stars.draw(self.screen)
-        self.player_ship.draw_spaceship()
 
-        if self.game_active is True:
+        if self.game_paused:
+            self.menu.draw_pause()
+        elif self.game_active:
             self.scoreboard.show_scoreboard_and_stats()
             self.player_ship.update()
+            self.player_ship.draw_spaceship()
             self._update_aliens()
             self.aliens_ships.draw(self.screen)
             self._alien_fire_bullet()
             self._update_bullets()
-
             for player_bullet in self.player_bullets.sprites():
                 player_bullet.draw_bullet()  # type: ignore
             for alien_bullet in self.aliens_bullets.sprites():
                 alien_bullet.draw_bullet()  # type: ignore
         else:
+            self.player_ship.draw_spaceship()
             self.menu.draw_menu()
 
         pg.display.flip()  # Update of the screen.

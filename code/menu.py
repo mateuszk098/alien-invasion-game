@@ -3,6 +3,7 @@ General module with menu management implementation.
 '''
 
 import textwrap
+from turtle import back
 
 import pygame as pg
 from pygame.surface import Surface
@@ -14,6 +15,7 @@ from button import Button
 class Menu():
 
     __GAME_TITLE_TEXT: str = 'Aliens Invasion!'
+    __PAUSE_TEXT: str = 'PAUSE'
     __HELP_TEXT: str = 'Welcome to Aliens Invasion! The Milky Way has been attacked by '\
         'hostile creatures. You have been chosen by the Starfleet general to be the '\
         'captain of the "Eagle 2" spaceship. The Eagle 2 is the best spaceship of Starfleet '\
@@ -23,7 +25,7 @@ class Menu():
         'centre. Press "g" or click "Play" to go on the mission. Press "r" during the mission '\
         'to return to the base. Press "s" or click "Settings" to travel to a more dangerous part of the '\
         'galaxy. Press "1", "2" or "3" being in settings to choose your mission or click appropriate option. '\
-        'Press "q" or click "Exit" to give up.'
+        'Press "p" to pause the current mission. Press "q" or click "Exit" to give up.'
 
     def __init__(self, ai_game) -> None:
         ''' Initialize menu buttons in the game. '''
@@ -101,6 +103,19 @@ class Menu():
             line_rect.y = 60 + line_number*text_vertical_offset
 
             self.screen.blit(line_img, line_rect)
+
+    def draw_pause(self) -> None:
+        ''' Displays the PAUSE message on the screen. '''
+        text: str = self.__PAUSE_TEXT
+        color = self.help_text_color
+        background = self.settings.background_color
+
+        pause_img = self.game_title_font.render(text, True, color, background)
+        pause_rect = pause_img.get_rect()
+        pause_rect.centerx = self.screen_rect.centerx
+        pause_rect.centery = self.screen_rect.centery
+
+        self.screen.blit(pause_img, pause_rect)
 
     def check_play_button(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the play button is pressed by mouse. '''
