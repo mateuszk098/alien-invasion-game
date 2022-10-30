@@ -13,7 +13,7 @@ from pygame.rect import Rect
 class PlayerBullet(Sprite):
     ''' Represents bullet fired by a player's spaceship. '''
 
-    __PLAYER_BULLET_IMG: str = '../images/player_bullet.png'
+    __PLAYER_BULLET_IMG: str = '../images/bullets/player_bullet.png'
     __FIRE_SOUND_PATH: str = '../sounds/fire.wav'
 
     def __init__(self, ai_game) -> None:
@@ -44,7 +44,7 @@ class PlayerBullet(Sprite):
 class AlienBullet(Sprite):
     ''' Represents bullet fired by alien's ship. '''
 
-    __ALIEN_BULLET_PATH: str = '../images/alien_bullet.png'
+    __ALIEN_BULLET_PATH: str = '../images/bullets/alien_bullet.png'
 
     def __init__(self, ai_game) -> None:
         ''' Create a bullet in the position of a randomly selected alien's ship. '''

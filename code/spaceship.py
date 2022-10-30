@@ -11,10 +11,10 @@ from pygame.rect import Rect
 class Spaceship(Sprite):
     ''' Class representing player's spaceship. '''
 
-    __RESIZED_SHIP: str = '../images/spaceship_resized.png'
-    __NORMAL_SHIP: str = '../images/spaceship.png'
+    __RESIZED_SHIP: str = '../images/player_ships/SF02_resized.png'
+    __NORMAL_SHIP: str = '../images/player_ships/SF02.png'
 
-    def __init__(self, ai_game, resized=False) -> None:
+    def __init__(self, ai_game, resized: bool = False) -> None:
         ''' Initialization of spaceship and its initial position. '''
         super().__init__()
         self.screen: Surface = ai_game.screen

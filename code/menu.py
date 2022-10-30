@@ -53,7 +53,7 @@ class Menu():
         self.help_text_font = pg.font.SysFont('freesansbold', 36)
 
         self.game_title_color = pg.Color(255, 255, 255)
-        self.game_title_font = pg.font.SysFont('freesansbols', 72)
+        self.game_title_font = pg.font.SysFont('freesansbols', 128)
 
     def draw_menu(self) -> None:
         ''' Draws the current menu state on the screen. '''
@@ -137,7 +137,7 @@ class Menu():
             return True
         return False
 
-    def check_exit_from_settings(self, mouse_pos) -> bool:
+    def check_exit_from_settings(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the exit from settings button is pressed by mouse. '''
         back_btn_pressed: bool = self.back_button.rect.collidepoint(mouse_pos)
         if back_btn_pressed and self.settings_active:

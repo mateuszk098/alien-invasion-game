@@ -23,11 +23,12 @@ class Settings():
         # Settings related to bullet.
         self.player_bullet_speed: float = 0.75*self.dt
         self.player_allowed_bullets: int = 4
-        self.alien_bullet_speed: float = 0.3*self.dt
+        self.alien_bullet_speed: float = 0.35*self.dt
         self.alien_allowed_bullets: int = 2
 
         # Settings related to alien ship.
-        self.alien_ship_speed: float = 0.2*self.dt
+        self.alien_ship_model: int = 2
+        self.alien_ship_speed: float = 0.25*self.dt
         self.aliens_fleet_drop_speed: int = 2*self.dt
         self.points_for_alien: int = 50
         self.aliens_fleet_direction: int = 1  # Right movement "1", left movement "-1".
@@ -35,7 +36,7 @@ class Settings():
         # Settings related to stars.
         self.stars_per_row: int = 10
         self.stars_rows: int = 10
-        self.star_speed: float = 0.2*self.dt
+        self.star_speed: float = 0.25*self.dt
 
         # Settings related to gameplay.
         self.space_between_aliens: int = 3
@@ -46,11 +47,11 @@ class Settings():
         ''' Reset settings, which can change dynamically during the game. '''
         self.player_ship_speed = 0.75*self.dt
         self.player_bullet_speed = 0.75*self.dt
-        self.alien_ship_speed = 0.2*self.dt
-        self.alien_bullet_speed = 0.3*self.dt
+        self.alien_ship_speed = 0.25*self.dt
+        self.alien_bullet_speed = 0.35*self.dt
         self.points_for_alien = 50
         self.aliens_fleet_direction = 1
-        self.star_speed = 0.2*self.dt
+        self.star_speed = 0.25*self.dt
 
     def increase_gameplay_speed(self) -> None:
         ''' Increase gameplay speed. '''
@@ -67,18 +68,21 @@ class Settings():
             self.player_ships_limit = 3
             self.player_allowed_bullets = 5
             self.alien_allowed_bullets = 1
+            self.alien_ship_model = 1
             self.space_between_aliens = 4
             self.aliens_fleet_drop_speed = self.dt
         elif mode == 2:  # Medium
             self.player_ships_limit = 2
             self.player_allowed_bullets = 4
             self.alien_allowed_bullets = 2
+            self.alien_ship_model = 2
             self.space_between_aliens = 3
             self.aliens_fleet_drop_speed = 2*self.dt
         elif mode == 3:  # Hard
             self.player_ships_limit = 1
             self.player_allowed_bullets = 3
             self.alien_allowed_bullets = 3
+            self.alien_ship_model = 3
             self.space_between_aliens = 2
             self.aliens_fleet_drop_speed = 3*self.dt
 

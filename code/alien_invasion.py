@@ -36,20 +36,20 @@ class AlienInvasion():
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.25)
-        pg.mixer.music.play(-1)
+        # pg.mixer.music.play(-1)
 
         self.clock = pg.time.Clock()
         self.game_active: bool = False
 
         self.settings: Settings = Settings()
-        self.screen: Surface = pg.display.set_mode(
-            (self.settings.screen_width, self.settings.screen_height))
-        self.screen_rect: Rect = self.screen.get_rect()
-        # Full screen.
-        # self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
+        # self.screen: Surface = pg.display.set_mode(
+        #     (self.settings.screen_width, self.settings.screen_height))
         # self.screen_rect: Rect = self.screen.get_rect()
-        # self.settings.screen_width = self.screen_rect.width
-        # self.settings.screen_height = self.screen_rect.height
+        # Full screen.
+        self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
+        self.screen_rect: Rect = self.screen.get_rect()
+        self.settings.screen_width = self.screen_rect.width
+        self.settings.screen_height = self.screen_rect.height
 
         self.menu: Menu = Menu(self)
         self.stats: GameStats = GameStats(self)
@@ -239,16 +239,16 @@ class AlienInvasion():
         Creates new aliens' fleet considering available screen width,
         screen height, screen margin and space between aliens.
         '''
-        alien: Alien = Alien(self)
+        alien: Alien = Alien(self, self.settings.alien_ship_model)
         space: int = self.settings.space_between_aliens
 
         alien_width: int = alien.rect.width
-        available_space_x: int = self.settings.screen_width - (4*alien_width)
+        available_space_x: int = 2*self.settings.screen_width // 3
         number_aliens_x: int = available_space_x // (space*alien_width)
 
         alien_height: int = alien.rect.height
-        available_space_y: int = self.settings.screen_height // 2
-        number_rows: int = available_space_y // (2*alien_height)
+        available_space_y: int = self.settings.screen_height // 3
+        number_rows: int = available_space_y // (3*alien_height // 2)
 
         # Create the fleet
         for row_number in range(number_rows):
@@ -260,13 +260,13 @@ class AlienInvasion():
         Create a new alien ship in the specified (x,y) position and add
         it to the appropriate group. 
         '''
-        alien: Alien = Alien(self)
+        alien: Alien = Alien(self, self.settings.alien_ship_model)
         space: int = self.settings.space_between_aliens
         alien_width: int = alien.rect.width
         alien_height: int = alien.rect.height
         alien.x = alien_width + space*alien_width*alien_number
         alien.rect.x = alien.x
-        alien.rect.y = 2*alien.rect.height + 2*alien_height*row_number
+        alien.rect.y = 3*alien.rect.height + (3*alien_height*row_number // 2)
         self.aliens_ships.add(alien)
 
     def _update_aliens(self) -> None:

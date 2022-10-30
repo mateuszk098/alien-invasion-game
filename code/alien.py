@@ -11,15 +11,16 @@ from pygame.rect import Rect
 class Alien(Sprite):
     ''' Class representing an individual alien ship. '''
 
-    __ALIEN_PATH: str = '../images/alienship.png'
+    __ALIENS: tuple[str, ...] = ("Spaceship_03_ORANGE.png", "Spaceship_04_ORANGE.png", "Spaceship_05_ORANGE.png")
 
-    def __init__(self, ai_game) -> None:
+    def __init__(self, ai_game, ship_model: int = 2) -> None:
         ''' Initialise the alien ship. '''
         super().__init__()
         self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
-        self.image: Surface = pg.image.load(self.__ALIEN_PATH).convert_alpha()
+        alien_path: str = f"../images/aliens_ships/{self.__ALIENS[ship_model - 1]}"
+        self.image: Surface = pg.image.load(alien_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
         # Place the alien ship near the top-left screen edge.

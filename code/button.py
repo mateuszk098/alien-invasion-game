@@ -31,7 +31,7 @@ class Button():
         self.msg_image_rect: Rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
 
-    def draw_button(self, is_pressed=False) -> None:
+    def draw_button(self, is_pressed: bool = False) -> None:
         ''' Draws a button rect with the message on the screen. '''
         current_color = self.released_color
         if is_pressed is True:

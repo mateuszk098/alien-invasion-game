@@ -21,7 +21,7 @@ class Scoreboard():
         self.stats = ai_game.stats
 
         self.text_color = pg.Color(255, 255, 255)
-        self.text_font = pg.font.SysFont('freesansbold', 36)
+        self.text_font = pg.font.SysFont('freesansbold', 48)
 
         self.prepare_current_score()
         self.prepare_highest_score()
