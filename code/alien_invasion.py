@@ -231,7 +231,7 @@ class AlienInvasion():
             self.player_bullets, self.aliens_bullets, True, True)
 
         # Collision between alien's bullet and player's spaceship.
-        if pg.sprite.spritecollideany(self.player_ship, self.aliens_bullets) is not None:
+        if pg.sprite.spritecollideany(self.player_ship, self.aliens_bullets):
             self._ship_hit()
 
         if player_bullet_and_alien_ship:

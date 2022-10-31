@@ -25,7 +25,7 @@ class Star(Sprite):
         self.settings = ai_game.settings
 
         # Load the random star.
-        star_path: str = f'../images/stars/{random.choice(self.__STARS_NAMES)}'
+        star_path: str = f'../assets/stars/{random.choice(self.__STARS_NAMES)}'
         self.image: Surface = pg.image.load(star_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 

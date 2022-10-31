@@ -19,7 +19,7 @@ class Alien(Sprite):
         self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
-        alien_path: str = f"../images/aliens_ships/{self.__ALIENS[ship_model - 1]}"
+        alien_path: str = f"../assets/aliens_ships/{self.__ALIENS[ship_model - 1]}"
         self.image: Surface = pg.image.load(alien_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
