@@ -11,7 +11,7 @@ from pygame.rect import Rect
 class Alien(Sprite):
     ''' Class representing an individual alien ship. '''
 
-    __ALIENS: tuple[str, ...] = ("Spaceship_03_ORANGE.png", "Spaceship_04_ORANGE.png", "Spaceship_05_ORANGE.png")
+    __ALIENS: tuple[str, ...] = ("perseus_arm_alien.png", "outer_arm_alien.png", "norma_arm_alien.png")
 
     def __init__(self, ai_game, ship_model: int = 2) -> None:
         ''' Initialise the alien ship. '''
@@ -46,7 +46,7 @@ class Alien(Sprite):
 class AliensGeneral():
     ''' Class representing the alien boss ship. '''
 
-    __BOSSES: tuple[str, ...] = ("spaceship1.png", "spaceship3.png", "spaceship55.png")
+    __BOSSES: tuple[str, ...] = ("perseus_arm_general.png", "outer_arm_general.png", "norma_arm_general.png")
 
     def __init__(self, ai_game, ship_model: int = 2) -> None:
         ''' Initialise the boss ship. '''
@@ -58,16 +58,18 @@ class AliensGeneral():
         self.image: Surface = pg.image.load(boss_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
-        # Place the boss in the centre.
+        # Place the boss in the screen centre.
         self.rect.centerx = self.screen_rect.centerx
         self.rect.centery = self.settings.screen_height // 3
         self.x: float = float(self.rect.x)
 
-        self.life_bar_color: tuple[int, ...] = (255, 255, 255)
-        self.life_bar_rect = pg.Rect(0, 0, 200, 15)
+        self.life_bar_color = pg.Color("Red")
+        self.life_outline_bar_color = pg.Color("White")
+        self.life_bar_rect: Rect = pg.Rect(0, 0, self.settings.aliens_general_life_points, 15)
+
+        # Place the life bar above the boss ship.
         self.life_bar_rect.centerx = self.rect.centerx
         self.life_bar_rect.y = self.rect.top - 20
-        self.bar_x: float = float(self.life_bar_rect.x)
 
     def check_left_right_screen_edge(self) -> bool:
         ''' 
@@ -83,9 +85,11 @@ class AliensGeneral():
         self.x += self.settings.aliens_general_ship_speed*self.settings.aliens_fleet_direction
         self.rect.x = int(self.x)
 
-        self.bar_x += self.settings.aliens_general_ship_speed*self.settings.aliens_fleet_direction
-        self.life_bar_rect.x = int(self.bar_x)
+        self.life_bar_rect = pg.Rect(0, 0, self.settings.aliens_general_life_points, 15)
+        self.life_bar_rect.centerx = self.rect.centerx
+        self.life_bar_rect.y = self.rect.top - 20
 
     def draw(self) -> None:
         self.screen.blit(self.image, self.rect)
         pg.draw.rect(self.screen, self.life_bar_color, self.life_bar_rect)  # type: ignore
+        pg.draw.rect(self.screen, self.life_outline_bar_color, self.life_bar_rect, 2)
