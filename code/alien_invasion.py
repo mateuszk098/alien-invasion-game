@@ -18,6 +18,7 @@ from settings import Settings
 from bullet import PlayerBullet
 from bullet import AlienBullet
 from alien import Alien
+from alien import AliensGeneral
 from star import Star
 from menu import Menu
 
@@ -36,21 +37,22 @@ class AlienInvasion():
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.25)
-        pg.mixer.music.play(-1)
+        # pg.mixer.music.play(-1)
 
         self.clock = pg.time.Clock()
         self.game_active: bool = False
         self.game_paused: bool = False
+        self.final_level_achieved: bool = False
 
         self.settings: Settings = Settings()
-        # self.screen: Surface = pg.display.set_mode(
-        #     (self.settings.screen_width, self.settings.screen_height))
-        # self.screen_rect: Rect = self.screen.get_rect()
-        # Full screen.
-        self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
+        self.screen: Surface = pg.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
         self.screen_rect: Rect = self.screen.get_rect()
-        self.settings.screen_width = self.screen_rect.width
-        self.settings.screen_height = self.screen_rect.height
+        # Full screen.
+        # self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
+        # self.screen_rect: Rect = self.screen.get_rect()
+        # self.settings.screen_width = self.screen_rect.width
+        # self.settings.screen_height = self.screen_rect.height
 
         self.menu: Menu = Menu(self)
         self.stats: GameStats = GameStats(self)
@@ -176,6 +178,7 @@ class AlienInvasion():
             self.menu.return_to_menu()
             pg.mouse.set_visible(True)
             self.game_active = False
+            self.final_level_achieved = False
 
     def _player_fire_bullet(self) -> None:
         ''' If possible, create a new player's bullet and add it to the aliens_bullets group. '''
@@ -215,14 +218,30 @@ class AlienInvasion():
         calculation after shooting the alien ship and for game speedup if we have
         shot every alien.
         '''
+        if not self.final_level_achieved and self.stats.current_level == self.settings.final_level:
+            self.player_bullets.empty()
+            self.aliens_bullets.empty()
+            self.aliens_ships.empty()
+            self.aliens_general: AliensGeneral = AliensGeneral(self)
+            self.final_level_achieved = True
+
         # Create a new fleet with a gameplay speedup.
-        if not self.aliens_ships:
+        if not self.aliens_ships and not self.final_level_achieved:
             self.player_bullets.empty()
             self.aliens_bullets.empty()
             self.settings.increase_gameplay_speed()
             self.stats.current_level += 1
             self.scoreboard.prepare_current_level()
             self._create_fleet()
+
+        if self.final_level_achieved:
+            for bullet in self.player_bullets.copy():
+                if pg.sprite.collide_rect(self.aliens_general, bullet):  # type: ignore
+                    self.player_bullets.remove(bullet)
+                    self.settings.aliens_general_life_points -= 1
+
+        if self.settings.aliens_general_life_points == 0:
+            self._reset_game()
 
         player_bullet_and_alien_ship: dict[Sprite, Sprite] = pg.sprite.groupcollide(
             self.player_bullets, self.aliens_ships, True, True)  # True means to remove object.
@@ -277,6 +296,12 @@ class AlienInvasion():
         alien.rect.y = 3*alien.rect.height + (3*alien_height*row_number // 2)
         self.aliens_ships.add(alien)
 
+    def _update_aliens_general(self) -> None:
+        if self.aliens_general.check_left_right_screen_edge():
+            self._change_fleet_direction()
+        self.aliens_general.update()
+        self.aliens_general.draw()
+
     def _update_aliens(self) -> None:
         '''
         Updates all aliens' ships' positions on the screen and checks if there 
@@ -326,12 +351,14 @@ class AlienInvasion():
         if self.stats.remaining_player_ships > 0:
             self.stats.remaining_player_ships -= 1
             self.scoreboard.prepare_remaining_player_ships()
-            self._create_fleet()
+            if not self.final_level_achieved:
+                self._create_fleet()
         else:
             self.settings.reset_gameplay_speedup()
             self.menu.return_to_menu()
             pg.mouse.set_visible(True)
             self.game_active = False
+            self.final_level_achieved = False
 
         sleep(1.0)
 
@@ -380,14 +407,21 @@ class AlienInvasion():
             self.scoreboard.show_scoreboard_and_stats()
             self.player_ship.update()
             self.player_ship.draw_spaceship()
-            self._update_aliens()
-            self.aliens_ships.draw(self.screen)
-            self._alien_fire_bullet()
+
+            if not self.final_level_achieved:
+                self._update_aliens()
+                self.aliens_ships.draw(self.screen)
+                self._alien_fire_bullet()
+
             self._update_bullets()
             for player_bullet in self.player_bullets.sprites():
                 player_bullet.draw_bullet()  # type: ignore
             for alien_bullet in self.aliens_bullets.sprites():
                 alien_bullet.draw_bullet()  # type: ignore
+
+            if self.final_level_achieved:
+                self._update_aliens_general()
+                self._alien_fire_bullet()
         else:
             self.player_ship.draw_spaceship()
             self.menu.draw_menu()

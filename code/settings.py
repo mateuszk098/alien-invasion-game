@@ -33,6 +33,14 @@ class Settings():
         self.points_for_alien: int = 50
         self.aliens_fleet_direction: int = 1  # Right movement "1", left movement "-1".
 
+        # Settings related to aliens' general ship.
+        self.aliens_general_ship_model: int = 2
+        self.aliens_general_ship_speed: float = 0.75*self.dt
+        self.points_for_aliens_general: int = 50_000
+        self.aliens_general_bullet_speed: float = 0.75*self.dt
+        self.aliens_general_allowed_bullets: int = 2
+        self.aliens_general_life_points: int = 5
+
         # Settings related to stars.
         self.stars_per_row: int = 10
         self.stars_rows: int = 10
@@ -42,6 +50,7 @@ class Settings():
         self.space_between_aliens: int = 3
         self.speedup_scale: float = 1.05
         self.score_scale: float = 1.05
+        self.final_level: int = 2
 
     def reset_gameplay_speedup(self) -> None:
         ''' Reset settings, which can change dynamically during the game. '''
@@ -52,6 +61,7 @@ class Settings():
         self.points_for_alien = 50
         self.aliens_fleet_direction = 1
         self.star_speed = 0.25*self.dt
+        self.aliens_general_life_points = 5
 
     def increase_gameplay_speed(self) -> None:
         ''' Increase gameplay speed. '''

@@ -55,8 +55,11 @@ class AlienBullet(Sprite):
         self.image: Surface = pg.image.load(self.__ALIEN_BULLET_PATH).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
-        random_alien = random.choice(list(ai_game.aliens_ships))
-        self.rect.midbottom = random_alien.rect.midbottom
+        if ai_game.aliens_ships:
+            chosen_alien = random.choice(list(ai_game.aliens_ships))
+        else:
+            chosen_alien = ai_game.aliens_general
+        self.rect.midbottom = chosen_alien.rect.midbottom
         self.y: float = float(self.rect.y)
 
     def update(self, *args, **kwargs) -> None:
