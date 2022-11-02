@@ -44,6 +44,7 @@ class AlienInvasion():
         self.game_active: bool = False
         self.game_paused: bool = False
         self.final_level_achieved: bool = False
+        self.game_complete: bool = False
 
         self.settings: Settings = Settings()
         # self.screen: Surface = pg.display.set_mode(
@@ -111,6 +112,7 @@ class AlienInvasion():
             self.menu.show_help()
         if event.key == pg.K_ESCAPE:
             self.menu.return_to_menu()
+            self.game_complete = False
         if event.key == pg.K_q:
             sys.exit()
         if event.key == pg.K_p:
@@ -149,7 +151,7 @@ class AlienInvasion():
         If not game_active, resets current statistics, prepares scoreboard
         and aliens fleet and starts the game.
         '''
-        if not self.game_active:  # Due to the possibility of "g" press.
+        if not self.game_active and not self.game_complete:  # Due to the possibility of "g" press.
             self.stats.reset_stats()
             self.scoreboard.prepare_current_score()
             self.scoreboard.prepare_current_level()
@@ -276,6 +278,7 @@ class AlienInvasion():
                     self.player_bullets.remove(bullet)
                     self.settings.aliens_general_life_points -= self.settings.player_bullet_points
                 if self.settings.aliens_general_life_points <= 0:
+                    self.game_complete = True
                     self._reset_game()
 
         # Collision between alien's ship and player's bullet.
@@ -429,8 +432,10 @@ class AlienInvasion():
         self._update_stars()
         self.stars.draw(self.screen)
 
-        if self.game_paused:
-            self.menu.draw_pause()
+        if self.game_complete:
+            self.menu.draw_multiline_msg("congrats")
+        elif self.game_paused:
+            self.menu.draw_oneline_msg("pause")
         elif self.game_active:
             self._update_game()
         else:

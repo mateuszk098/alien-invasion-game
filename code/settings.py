@@ -21,7 +21,7 @@ class Settings():
         self.player_ship_speed: float = 0.75*self.dt
         self.player_allowed_bullets: int = 4
         self.player_bullet_speed: float = 0.75*self.dt
-        self.player_bullet_points: int = 2
+        self.player_bullet_points: int = 3
 
         # Settings related to aliens' ship and bullets.
         self.alien_ship_model: int = 2
@@ -48,7 +48,7 @@ class Settings():
         self.space_between_aliens: int = 3
         self.speedup_scale: float = 1.05
         self.score_scale: float = 1.05
-        self.final_level: int = 2
+        self.final_level: int = 10
 
     def reset_gameplay_speedup(self) -> None:
         ''' Reset settings, which can change dynamically during the game. '''
@@ -75,7 +75,7 @@ class Settings():
         if mode == 1:  # Easy
             self.player_ships_limit = 3
             self.player_allowed_bullets = 5
-            self.player_bullet_points = 3
+            self.player_bullet_points = 4
             self.alien_ship_model = 1
             self.alien_allowed_bullets = 1
             self.aliens_fleet_drop_speed = self.dt
@@ -84,7 +84,7 @@ class Settings():
         elif mode == 2:  # Medium
             self.player_ships_limit = 2
             self.player_allowed_bullets = 4
-            self.player_bullet_points = 2
+            self.player_bullet_points = 3
             self.alien_ship_model = 2
             self.alien_allowed_bullets = 2
             self.aliens_fleet_drop_speed = 2*self.dt
@@ -93,7 +93,7 @@ class Settings():
         elif mode == 3:  # Hard
             self.player_ships_limit = 1
             self.player_allowed_bullets = 3
-            self.player_bullet_points = 1
+            self.player_bullet_points = 2
             self.alien_ship_model = 3
             self.alien_allowed_bullets = 3
             self.aliens_fleet_drop_speed = 3*self.dt

@@ -26,6 +26,9 @@ class Menu():
         'to return to the base. Press "s" or click "Settings" to travel to a more dangerous part of the '\
         'galaxy. Press "1", "2" or "3" being in settings to choose your mission or click appropriate option. '\
         'Press "p" to pause the current mission. Press "q" or click "Exit" to give up.'
+    __GAME_COMPLETION_TEXT: str = "Congratulations! You've defeated the aliens' general and saved "\
+        "Earth against alien invasion. The Starfleet general awarded you with the medal of courage, "\
+        "and the president honoured you as a hero of the nation."
 
     def __init__(self, ai_game) -> None:
         ''' Initialize menu buttons in the game. '''
@@ -51,8 +54,14 @@ class Menu():
         self.medium_btn_pressed: bool = False
         self.hard_btn_pressed: bool = False
 
+        self.text_color = pg.Color(255, 255, 255)
+        self.text_large_font = pg.font.SysFont('freesansbols', 128)
+        self.text_small_font = pg.font.SysFont('freesansbold', 36)
+        self.texts: dict[str, str] = {"title": self.__GAME_TITLE_TEXT, "pause": self.__PAUSE_TEXT,
+                                      "help": self.__HELP_TEXT, "congrats": self.__GAME_COMPLETION_TEXT}
+
         self.help_text_color = pg.Color(255, 255, 255)
-        self.help_text_font = pg.font.SysFont('freesansbold', 36)
+        self.help_text_font = pg.font.SysFont('freesansbold', 42)
 
         self.game_title_color = pg.Color(255, 255, 255)
         self.game_title_font = pg.font.SysFont('freesansbols', 128)
@@ -60,7 +69,7 @@ class Menu():
     def draw_menu(self) -> None:
         ''' Draws the current menu state on the screen. '''
         if self.menu_active:
-            self.draw_title()
+            self.draw_oneline_msg("title", False)
             self.play_button.draw_button()
             self.settings_button.draw_button()
             self.exit_button.draw_button()
@@ -73,25 +82,27 @@ class Menu():
             self.back_button.draw_button()
 
         if self.help_active:
-            self.draw_help()
+            self.draw_multiline_msg("help")
 
-    def draw_title(self) -> None:
-        ''' Displays the game title on the screen. '''
-        text: str = self.__GAME_TITLE_TEXT
-        color = self.game_title_color
+    def draw_oneline_msg(self, text_to_draw: str, ycentre: bool = True, ypos: int = 150) -> None:
+        text: str = self.texts.get(text_to_draw, "No such key.")
+        color = self.text_color
         background = self.settings.background_color
 
-        title_img = self.game_title_font.render(text, True, color, background)
-        title_rect = title_img.get_rect()
-        title_rect.centerx = self.screen_rect.centerx
-        title_rect.y = 100
+        text_img = self.text_large_font.render(text, True, color, background)
+        text_rect = text_img.get_rect()
+        text_rect.centerx = self.screen_rect.centerx
 
-        self.screen.blit(title_img, title_rect)
+        if ycentre:
+            text_rect.centery = self.screen_rect.centery
+        else:
+            text_rect.y = ypos
 
-    def draw_help(self, text_vertical_offset: int = 36) -> None:
-        ''' Displays the help message on the screen. '''
-        text: str = self.__HELP_TEXT
-        color = self.help_text_color
+        self.screen.blit(text_img, text_rect)
+
+    def draw_multiline_msg(self, text_to_draw: str, text_vertical_offset: int = 42) -> None:
+        text: str = self.texts.get(text_to_draw, "No such key.")
+        color = self.text_color
         background = self.settings.background_color
 
         text_lines: list[str] = textwrap.wrap(text, 60)
@@ -100,22 +111,9 @@ class Menu():
             line_img = self.help_text_font.render(text_line, True, color, background)
             line_rect = line_img.get_rect()
             line_rect.centerx = self.screen_rect.centerx
-            line_rect.y = 60 + line_number*text_vertical_offset
+            line_rect.y = 150 + line_number*text_vertical_offset
 
             self.screen.blit(line_img, line_rect)
-
-    def draw_pause(self) -> None:
-        ''' Displays the PAUSE message on the screen. '''
-        text: str = self.__PAUSE_TEXT
-        color = self.help_text_color
-        background = self.settings.background_color
-
-        pause_img = self.game_title_font.render(text, True, color, background)
-        pause_rect = pause_img.get_rect()
-        pause_rect.centerx = self.screen_rect.centerx
-        pause_rect.centery = self.screen_rect.centery
-
-        self.screen.blit(pause_img, pause_rect)
 
     def check_play_button(self, mouse_pos: tuple[int, int]) -> bool:
         ''' Checks if the play button is pressed by mouse. '''
