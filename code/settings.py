@@ -35,7 +35,6 @@ class Settings():
         # Settings related to aliens' general ship.
         self.aliens_general_ship_model: int = 2
         self.aliens_general_ship_speed: float = 0.5*self.dt
-        self.aliens_general_allowed_bullets: int = 2
         self.aliens_general_bullet_speed: float = 0.75*self.dt
         self.aliens_general_life_points: int = 200
         self.points_for_aliens_general: int = 50_000

@@ -80,6 +80,16 @@ class AliensGeneral():
             return True
         return False
 
+    def reset_aliens_general_ship(self) -> None:
+        ''' Reset aliens' general ship position and its life bar. '''
+        self.rect.centerx = self.screen_rect.centerx
+        self.rect.centery = self.settings.screen_height // 3
+        self.x = float(self.rect.x)
+
+        self.settings.aliens_general_life_points = 200
+        self.life_bar_rect.centerx = self.rect.centerx
+        self.life_bar_rect.y = self.rect.top - 20
+
     def update(self, *args, **kwargs) -> None:
         ''' Updates alien ship x-position by speed displacement defined in settings. '''
         self.x += self.settings.aliens_general_ship_speed*self.settings.aliens_fleet_direction

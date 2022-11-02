@@ -22,7 +22,7 @@ class Spaceship(Sprite):
         self.settings = ai_game.settings
 
         ship_path: str = self.__NORMAL_SHIP
-        if resized is True:
+        if resized:
             ship_path = self.__RESIZED_SHIP
 
         self.image: Surface = pg.image.load(ship_path).convert_alpha()
@@ -37,11 +37,11 @@ class Spaceship(Sprite):
 
     def update(self, *args, **kwargs) -> None:
         ''' Update the spaceship x-position by its speed defined in settings. '''
-        if self.moving_right is True and self.rect.right < self.screen_rect.right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.player_ship_speed
 
         # Usage of elif - priority for moving right.
-        if self.moving_left is True and self.rect.left > 0:
+        if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.player_ship_speed
 
         self.rect.x = int(self.x)

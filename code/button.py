@@ -34,7 +34,7 @@ class Button():
     def draw_button(self, is_pressed: bool = False) -> None:
         ''' Draws a button rect with the message on the screen. '''
         current_color = self.released_color
-        if is_pressed is True:
+        if is_pressed:
             current_color = self.pressed_color
 
         self.screen.fill(current_color, self.rect)
