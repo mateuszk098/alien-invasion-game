@@ -1,6 +1,6 @@
-'''
+"""
 General module with the player's spaceship implementation.
-'''
+"""
 
 import pygame as pg
 from pygame.sprite import Sprite
@@ -9,13 +9,13 @@ from pygame.rect import Rect
 
 
 class Spaceship(Sprite):
-    ''' Class representing player's spaceship. '''
+    """ Class representing player's spaceship. """
 
-    __RESIZED_SHIP: str = '../assets/player_ships/SF02_resized.png'
-    __NORMAL_SHIP: str = '../assets/player_ships/SF02.png'
+    __RESIZED_SHIP: str = "../assets/player_ships/SF02_resized.png"
+    __NORMAL_SHIP: str = "../assets/player_ships/SF02.png"
 
     def __init__(self, ai_game, resized: bool = False) -> None:
-        ''' Initialization of spaceship and its initial position. '''
+        """ Initialization of spaceship and its initial position. """
         super().__init__()
         self.screen: Surface = ai_game.screen
         self.screen_rect: Rect = ai_game.screen_rect
@@ -36,7 +36,7 @@ class Spaceship(Sprite):
         self.moving_left: bool = False
 
     def update(self, *args, **kwargs) -> None:
-        ''' Update the spaceship x-position by its speed defined in settings. '''
+        """ Update the spaceship x-position by its speed defined in settings. """
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.player_ship_speed
 
@@ -47,11 +47,11 @@ class Spaceship(Sprite):
         self.rect.x = int(self.x)
 
     def centre_spaceship(self) -> None:
-        ''' Place the spaceship in the centre of the screen. '''
+        """ Place the spaceship in the centre of the screen. """
         self.rect.midbottom = self.screen_rect.midbottom
         self.rect.y -= 20
         self.x = float(self.rect.x)
 
     def draw_spaceship(self) -> None:
-        ''' Displays the spaceship in current position on the screen. '''
+        """ Displays the spaceship in current position on the screen. """
         self.screen.blit(self.image, self.rect)

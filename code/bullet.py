@@ -1,6 +1,6 @@
-'''
+"""
 General file representing bullet.
-'''
+"""
 
 import random
 
@@ -11,13 +11,13 @@ from pygame.rect import Rect
 
 
 class PlayerBullet(Sprite):
-    ''' Represents bullet fired by a player's spaceship. '''
+    """ Represents bullet fired by a player's spaceship. """
 
-    __PLAYER_BULLET_IMG: str = '../assets/bullets/player_bullet.png'
-    __FIRE_SOUND_PATH: str = '../sounds/fire.wav'
+    __PLAYER_BULLET_IMG: str = "../assets/bullets/player_bullet.png"
+    __FIRE_SOUND_PATH: str = "../sounds/fire.wav"
 
     def __init__(self, ai_game) -> None:
-        ''' Create a bullet in the current spaceship position. '''
+        """ Create a bullet in the current spaceship position. """
         super().__init__()
         self.screen: Surface = ai_game.screen
         self.settings = ai_game.settings
@@ -32,22 +32,22 @@ class PlayerBullet(Sprite):
         self.y: float = float(self.rect.y)
 
     def update(self, *args, **kwargs) -> None:
-        ''' Bullet movement of the screen. '''
+        """ Bullet movement of the screen. """
         self.y -= self.settings.player_bullet_speed
         self.rect.y = int(self.y)
 
     def draw_bullet(self) -> None:
-        ''' Displays bullet on the screen. '''
+        """ Displays bullet on the screen. """
         self.screen.blit(self.image, self.rect)
 
 
 class AlienBullet(Sprite):
-    ''' Represents bullet fired by alien's ship. '''
+    """ Represents bullet fired by alien's ship. """
 
-    __ALIEN_BULLET_PATH: str = '../assets/bullets/alien_bullet.png'
+    __ALIEN_BULLET_PATH: str = "../assets/bullets/alien_bullet.png"
 
     def __init__(self, ai_game) -> None:
-        ''' Create a bullet in the position of a randomly selected alien's ship. '''
+        """ Create a bullet in the position of a randomly selected alien's ship. """
         super().__init__()
         self.screen: Surface = ai_game.screen
         self.settings = ai_game.settings
@@ -63,10 +63,10 @@ class AlienBullet(Sprite):
         self.y: float = float(self.rect.y)
 
     def update(self, *args, **kwargs) -> None:
-        ''' Bullet movement of the screen. '''
+        """ Bullet movement of the screen. """
         self.y += self.settings.alien_bullet_speed
         self.rect.y = int(self.y)
 
     def draw_bullet(self) -> None:
-        ''' Displays bullet on the screen. '''
+        """ Displays bullet on the screen. """
         self.screen.blit(self.image, self.rect)

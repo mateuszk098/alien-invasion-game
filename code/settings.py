@@ -1,15 +1,15 @@
-'''
+"""
 General module with a game settings related to gameplay.
-'''
+"""
 
 import pygame as pg
 
 
 class Settings():
-    ''' Holds all settings of gamplay. '''
+    """ Holds all settings of gamplay. """
 
     def __init__(self) -> None:
-        ''' Initialize settings of game. '''
+        """ Initialize settings of game. """
         self.screen_width: int = 1280
         self.screen_height: int = 720
         self.background_color = pg.Color(13, 12, 29)
@@ -35,9 +35,7 @@ class Settings():
         # Settings related to aliens' general ship.
         self.aliens_general_ship_model: int = 2
         self.aliens_general_ship_speed: float = 0.5*self.dt
-        self.aliens_general_bullet_speed: float = 0.75*self.dt
         self.aliens_general_life_points: int = 200
-        self.points_for_aliens_general: int = 50_000
 
         # Settings related to stars.
         self.stars_per_row: int = 10
@@ -48,10 +46,10 @@ class Settings():
         self.space_between_aliens: int = 3
         self.speedup_scale: float = 1.05
         self.score_scale: float = 1.05
-        self.final_level: int = 10
+        self.final_level: int = 15
 
     def reset_gameplay_speedup(self) -> None:
-        ''' Reset settings, which can change dynamically during the game. '''
+        """ Reset settings, which can change dynamically during the game. """
         self.player_ship_speed = 0.75*self.dt
         self.player_bullet_speed = 0.75*self.dt
         self.alien_ship_speed = 0.25*self.dt
@@ -62,7 +60,7 @@ class Settings():
         self.star_speed = 0.25*self.dt
 
     def increase_gameplay_speed(self) -> None:
-        ''' Increase gameplay speed. '''
+        """ Increase gameplay speed. """
         self.player_ship_speed *= self.speedup_scale
         self.player_bullet_speed *= self.speedup_scale
         self.alien_ship_speed *= self.speedup_scale
@@ -71,7 +69,7 @@ class Settings():
         self.star_speed *= self.speedup_scale
 
     def switch_difficulty(self, mode: int = 2) -> None:
-        ''' Choose game difficulty level. '''
+        """ Choose game difficulty level. """
         if mode == 1:  # Easy
             self.player_ships_limit = 3
             self.player_allowed_bullets = 5
@@ -101,7 +99,7 @@ class Settings():
             self.space_between_aliens = 2
 
     def reset_difficulty(self) -> None:
-        ''' Reset difficulty level to medium. '''
+        """ Reset difficulty level to medium. """
         self.player_ships_limit = 2
         self.player_allowed_bullets = 4
         self.player_bullet_points = 2
