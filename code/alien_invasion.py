@@ -15,8 +15,7 @@ from scoreboard import Scoreboard
 from game_stats import GameStats
 from spaceship import Spaceship
 from settings import Settings
-from bullet import PlayerBullet
-from bullet import AlienBullet
+from bullet import Bullet
 from alien import Alien
 from alien import AliensGeneral
 from star import Star
@@ -37,7 +36,7 @@ class AlienInvasion():
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.25)
-        pg.mixer.music.play(-1)
+        # pg.mixer.music.play(-1)
 
         self.clock = pg.time.Clock()
         self.game_active: bool = False
@@ -218,14 +217,14 @@ class AlienInvasion():
     def _player_fire_bullet(self) -> None:
         """ If possible, create a new player's bullet and add it to the player_bullets group. """
         if self.game_active and len(self.player_bullets) < self.settings.player_allowed_bullets:
-            player_bullet: PlayerBullet = PlayerBullet(self)
-            player_bullet.fire_sound.play()
+            player_bullet: Bullet = Bullet(self, "Player")
+            player_bullet.play_sound()
             self.player_bullets.add(player_bullet)
 
     def _alien_fire_bullet(self) -> None:
         """ If possible, create a new alien's bullet and add it to the aliens_bullets group. """
         if len(self.aliens_bullets) < self.settings.alien_allowed_bullets:
-            alien_bullet: AlienBullet = AlienBullet(self)
+            alien_bullet: Bullet = Bullet(self, "Alien")
             self.aliens_bullets.add(alien_bullet)
 
     def _update_bullets(self) -> None:
@@ -415,9 +414,9 @@ class AlienInvasion():
 
         self._update_bullets()
         for player_bullet in self.player_bullets.sprites():
-            player_bullet.draw_bullet()  # type: ignore
+            player_bullet.draw()  # type: ignore
         for alien_bullet in self.aliens_bullets.sprites():
-            alien_bullet.draw_bullet()  # type: ignore
+            alien_bullet.draw()  # type: ignore
 
         if self.final_level_achieved:
             self._update_aliens_general()
