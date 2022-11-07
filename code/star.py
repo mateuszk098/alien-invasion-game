@@ -1,5 +1,5 @@
 """
-General module with implementation of a star.
+This module provides a Star object. Stars perform a function of the moving background.
 """
 
 import random
@@ -11,7 +11,7 @@ from pygame.rect import Rect
 
 
 class Star(Sprite):
-    """ Class representing a individual star in the space. """
+    """Star object representing a individual star in the space."""
 
     __STARS_NAMES: tuple[str, ...] = ("star1.png", "star2.png", "star3.png", "star4.png",
                                       "star5.png", "star6.png", "star7.png", "star8.png",
@@ -20,7 +20,7 @@ class Star(Sprite):
                                       "star17.png", "star18.png", "star19.png", "star20.png")
 
     def __init__(self, ai_game) -> None:
-        """ Initialize a random star in a random position (but confined in the y direction). """
+        """Initialize a random star in a random position (but confined in the y direction)."""
         super().__init__()
         self.settings = ai_game.settings
 
@@ -29,13 +29,13 @@ class Star(Sprite):
         self.image: Surface = pg.image.load(star_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
-        # Place star at the top row.
+        # Initially the star is placed randomly but in the first row of the screen.
         self.rect.x = random.randint(0, self.settings.screen_width)
         self.rect.y = random.randint(0, self.settings.screen_height // self.settings.stars_rows)
 
         self.y: float = float(self.rect.y)
 
     def update(self, *args, **kwargs) -> None:
-        """ Update star y-position by its speed defined in settings. """
+        """Updates the star y-position by its speed defined in settings."""
         self.y += self.settings.star_speed
         self.rect.y = int(self.y)

@@ -45,14 +45,14 @@ class AlienInvasion():
         self.game_complete: bool = False
 
         self.settings: Settings = Settings()
-        # self.screen: Surface = pg.display.set_mode(
-        #     (self.settings.screen_width, self.settings.screen_height))
-        # self.screen_rect: Rect = self.screen.get_rect()
-        # Full screen.
-        self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
+        self.screen: Surface = pg.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
         self.screen_rect: Rect = self.screen.get_rect()
-        self.settings.screen_width = self.screen_rect.width
-        self.settings.screen_height = self.screen_rect.height
+        # Full screen.
+        # self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
+        # self.screen_rect: Rect = self.screen.get_rect()
+        # self.settings.screen_width = self.screen_rect.width
+        # self.settings.screen_height = self.screen_rect.height
 
         self.menu: Menu = Menu(self)
         self.stats: GameStats = GameStats(self)
@@ -154,7 +154,7 @@ class AlienInvasion():
             self.scoreboard.prepare_current_score()
             self.scoreboard.prepare_current_level()
             self.scoreboard.prepare_remaining_player_ships()
-            self.player_ship.centre_spaceship()
+            self.player_ship.set_center()
             self._create_fleet()
             pg.mouse.set_visible(False)
             self.game_active = True
@@ -169,7 +169,7 @@ class AlienInvasion():
             self.player_bullets.empty()
             self.aliens_bullets.empty()
             self.aliens_ships.empty()
-            self.player_ship.centre_spaceship()
+            self.player_ship.set_center()
             self.settings.reset_gameplay_speedup()
             self.menu.return_to_menu()
             pg.mouse.set_visible(True)
@@ -383,7 +383,7 @@ class AlienInvasion():
         self.aliens_ships.empty()
         self.aliens_bullets.empty()
         self.player_bullets.empty()
-        self.player_ship.centre_spaceship()
+        self.player_ship.set_center()
 
         if self.stats.remaining_player_ships > 0:
             self.stats.remaining_player_ships -= 1
@@ -405,7 +405,7 @@ class AlienInvasion():
         """ Updates and draws all objects when the game is active. """
         self.scoreboard.show_scoreboard_and_stats()
         self.player_ship.update()
-        self.player_ship.draw_spaceship()
+        self.player_ship.draw()
 
         if not self.final_level_achieved:
             self._update_aliens()
@@ -437,7 +437,7 @@ class AlienInvasion():
         elif self.game_active:
             self._update_game()
         else:
-            self.player_ship.draw_spaceship()
+            self.player_ship.draw()
             self.menu.draw_menu()
 
         pg.display.flip()  # Update of the screen.

@@ -1,15 +1,15 @@
 """
-General module with a game settings related to gameplay.
+This module provides a Settings object, which is responsible for all gameplay settings.
 """
 
 import pygame as pg
 
 
 class Settings():
-    """ Holds all settings of gamplay. """
+    """Holds all settings of gameplay."""
 
     def __init__(self) -> None:
-        """ Initialize settings of game. """
+        """Initialize settings of game."""
         self.screen_width: int = 1280
         self.screen_height: int = 720
         self.background_color = pg.Color(13, 12, 29)
@@ -29,7 +29,7 @@ class Settings():
         self.alien_allowed_bullets: int = 2
         self.alien_bullet_speed: float = 0.35*self.dt
         self.aliens_fleet_drop_speed: int = 2*self.dt
-        self.aliens_fleet_direction: int = 1  # Right movement "1", left movement "-1".
+        self.aliens_fleet_direction: int = 1  # To the right, otherwise -1 to the left.
         self.points_for_alien: int = 50
 
         # Settings related to aliens' general ship.
@@ -39,6 +39,7 @@ class Settings():
 
         # Settings related to stars.
         self.stars_per_row: int = 10
+        # The game screen is divided into 10 sections, where each of them has 10 stars.
         self.stars_rows: int = 10
         self.star_speed: float = 0.25*self.dt
 
@@ -49,18 +50,19 @@ class Settings():
         self.final_level: int = 15
 
     def reset_gameplay_speedup(self) -> None:
-        """ Reset settings, which can change dynamically during the game. """
+        """Resets settings, which can change dynamically during the game."""
         self.player_ship_speed = 0.75*self.dt
         self.player_bullet_speed = 0.75*self.dt
         self.alien_ship_speed = 0.25*self.dt
         self.alien_bullet_speed = 0.35*self.dt
         self.aliens_fleet_direction = 1
         self.points_for_alien = 50
-        self.aliens_general_life_points = 200
         self.star_speed = 0.25*self.dt
+        # Set the default life points is important when we complete the game and launch a new.
+        self.aliens_general_life_points = 200
 
     def increase_gameplay_speed(self) -> None:
-        """ Increase gameplay speed. """
+        """Increase gameplay speed with each successive level."""
         self.player_ship_speed *= self.speedup_scale
         self.player_bullet_speed *= self.speedup_scale
         self.alien_ship_speed *= self.speedup_scale
@@ -69,7 +71,7 @@ class Settings():
         self.star_speed *= self.speedup_scale
 
     def switch_difficulty(self, mode: int = 2) -> None:
-        """ Choose game difficulty level. """
+        """Choose game difficulty level. Default game mode is medium."""
         if mode == 1:  # Easy
             self.player_ships_limit = 3
             self.player_allowed_bullets = 5
@@ -99,7 +101,7 @@ class Settings():
             self.space_between_aliens = 2
 
     def reset_difficulty(self) -> None:
-        """ Reset difficulty level to medium. """
+        """Reset difficulty level to medium."""
         self.player_ships_limit = 2
         self.player_allowed_bullets = 4
         self.player_bullet_points = 2
