@@ -5,6 +5,8 @@ This module provides a menu object, which provides a interactive GUI.
 import textwrap
 
 import pygame as pg
+from pygame.surface import Surface
+from pygame.rect import Rect
 
 from button import Button
 
@@ -32,21 +34,21 @@ class Menu():
 
     def __init__(self, ai_game) -> None:
         """Initialize menu buttons in the game."""
-        self.screen = ai_game.screen
+        self.screen: Surface = ai_game.screen
         self.screen_rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
         # Menu section.
-        self.play_button: Button = Button(ai_game, "Play", -105)
-        self.settings_button: Button = Button(ai_game, "Settings", -35)
-        self.help_button: Button = Button(ai_game, "Help", 35)
-        self.exit_button: Button = Button(ai_game, "Exit", 105)
+        self.play_button: Button = Button(ai_game, "Play", offset=-105)
+        self.settings_button: Button = Button(ai_game, "Settings", offset=-35)
+        self.help_button: Button = Button(ai_game, "Help", offset=35)
+        self.exit_button: Button = Button(ai_game, "Exit", offset=105)
 
         # Settings section.
-        self.easy_mode_button: Button = Button(ai_game, "Perseus Arm", -105)
-        self.medium_mode_button: Button = Button(ai_game, "Outer Arm", -35)
-        self.hard_mode_button: Button = Button(ai_game, "Norma Arm", 35)
-        self.back_button: Button = Button(ai_game, "Back", 105)
+        self.easy_mode_button: Button = Button(ai_game, "Perseus Arm", offset=-105)
+        self.medium_mode_button: Button = Button(ai_game, "Outer Arm", offset=-35)
+        self.hard_mode_button: Button = Button(ai_game, "Norma Arm", offset=35)
+        self.back_button: Button = Button(ai_game, "Back", offset=105)
 
         self.menu_is_active: bool = True
         self.settings_is_active: bool = False
@@ -67,15 +69,15 @@ class Menu():
         """Draws the current menu state (Menu, Settings or Help) on the screen."""
         if self.menu_is_active:
             self.draw_message("Title", fontsize=128, ypos=150)
-            self.play_button.draw_button()
-            self.settings_button.draw_button()
-            self.exit_button.draw_button()
-            self.help_button.draw_button()
+            self.play_button.draw()
+            self.settings_button.draw()
+            self.exit_button.draw()
+            self.help_button.draw()
         elif self.settings_is_active:
-            self.easy_mode_button.draw_button(self.easy_btn_pressed)
-            self.medium_mode_button.draw_button(self.medium_btn_pressed)
-            self.hard_mode_button.draw_button(self.hard_btn_pressed)
-            self.back_button.draw_button()
+            self.easy_mode_button.draw(self.easy_btn_pressed)
+            self.medium_mode_button.draw(self.medium_btn_pressed)
+            self.hard_mode_button.draw(self.hard_btn_pressed)
+            self.back_button.draw()
         elif self.help_is_active:
             self.draw_message("Help", ypos=150)
 
@@ -92,7 +94,7 @@ class Menu():
                 Maximum length of the text line.
             vertical_offset: `int`, default=42
                 Vertical offset between subsequent text lines.
-            text_color : `pygame.Color`, default=pygame.Color(255, 255, 255)
+            text_color : `pygame.Color`, default=pygame.Color("#f0f0f0")
             fontsize : `int`, default=42
             ypos : `int`
                 Initial vertical position of the first text line.
@@ -103,14 +105,14 @@ class Menu():
         text_lines: list[str] = textwrap.wrap(text, max_width)
         vertical_offset: int = kwargs.get("vertical_offset", 42)
 
-        text_color = kwargs.get("color", pg.Color(255, 255, 255))
+        text_color = kwargs.get("color", pg.Color("#f0f0f0"))
         background = self.settings.background_color
         fontsize: int = kwargs.get("fontsize", 42)
         font = pg.font.SysFont("freesansbold", fontsize)
 
         for line_number, text_line in enumerate(text_lines):
-            line_img = font.render(text_line, True, text_color, background)
-            line_rect = line_img.get_rect()
+            line_img: Surface = font.render(text_line, True, text_color, background)
+            line_rect: Rect = line_img.get_rect()
             line_rect.center = self.screen_rect.center
             if "ypos" in kwargs:
                 line_rect.y = kwargs["ypos"] + line_number*vertical_offset

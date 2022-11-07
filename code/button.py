@@ -1,5 +1,5 @@
 """
-General module with a menu's button implementation.
+This module provides a button object, used by the menu object.
 """
 
 import pygame as pg
@@ -8,34 +8,49 @@ from pygame.rect import Rect
 
 
 class Button():
-    """ Class representing menu's button. """
+    """Button object provides communication with the player using a mouse."""
 
-    def __init__(self, ai_game, msg: str, offset: int = 0) -> None:
-        """ Initialize default button properties. Offset = 0 means centre of the screen height. """
+    def __init__(self, ai_game, text: str, **kwargs) -> None:
+        """
+        Initialize default button properties like as size and text.
+
+        Parameters:
+        -----------
+        **kwargs : `dict`, `optional`
+            width : `int`, default=250
+            height : `int`, default=50
+            fontsize : `int`, default=48
+            offset : `int`, default=0
+                Initial position on the screen. Default value is 0, which means the centre
+                of the screen. It can be positive or negative.
+        """
         self.screen: Surface = ai_game.screen
         self.screen_rect: Rect = ai_game.screen_rect
 
-        self.width: int = 250
-        self.height: int = 50
-        self.released_color = pg.Color(0, 255, 0)
-        self.pressed_color = pg.Color(0, 60, 0)
-        self.text_color = pg.Color(255, 255, 255)
-        self.font = pg.font.SysFont("freesansbold", 48)
+        self.width: int = kwargs.get("width", 250)
+        self.height: int = kwargs.get("height", 50)
+
+        self.text_color = pg.Color("#f0f0f0")
+        self.released_color = pg.Color("#154360")
+        self.pressed_color = pg.Color("#60ce80")
+
+        fontsize: int = kwargs.get("fontsize", 48)
+        self.font = pg.font.SysFont("freesansbold", fontsize)
 
         self.rect: Rect = pg.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
+        offset: int = kwargs.get("offset", 0)
         self.rect.y += offset
 
-        # Puts message on the rect and centres the message.
-        self.msg_image: Surface = self.font.render(msg, True, self.text_color)
-        self.msg_image_rect: Rect = self.msg_image.get_rect()
-        self.msg_image_rect.center = self.rect.center
+        self.text_img: Surface = self.font.render(text, True, self.text_color)
+        self.text_rect: Rect = self.text_img.get_rect()
+        self.text_rect.center = self.rect.center
 
-    def draw_button(self, is_pressed: bool = False) -> None:
-        """ Draws a button rect with the message on the screen. """
+    def draw(self, is_pressed: bool = False) -> None:
+        """Draws a button rect with the message on the screen."""
         current_color = self.released_color
         if is_pressed:
             current_color = self.pressed_color
 
         self.screen.fill(current_color, self.rect)
-        self.screen.blit(self.msg_image, self.msg_image_rect)
+        self.screen.blit(self.text_img, self.text_rect)
