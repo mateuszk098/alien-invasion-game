@@ -35,8 +35,8 @@ class AlienInvasion():
         pg.event.set_allowed([pg.QUIT, pg.KEYDOWN, pg.KEYUP, pg.MOUSEBUTTONDOWN])
 
         pg.mixer.music.load(self.__MUSIC_PATH)
-        pg.mixer.music.set_volume(0.25)
-        # pg.mixer.music.play(-1)
+        pg.mixer.music.set_volume(0.2)
+        pg.mixer.music.play(-1)
 
         self.clock = pg.time.Clock()
         self.game_active: bool = False
@@ -45,14 +45,14 @@ class AlienInvasion():
         self.game_complete: bool = False
 
         self.settings: Settings = Settings()
-        self.screen: Surface = pg.display.set_mode(
-            (self.settings.screen_width, self.settings.screen_height))
-        self.screen_rect: Rect = self.screen.get_rect()
-        # Full screen.
-        # self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
+        # self.screen: Surface = pg.display.set_mode(
+        #     (self.settings.screen_width, self.settings.screen_height))
         # self.screen_rect: Rect = self.screen.get_rect()
-        # self.settings.screen_width = self.screen_rect.width
-        # self.settings.screen_height = self.screen_rect.height
+        # Full screen.
+        self.screen: Surface = pg.display.set_mode((0, 0), (pg.FULLSCREEN | pg.DOUBLEBUF), 16)
+        self.screen_rect: Rect = self.screen.get_rect()
+        self.settings.screen_width = self.screen_rect.width
+        self.settings.screen_height = self.screen_rect.height
 
         self.menu: Menu = Menu(self)
         self.stats: GameStats = GameStats(self)
