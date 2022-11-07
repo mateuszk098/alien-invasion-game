@@ -1,21 +1,20 @@
-""" 
-General module with menu management implementation.
+"""
+This module provides a menu object, which provides a interactive GUI.
 """
 
 import textwrap
 
 import pygame as pg
-from pygame.surface import Surface
-from pygame.rect import Rect
 
 from button import Button
 
 
 class Menu():
+    """Menu object provides a interactive GUI with buttons used to gameplay manipulation."""
 
-    __GAME_TITLE_TEXT: str = "Aliens Invasion!"
+    __GAME_TITLE_TEXT: str = "Alien Invasion!"
     __PAUSE_TEXT: str = "PAUSE"
-    __HELP_TEXT: str = "Welcome to Aliens Invasion! The Milky Way has been attacked by "\
+    __HELP_TEXT: str = "Welcome to Alien Invasion! The Milky Way has been attacked by "\
         "hostile creatures. You have been chosen by the Starfleet general to be the and "\
         "captain of the 'Eagle 2' spaceship. The Eagle 2 is the best spaceship of Starfleet "\
         "one of the engineering miracles. The Eagle 2 has a modern guidance system and "\
@@ -32,175 +31,154 @@ class Menu():
         "Press 'Esc' to return on Earth. "
 
     def __init__(self, ai_game) -> None:
-        """ Initialize menu buttons in the game. """
-        self.screen: Surface = ai_game.screen
-        self.screen_rect: Rect = ai_game.screen_rect
+        """Initialize menu buttons in the game."""
+        self.screen = ai_game.screen
+        self.screen_rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
+        # Menu section.
         self.play_button: Button = Button(ai_game, "Play", -105)
         self.settings_button: Button = Button(ai_game, "Settings", -35)
         self.help_button: Button = Button(ai_game, "Help", 35)
         self.exit_button: Button = Button(ai_game, "Exit", 105)
 
+        # Settings section.
         self.easy_mode_button: Button = Button(ai_game, "Perseus Arm", -105)
         self.medium_mode_button: Button = Button(ai_game, "Outer Arm", -35)
         self.hard_mode_button: Button = Button(ai_game, "Norma Arm", 35)
         self.back_button: Button = Button(ai_game, "Back", 105)
 
-        self.menu_active: bool = True
-        self.settings_active: bool = False
-        self.help_active: bool = False
+        self.menu_is_active: bool = True
+        self.settings_is_active: bool = False
+        self.help_is_active: bool = False
 
         self.easy_btn_pressed: bool = False
         self.medium_btn_pressed: bool = False
         self.hard_btn_pressed: bool = False
 
-        self.text_color = pg.Color(255, 255, 255)
-        self.text_large_font = pg.font.SysFont("freesansbols", 128)
-        self.text_small_font = pg.font.SysFont("freesansbold", 36)
-        self.texts: dict[str, str] = {"title": self.__GAME_TITLE_TEXT, "pause": self.__PAUSE_TEXT,
-                                      "help": self.__HELP_TEXT, "congrats": self.__GAME_COMPLETION_TEXT}
-
-        self.help_text_color = pg.Color(255, 255, 255)
-        self.help_text_font = pg.font.SysFont("freesansbold", 42)
-
-        self.game_title_color = pg.Color(255, 255, 255)
-        self.game_title_font = pg.font.SysFont("freesansbols", 128)
+        self.messages_to_draw: dict[str, str] = {
+            "Title": self.__GAME_TITLE_TEXT,
+            "Pause": self.__PAUSE_TEXT,
+            "Help": self.__HELP_TEXT,
+            "Congratulations": self.__GAME_COMPLETION_TEXT
+        }
 
     def draw_menu(self) -> None:
-        """ Draws the current menu state on the screen. """
-        if self.menu_active:
-            self.draw_oneline_msg("title", False)
+        """Draws the current menu state (Menu, Settings or Help) on the screen."""
+        if self.menu_is_active:
+            self.draw_message("Title", fontsize=128, ypos=150)
             self.play_button.draw_button()
             self.settings_button.draw_button()
             self.exit_button.draw_button()
             self.help_button.draw_button()
-
-        if self.settings_active:
+        elif self.settings_is_active:
             self.easy_mode_button.draw_button(self.easy_btn_pressed)
             self.medium_mode_button.draw_button(self.medium_btn_pressed)
             self.hard_mode_button.draw_button(self.hard_btn_pressed)
             self.back_button.draw_button()
+        elif self.help_is_active:
+            self.draw_message("Help", ypos=150)
 
-        if self.help_active:
-            self.draw_multiline_msg("help")
+    def draw_message(self, text_key: str, **kwargs) -> None:
+        """ 
+        Draws oneline or multiline message on the screen. 
 
-    def draw_oneline_msg(self, text_to_draw: str, ycentre: bool = True, ypos: int = 150) -> None:
-        """ Draws short message on the screen. """
-        text: str = self.texts.get(text_to_draw, "No such key.")
-        color = self.text_color
+        Parameters
+        ----------
+        text_key : `str`
+            "Title", "Pause", "Help", "Congratulations" - the key of the message to draw.
+        **kwargs : `dict`, `optional`
+            max_width : `int`, default=60
+                Maximum length of the text line.
+            vertical_offset: `int`, default=42
+                Vertical offset between subsequent text lines.
+            text_color : `pygame.Color`, default=pygame.Color(255, 255, 255)
+            fontsize : `int`, default=42
+            ypos : `int`
+                Initial vertical position of the first text line.
+        """
+
+        text: str = self.messages_to_draw.get(text_key, "No such key")
+        max_width: int = kwargs.get("max_width", 60)
+        text_lines: list[str] = textwrap.wrap(text, max_width)
+        vertical_offset: int = kwargs.get("vertical_offset", 42)
+
+        text_color = kwargs.get("color", pg.Color(255, 255, 255))
         background = self.settings.background_color
-
-        text_img = self.text_large_font.render(text, True, color, background)
-        text_rect = text_img.get_rect()
-        text_rect.centerx = self.screen_rect.centerx
-
-        if ycentre:
-            text_rect.centery = self.screen_rect.centery
-        else:
-            text_rect.y = ypos
-
-        self.screen.blit(text_img, text_rect)
-
-    def draw_multiline_msg(self, text_to_draw: str, text_vertical_offset: int = 42) -> None:
-        """ Draws long multiline message on the screen. """
-        text: str = self.texts.get(text_to_draw, "No such key.")
-        color = self.text_color
-        background = self.settings.background_color
-
-        text_lines: list[str] = textwrap.wrap(text, 60)
+        fontsize: int = kwargs.get("fontsize", 42)
+        font = pg.font.SysFont("freesansbold", fontsize)
 
         for line_number, text_line in enumerate(text_lines):
-            line_img = self.help_text_font.render(text_line, True, color, background)
+            line_img = font.render(text_line, True, text_color, background)
             line_rect = line_img.get_rect()
-            line_rect.centerx = self.screen_rect.centerx
-            line_rect.y = 150 + line_number*text_vertical_offset
-
+            line_rect.center = self.screen_rect.center
+            if "ypos" in kwargs:
+                line_rect.y = kwargs["ypos"] + line_number*vertical_offset
             self.screen.blit(line_img, line_rect)
 
-    def check_play_button(self, mouse_pos: tuple[int, int]) -> bool:
-        """ Checks if the play button is pressed by mouse. """
-        button_pressed: bool = self.play_button.rect.collidepoint(mouse_pos)
-        if button_pressed and self.menu_active:
-            return True
-        return False
+    def check_button_press(self, mouse_pos: tuple[int, int], btn_key: str) -> bool:
+        """
+        Checks if the given button is pressed by the mouse.
 
-    def check_settings_button(self, mouse_pos: tuple[int, int]) -> bool:
-        """ Checks if the settings button is pressed by mouse. """
-        button_pressed: bool = self.settings_button.rect.collidepoint(mouse_pos)
-        if button_pressed and self.menu_active:
-            return True
-        return False
+        Parameters
+        ----------
+        mouse_pos : `tuple[int, int]`
+            The position of the mouse - pygame.mouse.get_pos().
+        btn_key : `str`
+            "Play", "Settings", "Easy Mode", "Medium Mode", "Hard Mode", "Back", "Help", "Exit Game".
 
-    def check_easy_button(self, mouse_pos: tuple[int, int]) -> bool:
-        """ Checks if the easy mode button is pressed by mouse. """
-        button_pressed: bool = self.easy_mode_button.rect.collidepoint(mouse_pos)
-        if button_pressed and self.settings_active:
-            return True
-        return False
+        Returns
+        -------
+        bool
+            True if the button is pressed, otherwise False.
+        """
+        buttons: dict[str, tuple[Button, bool]] = {
+            "Play": (self.play_button, self.menu_is_active),
+            "Settings": (self.settings_button, self.menu_is_active),
+            "Easy Mode": (self.easy_mode_button, self.settings_is_active),
+            "Medium Mode": (self.medium_mode_button, self.settings_is_active),
+            "Hard Mode": (self.hard_mode_button, self.settings_is_active),
+            "Back": (self.back_button, self.settings_is_active),
+            "Help": (self.help_button, self.menu_is_active),
+            "Exit Game": (self.exit_button, self.menu_is_active)
+        }
 
-    def check_medium_button(self, mouse_pos: tuple[int, int]) -> bool:
-        """ Checks if the medium mode button is pressed by mouse. """
-        button_pressed: bool = self.medium_mode_button.rect.collidepoint(mouse_pos)
-        if button_pressed and self.settings_active:
-            return True
-        return False
+        button: Button
+        related_menu_state: bool  # The press possibility is related to visible section (menu or settings).
+        button, related_menu_state = buttons[btn_key]
+        pressed: bool = button.rect.collidepoint(mouse_pos)
 
-    def check_hard_button(self, mouse_pos: tuple[int, int]) -> bool:
-        """ Checks if the hard mode button is pressed by mouse. """
-        button_pressed: bool = self.hard_mode_button.rect.collidepoint(mouse_pos)
-        if button_pressed and self.settings_active:
-            return True
-        return False
-
-    def check_exit_from_settings(self, mouse_pos: tuple[int, int]) -> bool:
-        """ Checks if the exit from settings button is pressed by mouse. """
-        back_btn_pressed: bool = self.back_button.rect.collidepoint(mouse_pos)
-        if back_btn_pressed and self.settings_active:
-            return True
-        return False
-
-    def check_help_button(self, mouse_pos: tuple[int, int]) -> bool:
-        """ Checks if the help button is pressed by mouse. """
-        button_pressed: bool = self.help_button.rect.collidepoint(mouse_pos)
-        if button_pressed and self.menu_active:
-            return True
-        return False
-
-    def check_exit_button(self, mouse_pos: tuple[int, int]) -> bool:
-        """ Checks if the exit button is pressed by mouse. """
-        button_pressed: bool = self.exit_button.rect.collidepoint(mouse_pos)
-        if button_pressed and self.menu_active:
+        if pressed and related_menu_state:
             return True
         return False
 
     def show_settings(self) -> None:
-        """ Changes visibility of Settings to True, Menu and Help to False. """
-        self.menu_active = False
-        self.settings_active = True
-        self.help_active = False
+        """Changes visibility of Settings section to True, Menu and Help to False."""
+        self.menu_is_active = False
+        self.settings_is_active = True
+        self.help_is_active = False
 
     def show_help(self) -> None:
-        """ Changes visibility of Help to True, Menu and Settings to False. """
-        self.menu_active = False
-        self.settings_active = False
-        self.help_active = True
+        """Changes visibility of Help section to True, Menu and Settings to False."""
+        self.menu_is_active = False
+        self.settings_is_active = False
+        self.help_is_active = True
 
     def return_to_menu(self) -> None:
-        """ Changes visibility of Menu to True, Settings and Help to False. """
-        self.menu_active = True
-        self.settings_active = False
-        self.help_active = False
+        """Changes visibility of Menu section to True, Settings and Help to False."""
+        self.menu_is_active = True
+        self.settings_is_active = False
+        self.help_is_active = False
 
     def switch_to_easy_mode(self) -> None:
         """
         Switches game difficulty level to easy if the button is pressed,
         otherwise, switches to medium level if released.
         """
-        if self.easy_btn_pressed and self.settings_active:
+        if self.easy_btn_pressed and self.settings_is_active:
             self.easy_btn_pressed = False
             self.settings.reset_difficulty()
-        elif self.settings_active:
+        elif self.settings_is_active:
             self.settings.switch_difficulty(1)
             self.easy_btn_pressed = True
             self.medium_btn_pressed = self.hard_btn_pressed = False
@@ -210,10 +188,10 @@ class Menu():
         Switches game difficulty level to medium if the button is pressed,
         otherwise, switches to medium level if released.
         """
-        if self.medium_btn_pressed and self.settings_active:
+        if self.medium_btn_pressed and self.settings_is_active:
             self.medium_btn_pressed = False
             self.settings.reset_difficulty()
-        elif self.settings_active:
+        elif self.settings_is_active:
             self.settings.switch_difficulty(2)
             self.medium_btn_pressed = True
             self.easy_btn_pressed = self.hard_btn_pressed = False
@@ -223,10 +201,10 @@ class Menu():
         Switches game difficulty level to hard if the button is pressed,
         otherwise, switches to medium level if released.
         """
-        if self.hard_btn_pressed and self.settings_active:
+        if self.hard_btn_pressed and self.settings_is_active:
             self.hard_btn_pressed = False
             self.settings.reset_difficulty()
-        elif self.settings_active:
+        elif self.settings_is_active:
             self.settings.switch_difficulty(3)
             self.hard_btn_pressed = True
             self.easy_btn_pressed = self.medium_btn_pressed = False

@@ -80,69 +80,69 @@ class AlienInvasion():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 sys.exit()
-            if event.type == pg.KEYDOWN:
+            elif event.type == pg.KEYDOWN:
                 self._check_keydown_events(event)
-            if event.type == pg.KEYUP:
+            elif event.type == pg.KEYUP:
                 self._check_keyup_events(event)
-            if event.type == pg.MOUSEBUTTONDOWN:
+            elif event.type == pg.MOUSEBUTTONDOWN:
                 self._check_mouse_events()
 
     def _check_keydown_events(self, event) -> None:
         """ Reaction on key press. """
         if event.key == pg.K_RIGHT:
             self.player_ship.moving_right = True
-        if event.key == pg.K_LEFT:
+        elif event.key == pg.K_LEFT:
             self.player_ship.moving_left = True
-        if event.key == pg.K_g:
+        elif event.key == pg.K_g:
             self._start_game()
-        if event.key == pg.K_SPACE:
+        elif event.key == pg.K_SPACE:
             self._player_fire_bullet()
-        if event.key == pg.K_r:
+        elif event.key == pg.K_r:
             self._reset_game()
-        if event.key == pg.K_s:
+        elif event.key == pg.K_s:
             self.menu.show_settings()
-        if event.key == pg.K_1:
+        elif event.key == pg.K_1:
             self.menu.switch_to_easy_mode()
-        if event.key == pg.K_2:
+        elif event.key == pg.K_2:
             self.menu.switch_to_medium_mode()
-        if event.key == pg.K_3:
+        elif event.key == pg.K_3:
             self.menu.switch_to_hard_mode()
-        if event.key == pg.K_h:
+        elif event.key == pg.K_h:
             self.menu.show_help()
-        if event.key == pg.K_ESCAPE:
+        elif event.key == pg.K_ESCAPE:
             self.menu.return_to_menu()
             self.game_complete = False
-        if event.key == pg.K_q:
+        elif event.key == pg.K_q:
             sys.exit()
-        if event.key == pg.K_p:
+        elif event.key == pg.K_p:
             self._pause_game()
 
     def _check_keyup_events(self, event) -> None:
         """ Reaction on key release. """
         if event.key == pg.K_RIGHT:
             self.player_ship.moving_right = False
-        if event.key == pg.K_LEFT:
+        elif event.key == pg.K_LEFT:
             self.player_ship.moving_left = False
 
     def _check_mouse_events(self) -> None:
         """ Reaction to mouse click. """
         if not self.game_active:
             mouse_pos: tuple[int, int] = pg.mouse.get_pos()
-            if self.menu.check_play_button(mouse_pos):
+            if self.menu.check_button_press(mouse_pos, "Play"):
                 self._start_game()
-            if self.menu.check_exit_button(mouse_pos):
+            elif self.menu.check_button_press(mouse_pos, "Exit Game"):
                 sys.exit()
-            if self.menu.check_help_button(mouse_pos):
+            elif self.menu.check_button_press(mouse_pos, "Help"):
                 self.menu.show_help()
-            if self.menu.check_easy_button(mouse_pos):
+            elif self.menu.check_button_press(mouse_pos, "Easy Mode"):
                 self.menu.switch_to_easy_mode()
-            if self.menu.check_medium_button(mouse_pos):
+            elif self.menu.check_button_press(mouse_pos, "Medium Mode"):
                 self.menu.switch_to_medium_mode()
-            if self.menu.check_hard_button(mouse_pos):
+            elif self.menu.check_button_press(mouse_pos, "Hard Mode"):
                 self.menu.switch_to_hard_mode()
-            if self.menu.check_settings_button(mouse_pos):
+            elif self.menu.check_button_press(mouse_pos, "Settings"):
                 self.menu.show_settings()
-            if self.menu.check_exit_from_settings(mouse_pos):
+            elif self.menu.check_button_press(mouse_pos, "Back"):
                 self.menu.return_to_menu()
 
     def _start_game(self) -> None:
@@ -432,9 +432,9 @@ class AlienInvasion():
         self.stars.draw(self.screen)
 
         if self.game_complete:
-            self.menu.draw_multiline_msg("congrats")
+            self.menu.draw_message("Congratulations", ypos=250)
         elif self.game_paused:
-            self.menu.draw_oneline_msg("pause")
+            self.menu.draw_message("Pause", fontsize=128)
         elif self.game_active:
             self._update_game()
         else:
