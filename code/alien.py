@@ -1,5 +1,5 @@
 """
-General module with an alien implementation.
+This module provides Alien and AliensGeneral objects.
 """
 
 import pygame as pg
@@ -9,7 +9,7 @@ from pygame.rect import Rect
 
 
 class Alien(Sprite):
-    """ Class representing an individual alien ship. """
+    """Alien object represents a individual alien ship."""
 
     __ALIENS: tuple[str, ...] = ("perseus_arm_alien.png", "outer_arm_alien.png", "norma_arm_alien.png")
 
@@ -44,12 +44,12 @@ class Alien(Sprite):
 
 
 class AliensGeneral():
-    """ Class representing the alien boss ship. """
+    """AliensGeneral represents aliens' ship on the final level of the game."""
 
     __BOSSES: tuple[str, ...] = ("perseus_arm_general.png", "outer_arm_general.png", "norma_arm_general.png")
 
     def __init__(self, ai_game, ship_model: int = 2) -> None:
-        """ Initialise the boss ship. """
+        """Initialize the boss ship."""
         self.screen: Surface = ai_game.screen
         self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
@@ -58,14 +58,14 @@ class AliensGeneral():
         self.image: Surface = pg.image.load(boss_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
 
-        # Place the boss in the screen centre.
         self.rect.centerx = self.screen_rect.centerx
         self.rect.centery = self.settings.screen_height // 3
         self.x: float = float(self.rect.x)
 
-        self.life_bar_color = pg.Color("Red")
-        self.life_outline_bar_color = pg.Color("White")
-        self.life_bar_rect: Rect = pg.Rect(0, 0, self.settings.aliens_general_life_points, 15)
+        self.life_points: int = self.settings.aliens_general_life_points
+        self.life_bar_color = self.settings.aliens_general_life_bar_color
+        self.life_bar_outline_color = self.settings.aliens_general_life_bar_outline_color
+        self.life_bar_rect: Rect = pg.Rect(0, 0, self.life_points, 15)
 
         # Place the life bar above the boss ship.
         self.life_bar_rect.centerx = self.rect.centerx
@@ -86,7 +86,7 @@ class AliensGeneral():
         self.rect.centery = self.settings.screen_height // 3
         self.x = float(self.rect.x)
 
-        self.settings.aliens_general_life_points = 200
+        self.life_points = self.settings.aliens_general_life_points
         self.life_bar_rect.centerx = self.rect.centerx
         self.life_bar_rect.y = self.rect.top - 20
 
@@ -95,11 +95,11 @@ class AliensGeneral():
         self.x += self.settings.aliens_general_ship_speed*self.settings.aliens_fleet_direction
         self.rect.x = int(self.x)
 
-        self.life_bar_rect = pg.Rect(0, 0, self.settings.aliens_general_life_points, 15)
+        self.life_bar_rect = pg.Rect(0, 0, self.life_points, 15)
         self.life_bar_rect.centerx = self.rect.centerx
         self.life_bar_rect.y = self.rect.top - 20
 
     def draw(self) -> None:
         self.screen.blit(self.image, self.rect)
         pg.draw.rect(self.screen, self.life_bar_color, self.life_bar_rect)  # type: ignore
-        pg.draw.rect(self.screen, self.life_outline_bar_color, self.life_bar_rect, 2)
+        pg.draw.rect(self.screen, self.life_bar_outline_color, self.life_bar_rect, 2)

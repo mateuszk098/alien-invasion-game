@@ -15,6 +15,7 @@ class Bullet(Sprite):
     """Bullet object provides a bullet, which can be fired by Alien or Player."""
 
     __ALIEN_BULLET_PATH: str = "../assets/bullets/alien_bullet.png"
+    __GENERAL_BULLET_PATH: str = "../assets/bullets/general_bullet.png"
     __PLAYER_BULLET_PATH: str = "../assets/bullets/player_bullet.png"
     __FIRE_SOUND_PATH: str = "../sounds/fire.wav"
 
@@ -57,14 +58,16 @@ class Bullet(Sprite):
 
     def _initialize_alien_bullet(self, ai_game) -> None:
         """Initialize atributes related to alien's bullet."""
-        self.image = pg.image.load(self.__ALIEN_BULLET_PATH).convert_alpha()
-        self.rect = self.image.get_rect()
         # Alien's general will always appear on the final level.
         if ai_game.aliens_ships:
             chosen_alien = random.choice(list(ai_game.aliens_ships))
+            self.image = pg.image.load(self.__ALIEN_BULLET_PATH).convert_alpha()
         else:
             chosen_alien = ai_game.aliens_general
-        self.rect.midbottom = chosen_alien.rect.midbottom
+            self.image = pg.image.load(self.__GENERAL_BULLET_PATH).convert_alpha()
+
+        self.rect = self.image.get_rect()
+        self.rect.center = chosen_alien.rect.midbottom
         self.y = float(self.rect.y)
         # Bullet moves to the bottom of the screen
         self.direction = 1

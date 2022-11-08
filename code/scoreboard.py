@@ -20,8 +20,6 @@ class Scoreboard():
         self.screen_rect: Rect = ai_game.screen_rect
         self.settings = ai_game.settings
         self.stats = ai_game.stats
-
-        self.text_color = pg.Color("#f0f0f0")
         self.text_font = pg.font.SysFont("freesansbold", 48)
 
         self.prepare_current_score()
@@ -33,7 +31,7 @@ class Scoreboard():
         """Transforms a current score into an image placed in the top-right corner."""
         # Comma is important, it separates the score if it's higher than 1000.
         text: str = f"Score: {self.stats.current_score:,}"
-        color = self.text_color
+        color = self.settings.text_color
         background = self.settings.background_color
 
         self.current_score_img: Surface = self.text_font.render(text, True, color, background)
@@ -44,7 +42,7 @@ class Scoreboard():
     def prepare_highest_score(self) -> None:
         """Transforms the best score into an image placed in the top-centre edge."""
         text: str = f"Best Score: {self.stats.highest_score:,}"
-        color = self.text_color
+        color = self.settings.text_color
         background = self.settings.background_color
 
         self.highest_score_img: Surface = self.text_font.render(text, True, color, background)
@@ -58,7 +56,7 @@ class Scoreboard():
         under the current score. 
         """
         text: str = f"Level: {self.stats.current_level}"
-        color = self.text_color
+        color = self.settings.text_color
         background = self.settings.background_color
 
         self.current_level_img: Surface = self.text_font.render(text, True, color, background)

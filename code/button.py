@@ -26,13 +26,14 @@ class Button():
         """
         self.screen: Surface = ai_game.screen
         self.screen_rect: Rect = ai_game.screen_rect
+        self.settings = ai_game.settings
 
         self.width: int = kwargs.get("width", 250)
         self.height: int = kwargs.get("height", 50)
 
-        self.text_color = pg.Color("#f0f0f0")
-        self.released_color = pg.Color("#154360")
-        self.pressed_color = pg.Color("#60ce80")
+        self.text_color = self.settings.text_color
+        self.released_color = self.settings.button_released_background_color
+        self.pressed_color = self.settings.button_pressed_background_color
 
         fontsize: int = kwargs.get("fontsize", 48)
         self.font = pg.font.SysFont("freesansbold", fontsize)

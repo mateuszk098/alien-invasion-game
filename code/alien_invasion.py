@@ -36,7 +36,7 @@ class AlienInvasion():
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.2)
-        pg.mixer.music.play(-1)
+        #pg.mixer.music.play(-1)
 
         self.clock = pg.time.Clock()
         self.game_active: bool = False
@@ -274,8 +274,8 @@ class AlienInvasion():
             for bullet in self.player_bullets.copy():
                 if pg.sprite.collide_rect(self.aliens_general, bullet):  # type: ignore
                     self.player_bullets.remove(bullet)
-                    self.settings.aliens_general_life_points -= self.settings.player_bullet_points
-                if self.settings.aliens_general_life_points <= 0:
+                    self.aliens_general.life_points -= self.settings.player_bullet_points
+                if self.aliens_general.life_points <= 0:
                     self.game_complete = True
                     self._reset_game()
 

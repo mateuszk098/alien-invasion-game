@@ -6,26 +6,27 @@
    height="297mm"
    viewBox="0 0 210 297"
    version="1.1"
-   id="svg5"
+   id="svg13198"
    inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
-   sodipodi:docname="stars.svg"
+   sodipodi:docname="pretty_stars.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
-     id="namedview7"
-     pagecolor="#000000"
+     id="namedview13200"
+     pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0"
-     inkscape:pagecheckerboard="true"
+     inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.45291836"
-     inkscape:cx="115.91493"
-     inkscape:cy="850.04282"
+     inkscape:zoom="0.70923553"
+     inkscape:cx="464.58474"
+     inkscape:cy="530.14829"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -33,596 +34,1066 @@
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
-     id="defs2">
-    <filter
+     id="defs13195">
+    <linearGradient
        inkscape:collect="always"
-       style="color-interpolation-filters:sRGB;"
-       id="filter5014"
-       x="-0.60422614"
-       y="-0.64233052"
-       width="2.2084523"
-       height="2.284661"
-       inkscape:label="Blotting Paper"
-       inkscape:menu="Textures"
-       inkscape:menu-tooltip="Inkblot on blotting paper">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="4.2715045"
-         id="feGaussianBlur5016"
-         result="fbSourceGraphic" />
-      <feColorMatrix
-         result="fbSourceGraphicAlpha"
-         in="fbSourceGraphic"
-         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
-         id="feColorMatrix8396" />
-      <feGaussianBlur
-         id="feGaussianBlur8398"
-         stdDeviation="3"
-         in="fbSourceGraphic"
-         result="result1" />
-      <feTurbulence
-         id="feTurbulence8400"
-         type="turbulence"
-         baseFrequency="0.05"
-         numOctaves="5"
-         result="result0" />
-      <feDisplacementMap
-         in2="result0"
-         id="feDisplacementMap8402"
-         in="result1"
-         xChannelSelector="R"
-         yChannelSelector="G"
-         scale="3"
-         result="result2" />
-      <feBlend
-         in2="result2"
-         id="feBlend8404"
-         result="result5"
-         in="result2"
-         mode="multiply" />
-      <feGaussianBlur
-         id="feGaussianBlur8406"
-         stdDeviation="5"
-         in="result2"
-         result="result4" />
-      <feComposite
-         in2="result5"
-         id="feComposite8408"
-         operator="arithmetic"
-         in="result4"
-         k2="0.25"
-         k3="1"
-         k1="1"
-         result="result6" />
-      <feComposite
-         in2="result2"
-         id="feComposite8410"
-         operator="in" />
-    </filter>
-    <filter
-       inkscape:menu="Image Paint and Draw"
-       inkscape:menu-tooltip="Old chromolithographic effect"
-       x="-0.015634602"
-       y="-0.015634602"
-       width="1.0312692"
-       height="1.0312692"
-       style="color-interpolation-filters:sRGB;"
-       inkscape:label="Chromolitho Alternate"
-       id="filter13096">
-      <feConvolveMatrix
-         result="convolve"
-         order="3 3"
-         kernelMatrix="0 250 0 250 -1025 250 0 250 0"
-         in="SourceGraphic"
-         divisor="0"
-         bias="0"
-         id="feConvolveMatrix13070" />
-      <feBlend
-         in2="SourceGraphic"
-         result="blend"
-         mode="multiply"
-         in="convolve"
-         id="feBlend13072" />
-      <feTurbulence
-         result="turbulence"
-         seed="0"
-         numOctaves="3"
-         baseFrequency="1 1"
-         type="fractalNoise"
-         id="feTurbulence13074" />
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 "
-         result="result3"
-         type="matrix"
-         id="feColorMatrix13076" />
-      <feColorMatrix
-         type="saturate"
-         result="result7"
-         values="1"
-         id="feColorMatrix13078" />
-      <feComposite
-         in2="blend"
-         result="composite1"
-         operator="arithmetic"
-         k3="0.1"
-         k2="1"
-         k1="3.5"
-         in="result7"
-         id="feComposite13080" />
-      <feBlend
-         in2="blend"
-         mode="normal"
-         result="result6"
-         id="feBlend13082" />
-      <feColorMatrix
-         values="1"
-         result="result2"
-         type="saturate"
-         in="result6"
-         id="feColorMatrix13084" />
-      <feComponentTransfer
-         result="fbSourceGraphic"
-         id="feComponentTransfer13092">
-        <feFuncR
-           type="discrete"
-           tableValues="0 1 1"
-           id="feFuncR13086" />
-        <feFuncG
-           type="discrete"
-           tableValues="0 1 1"
-           id="feFuncG13088" />
-        <feFuncB
-           type="discrete"
-           tableValues="0 1 1"
-           id="feFuncB13090" />
-      </feComponentTransfer>
-      <feComposite
-         in2="SourceGraphic"
-         in="fbSourceGraphic"
-         result="composite"
-         k2="1"
-         operator="in"
-         id="feComposite13094" />
-      <feGaussianBlur
-         stdDeviation="0.32572087"
-         id="feGaussianBlur14970" />
-    </filter>
+       id="linearGradient38372">
+      <stop
+         style="stop-color:#fad29f;stop-opacity:1;"
+         offset="0"
+         id="stop38368" />
+      <stop
+         style="stop-color:#fad29f;stop-opacity:0;"
+         offset="1"
+         id="stop38370" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient33482">
+      <stop
+         style="stop-color:#f5a947;stop-opacity:1;"
+         offset="0"
+         id="stop33478" />
+      <stop
+         style="stop-color:#f5a947;stop-opacity:0;"
+         offset="1"
+         id="stop33480" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient33276">
+      <stop
+         style="stop-color:#f5c069;stop-opacity:1;"
+         offset="0"
+         id="stop33272" />
+      <stop
+         style="stop-color:#f5c069;stop-opacity:0;"
+         offset="1"
+         id="stop33274" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient26435">
+      <stop
+         style="stop-color:#e0dfca;stop-opacity:1;"
+         offset="0"
+         id="stop26431" />
+      <stop
+         style="stop-color:#e0dfca;stop-opacity:0;"
+         offset="1"
+         id="stop26433" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient26427">
+      <stop
+         style="stop-color:#e1e0cb;stop-opacity:1;"
+         offset="0"
+         id="stop26423" />
+      <stop
+         style="stop-color:#e1e0cb;stop-opacity:0;"
+         offset="1"
+         id="stop26425" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient26419">
+      <stop
+         style="stop-color:#e1e0cb;stop-opacity:1;"
+         offset="0"
+         id="stop26415" />
+      <stop
+         style="stop-color:#e1e0cb;stop-opacity:0;"
+         offset="1"
+         id="stop26417" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient21593">
+      <stop
+         style="stop-color:#a4e0fa;stop-opacity:1;"
+         offset="0"
+         id="stop21589" />
+      <stop
+         style="stop-color:#a4e0fa;stop-opacity:0;"
+         offset="1"
+         id="stop21591" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient21585">
+      <stop
+         style="stop-color:#a6e0f9;stop-opacity:1;"
+         offset="0"
+         id="stop21581" />
+      <stop
+         style="stop-color:#a6e0f9;stop-opacity:0;"
+         offset="1"
+         id="stop21583" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient21577">
+      <stop
+         style="stop-color:#a8e1fa;stop-opacity:1;"
+         offset="0"
+         id="stop21573" />
+      <stop
+         style="stop-color:#a8e1fa;stop-opacity:0;"
+         offset="1"
+         id="stop21575" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8329">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop8325" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop8327" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8329"
+       id="radialGradient8331-0-8"
+       cx="-119.63609"
+       cy="130.70602"
+       fx="-119.63609"
+       fy="130.70602"
+       r="35"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.5317001,0,0,1.5317001,298.0489,-40.0461)" />
     <filter
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
-       id="filter5014-5"
-       x="-0.87484878"
-       y="-0.93001947"
-       width="2.7496976"
-       height="2.8600389"
-       inkscape:label="Blotting Paper"
-       inkscape:menu="Textures"
-       inkscape:menu-tooltip="Inkblot on blotting paper">
+       id="filter12370-4"
+       x="-0.3"
+       y="-0.3"
+       width="1.6"
+       height="1.6">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="9.767703"
-         id="feGaussianBlur5016-6"
-         result="fbSourceGraphic" />
-      <feColorMatrix
-         result="fbSourceGraphicAlpha"
-         in="fbSourceGraphic"
-         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
-         id="feColorMatrix8396-7" />
-      <feGaussianBlur
-         id="feGaussianBlur8398-0"
-         stdDeviation="3"
-         in="fbSourceGraphic"
-         result="result1" />
-      <feTurbulence
-         id="feTurbulence8400-1"
-         type="turbulence"
-         baseFrequency="0.05"
-         numOctaves="5"
-         result="result0" />
-      <feDisplacementMap
-         in2="result0"
-         id="feDisplacementMap8402-4"
-         in="result1"
-         xChannelSelector="R"
-         yChannelSelector="G"
-         scale="3"
-         result="result2" />
-      <feBlend
-         in2="result2"
-         id="feBlend8404-4"
-         result="result5"
-         in="result2"
-         mode="multiply" />
-      <feGaussianBlur
-         id="feGaussianBlur8406-2"
-         stdDeviation="5"
-         in="result2"
-         result="result4" />
-      <feComposite
-         in2="result5"
-         id="feComposite8408-9"
-         operator="arithmetic"
-         in="result4"
-         k2="0.25"
-         k3="1"
-         k1="1"
-         result="result6"
-         k4="0" />
-      <feComposite
-         in2="result2"
-         id="feComposite8410-8"
-         operator="in" />
+         stdDeviation="13.402376"
+         id="feGaussianBlur12372-1" />
     </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8329"
+       id="radialGradient8331-06"
+       cx="-119.63609"
+       cy="130.70602"
+       fx="-119.63609"
+       fy="130.70602"
+       r="35"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1012415,-0.00873827,0.00895164,1.1281311,245.47388,12.58494)" />
     <filter
-       inkscape:label="Blotting Paper"
-       inkscape:menu="Textures"
-       inkscape:menu-tooltip="Inkblot on blotting paper"
-       height="2.674992"
-       y="-0.83749599"
-       width="2.826118"
-       x="-0.913059"
-       style="color-interpolation-filters:sRGB;"
-       id="filter976">
-      <feGaussianBlur
-         stdDeviation="15.9374"
-         in="SourceGraphic"
-         result="result1"
-         id="feGaussianBlur962" />
-      <feTurbulence
-         type="turbulence"
-         baseFrequency="0.05"
-         numOctaves="5"
-         result="result0"
-         id="feTurbulence964" />
-      <feDisplacementMap
-         in2="result0"
-         in="result1"
-         xChannelSelector="R"
-         yChannelSelector="G"
-         scale="3"
-         result="result2"
-         id="feDisplacementMap966" />
-      <feBlend
-         result="result5"
-         in="result2"
-         mode="multiply"
-         in2="result2"
-         id="feBlend968" />
-      <feGaussianBlur
-         stdDeviation="5"
-         in="result2"
-         result="result4"
-         id="feGaussianBlur970" />
-      <feComposite
-         operator="arithmetic"
-         in2="result5"
-         in="result4"
-         k2="0.25"
-         k3="1"
-         k1="1"
-         id="feComposite972" />
-      <feComposite
-         operator="in"
-         in2="result2"
-         id="feComposite974" />
-    </filter>
-    <filter
-       inkscape:label="Blotting Paper"
-       inkscape:menu="Textures"
-       inkscape:menu-tooltip="Inkblot on blotting paper"
-       height="2.674992"
-       y="-0.83749599"
-       width="2.826118"
-       x="-0.913059"
+       inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
-       id="filter976-5">
+       id="filter12382-9"
+       x="-0.19199692"
+       y="-0.192"
+       width="1.3839938"
+       height="1.384">
       <feGaussianBlur
-         stdDeviation="15.9374"
-         in="SourceGraphic"
-         result="result1"
-         id="feGaussianBlur962-6" />
-      <feTurbulence
-         type="turbulence"
-         baseFrequency="0.05"
-         numOctaves="5"
-         result="result0"
-         id="feTurbulence964-2" />
-      <feDisplacementMap
-         in2="result0"
-         in="result1"
-         xChannelSelector="R"
-         yChannelSelector="G"
-         scale="3"
-         result="result2"
-         id="feDisplacementMap966-3" />
-      <feBlend
-         result="result5"
-         in="result2"
-         mode="multiply"
-         in2="result2"
-         id="feBlend968-8" />
-      <feGaussianBlur
-         stdDeviation="5"
-         in="result2"
-         result="result4"
-         id="feGaussianBlur970-8" />
-      <feComposite
-         operator="arithmetic"
-         in2="result5"
-         in="result4"
-         k2="0.25"
-         k3="1"
-         k1="1"
-         id="feComposite972-9"
-         k4="0" />
-      <feComposite
-         operator="in"
-         in2="result2"
-         id="feComposite974-0" />
+         inkscape:collect="always"
+         stdDeviation="6.1671466"
+         id="feGaussianBlur12384-7" />
     </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8329"
+       id="radialGradient12130-3"
+       cx="-23.028088"
+       cy="-129.70923"
+       fx="-23.028088"
+       fy="-129.70923"
+       r="22.40934"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1579666,-0.00520767,0.00562895,1.2516411,142.09544,322.25966)" />
     <filter
-       inkscape:label="Blotting Paper"
-       inkscape:menu="Textures"
-       inkscape:menu-tooltip="Inkblot on blotting paper"
-       height="2.8582088"
-       y="-0.92910439"
-       width="1.9291044"
-       x="-0.46455219"
-       style="color-interpolation-filters:sRGB;"
-       id="filter5015">
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12378-7"
+       x="-0.147"
+       y="-0.147"
+       width="1.294"
+       height="1.294">
       <feGaussianBlur
-         stdDeviation="6.6138046"
-         in="SourceGraphic"
-         result="result1"
-         id="feGaussianBlur5000" />
-      <feTurbulence
-         type="turbulence"
-         baseFrequency="0.05"
-         numOctaves="5"
-         result="result0"
-         id="feTurbulence5002" />
-      <feDisplacementMap
-         in2="result0"
-         in="result1"
-         xChannelSelector="R"
-         yChannelSelector="G"
-         scale="3"
-         result="result2"
-         id="feDisplacementMap5004" />
-      <feBlend
-         result="result5"
-         in="result2"
-         mode="multiply"
-         in2="result2"
-         id="feBlend5006" />
+         inkscape:collect="always"
+         stdDeviation="2.7451441"
+         id="feGaussianBlur12380-7" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8329"
+       id="radialGradient7981-5"
+       cx="-681.58093"
+       cy="167.4646"
+       fx="-681.58093"
+       fy="167.4646"
+       r="390.19254"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.75965666,-1,1,0.75965666,-331.27804,-641.33193)" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12386-3"
+       x="-0.033904386"
+       y="-0.033904386"
+       width="1.0678088"
+       height="1.0678088">
       <feGaussianBlur
-         stdDeviation="5"
-         in="result2"
-         result="result4"
-         id="feGaussianBlur5008" />
-      <feComposite
-         operator="arithmetic"
-         in2="result5"
-         in="result4"
-         k2="0.25"
-         k3="1"
-         k1="1"
-         id="feComposite5010" />
-      <feComposite
-         operator="in"
-         in2="result2"
-         id="feComposite5012" />
+         inkscape:collect="always"
+         stdDeviation="11.024365"
+         id="feGaussianBlur12388-2" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8329"
+       id="radialGradient7981-8-4"
+       cx="-681.58093"
+       cy="167.4646"
+       fx="-681.58093"
+       fy="167.4646"
+       r="390.19254"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.75965666,-1,1,0.75965666,-331.27804,-641.33193)" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter13103-9"
+       x="-0.076760171"
+       y="-0.076760171"
+       width="1.1535203"
+       height="1.1535203">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="24.959372"
+         id="feGaussianBlur13105-1" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8329"
+       id="radialGradient8331-0-8-3"
+       cx="-119.63609"
+       cy="130.70602"
+       fx="-119.63609"
+       fy="130.70602"
+       r="35"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.5317001,0,0,1.5317001,298.0489,-40.0461)" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4"
+       x="-0.3"
+       y="-0.3"
+       width="1.6"
+       height="1.6">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="13.402376"
+         id="feGaussianBlur12372-1-4" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8329"
+       id="radialGradient8331-06-0"
+       cx="-119.63609"
+       cy="130.70602"
+       fx="-119.63609"
+       fy="130.70602"
+       r="35"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1012415,-0.00873827,0.00895164,1.1281311,245.47388,12.58494)" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12382-9-8"
+       x="-0.19199692"
+       y="-0.192"
+       width="1.3839938"
+       height="1.384">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="6.1671466"
+         id="feGaussianBlur12384-7-4" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8329"
+       id="radialGradient12130-3-3"
+       cx="-23.028088"
+       cy="-129.70923"
+       fx="-23.028088"
+       fy="-129.70923"
+       r="22.40934"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1579666,-0.00520767,0.00562895,1.2516411,142.09544,322.25966)" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12378-7-8"
+       x="-0.147"
+       y="-0.147"
+       width="1.294"
+       height="1.294">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.7451441"
+         id="feGaussianBlur12380-7-2" />
     </filter>
     <filter
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
-       id="filter5014-5-5"
-       x="-0.87484878"
-       y="-0.93001947"
-       width="2.7496976"
-       height="2.8600389"
-       inkscape:label="Blotting Paper"
-       inkscape:menu="Textures"
-       inkscape:menu-tooltip="Inkblot on blotting paper">
+       id="filter12370-4-2"
+       x="-0.3"
+       y="-0.3"
+       width="1.6"
+       height="1.6">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="9.767703"
-         id="feGaussianBlur5016-6-1"
-         result="fbSourceGraphic" />
-      <feColorMatrix
-         result="fbSourceGraphicAlpha"
-         in="fbSourceGraphic"
-         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
-         id="feColorMatrix8396-7-9" />
-      <feGaussianBlur
-         id="feGaussianBlur8398-0-5"
-         stdDeviation="3"
-         in="fbSourceGraphic"
-         result="result1" />
-      <feTurbulence
-         id="feTurbulence8400-1-3"
-         type="turbulence"
-         baseFrequency="0.05"
-         numOctaves="5"
-         result="result0" />
-      <feDisplacementMap
-         in2="result0"
-         id="feDisplacementMap8402-4-3"
-         in="result1"
-         xChannelSelector="R"
-         yChannelSelector="G"
-         scale="3"
-         result="result2" />
-      <feBlend
-         in2="result2"
-         id="feBlend8404-4-0"
-         result="result5"
-         in="result2"
-         mode="multiply" />
-      <feGaussianBlur
-         id="feGaussianBlur8406-2-1"
-         stdDeviation="5"
-         in="result2"
-         result="result4" />
-      <feComposite
-         in2="result5"
-         id="feComposite8408-9-6"
-         operator="arithmetic"
-         in="result4"
-         k2="0.25"
-         k3="1"
-         k1="1"
-         result="result6"
-         k4="0" />
-      <feComposite
-         in2="result2"
-         id="feComposite8410-8-6"
-         operator="in" />
+         stdDeviation="13.402376"
+         id="feGaussianBlur12372-1-5" />
     </filter>
     <filter
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
-       id="filter5014-9"
-       x="-0.60422614"
-       y="-0.64233052"
-       width="2.2084523"
-       height="2.284661"
-       inkscape:label="Blotting Paper"
-       inkscape:menu="Textures"
-       inkscape:menu-tooltip="Inkblot on blotting paper">
+       id="filter12382-9-7"
+       x="-0.19199692"
+       y="-0.192"
+       width="1.3839938"
+       height="1.384">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="4.2715045"
-         id="feGaussianBlur5016-65"
-         result="fbSourceGraphic" />
-      <feColorMatrix
-         result="fbSourceGraphicAlpha"
-         in="fbSourceGraphic"
-         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
-         id="feColorMatrix8396-3" />
+         stdDeviation="6.1671466"
+         id="feGaussianBlur12384-7-0" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12378-7-6"
+       x="-0.147"
+       y="-0.147"
+       width="1.294"
+       height="1.294">
       <feGaussianBlur
-         id="feGaussianBlur8398-7"
-         stdDeviation="3"
-         in="fbSourceGraphic"
-         result="result1" />
-      <feTurbulence
-         id="feTurbulence8400-2"
-         type="turbulence"
-         baseFrequency="0.05"
-         numOctaves="5"
-         result="result0" />
-      <feDisplacementMap
-         in2="result0"
-         id="feDisplacementMap8402-6"
-         in="result1"
-         xChannelSelector="R"
-         yChannelSelector="G"
-         scale="3"
-         result="result2" />
-      <feBlend
-         in2="result2"
-         id="feBlend8404-1"
-         result="result5"
-         in="result2"
-         mode="multiply" />
+         inkscape:collect="always"
+         stdDeviation="2.7451441"
+         id="feGaussianBlur12380-7-1" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient21577"
+       id="radialGradient21579"
+       cx="114.80225"
+       cy="160.1563"
+       fx="114.80225"
+       fy="160.1563"
+       r="85.775209"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient21585"
+       id="radialGradient21587"
+       cx="114.69956"
+       cy="160.03017"
+       fx="114.69956"
+       fy="160.03017"
+       r="28.997686"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient21593"
+       id="radialGradient21595"
+       cx="114.89566"
+       cy="161.08388"
+       fx="114.89566"
+       fy="161.08388"
+       r="53.346432"
+       gradientTransform="matrix(1,0,0,0.99998845,0,0.00186111)"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-7"
+       x="-0.3"
+       y="-0.3"
+       width="1.6"
+       height="1.6">
       <feGaussianBlur
-         id="feGaussianBlur8406-7"
-         stdDeviation="5"
-         in="result2"
-         result="result4" />
-      <feComposite
-         in2="result5"
-         id="feComposite8408-7"
-         operator="arithmetic"
-         in="result4"
-         k2="0.25"
-         k3="1"
-         k1="1"
-         result="result6"
-         k4="0" />
-      <feComposite
-         in2="result2"
-         id="feComposite8410-0"
-         operator="in" />
+         inkscape:collect="always"
+         stdDeviation="13.402376"
+         id="feGaussianBlur12372-1-5-3" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12382-9-7-1"
+       x="-0.19199692"
+       y="-0.192"
+       width="1.3839938"
+       height="1.384">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="6.1671466"
+         id="feGaussianBlur12384-7-0-1" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12378-7-6-4"
+       x="-0.147"
+       y="-0.147"
+       width="1.294"
+       height="1.294">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.7451441"
+         id="feGaussianBlur12380-7-1-3" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient26419"
+       id="radialGradient26421"
+       cx="114.80225"
+       cy="160.1563"
+       fx="114.80225"
+       fy="160.1563"
+       r="85.775209"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient26427"
+       id="radialGradient26429"
+       cx="114.69956"
+       cy="160.03017"
+       fx="114.69956"
+       fy="160.03017"
+       r="28.997686"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient26435"
+       id="radialGradient26437"
+       cx="114.89566"
+       cy="161.08388"
+       fx="114.89566"
+       fy="161.08388"
+       r="53.346432"
+       gradientTransform="matrix(1,0,0,0.99998845,0,0.00186111)"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4-0-1"
+       x="-1.2"
+       y="-1.2"
+       width="3.4"
+       height="3.4">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="53.609505"
+         id="feGaussianBlur12372-1-4-9-1" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4-0-1-6"
+       x="-0.95817004"
+       y="-0.95817004"
+       width="2.9163401"
+       height="2.9163401">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="42.805851"
+         id="feGaussianBlur12372-1-4-9-1-8" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4-0-1-6-1"
+       x="-0.88222283"
+       y="-0.88222283"
+       width="2.7644457"
+       height="2.7644457">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="39.412942"
+         id="feGaussianBlur12372-1-4-9-1-8-9" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient33276"
+       id="radialGradient33278"
+       cx="114.80225"
+       cy="160.1563"
+       fx="114.80225"
+       fy="160.1563"
+       r="156.34355"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient33482"
+       id="radialGradient33484"
+       cx="114.80225"
+       cy="160.1563"
+       fx="114.80225"
+       fy="160.1563"
+       r="156.34355"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4-0-1-6-1-9"
+       x="-0.52597445"
+       y="-0.52597445"
+       width="2.0519489"
+       height="2.0519489">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="23.114187"
+         id="feGaussianBlur12372-1-4-9-1-8-9-4" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient38372"
+       id="radialGradient38374"
+       cx="114.80225"
+       cy="160.15629"
+       fx="114.80225"
+       fy="160.15629"
+       r="110.00396"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4-0-1-6-1-9-0"
+       x="-0.57453012"
+       y="-0.57453012"
+       width="2.1490602"
+       height="2.1490602">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="25.283391"
+         id="feGaussianBlur12372-1-4-9-1-8-9-4-0" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4-0-1-6-1-9-0-5"
+       x="-0.57453012"
+       y="-0.57453012"
+       width="2.1490602"
+       height="2.1490602">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="25.283391"
+         id="feGaussianBlur12372-1-4-9-1-8-9-4-0-5" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4-0-1-6-1-9-0-5-9"
+       x="-0.57453012"
+       y="-0.57453012"
+       width="2.1490602"
+       height="2.1490602">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="25.283391"
+         id="feGaussianBlur12372-1-4-9-1-8-9-4-0-5-2" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-4-0-1-6-1-9-0-5-9-5"
+       x="-0.60131676"
+       y="-0.60131676"
+       width="2.2026335"
+       height="2.2026335">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="26.480074"
+         id="feGaussianBlur12372-1-4-9-1-8-9-4-0-5-2-4" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-3"
+       x="-1.2"
+       y="-1.2"
+       width="3.4"
+       height="3.4">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="53.609505"
+         id="feGaussianBlur12372-1-5-8" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-3-6"
+       x="-1.2"
+       y="-1.2"
+       width="3.4"
+       height="3.4">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="53.609505"
+         id="feGaussianBlur12372-1-5-8-2" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-3-2"
+       x="-0.92826245"
+       y="-0.92826245"
+       width="2.8565249"
+       height="2.8565249">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="41.469742"
+         id="feGaussianBlur12372-1-5-8-7" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-3-6-7"
+       x="-0.55606039"
+       y="-0.55606039"
+       width="2.1121208"
+       height="2.1121208">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="24.841768"
+         id="feGaussianBlur12372-1-5-8-2-1" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-3-6-7-8"
+       x="-0.72467699"
+       y="-0.72467699"
+       width="2.449354"
+       height="2.449354">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="32.374647"
+         id="feGaussianBlur12372-1-5-8-2-1-3" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-3-6-7-83"
+       x="-0.37394881"
+       y="-0.37394881"
+       width="1.7478976"
+       height="1.7478976">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="16.706009"
+         id="feGaussianBlur12372-1-5-8-2-1-0" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-3-6-7-5"
+       x="-0.73595587"
+       y="-0.73595587"
+       width="2.4719117"
+       height="2.4719117">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="32.878525"
+         id="feGaussianBlur12372-1-5-8-2-1-9" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter12370-4-2-3-6-7-2"
+       x="-0.48011323"
+       y="-0.48011323"
+       width="1.9602265"
+       height="1.9602265">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="21.44886"
+         id="feGaussianBlur12372-1-5-8-2-1-2" />
     </filter>
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <ellipse
-       style="opacity:1;mix-blend-mode:normal;fill:#afd0ef;fill-opacity:1;stroke-width:4;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5014)"
-       id="path942"
-       cx="59.069538"
-       cy="53.699581"
-       rx="24.371347"
-       ry="22.925589"
-       inkscape:export-filename="C:\Users\Mateusz\Downloads\path341.png"
+    <rect
+       style="fill:#0d0c1d;fill-opacity:1;stroke:none;stroke-width:1.64948;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect8470"
+       width="322.02994"
+       height="314.70264"
+       x="-46.311722"
+       y="-4.2050538" />
+    <g
+       id="g41248"
+       transform="translate(97.813866,34.988897)"
+       inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\pretty_stars\g41248.png"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <ellipse
-       style="mix-blend-mode:normal;fill:#ead9b6;fill-opacity:1;stroke-width:4;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5014-5)"
-       id="path942-5"
-       cx="158.40161"
-       cy="54.490299"
-       rx="24.371347"
-       ry="22.925589"
-       inkscape:export-filename="C:\Users\Mateusz\Downloads\path641.png"
+       inkscape:export-ydpi="300">
+      <circle
+         style="mix-blend-mode:normal;fill:#f7c777;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-4-0-1)"
+         id="path8243-7-1-6-8-7"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,63.094916,157.57029)" />
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient33278);fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-4-0-1-6)"
+         id="path8243-7-1-6-8-7-4"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.30096129,0,0,0.30096129,68.723164,163.15865)" />
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient33484);fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-4-0-1-6-1)"
+         id="path8243-7-1-6-8-7-4-4"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.30096129,0,0,0.30096129,67.535386,163.3581)" />
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient38374);fill-opacity:1;stroke:#7e772c;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter12370-4-4-0-1-6-1-9)"
+         id="path8243-7-1-6-8-7-4-4-3"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.30096129,0,0,0.30096129,67.799173,163.88567)" />
+      <circle
+         style="mix-blend-mode:normal;fill:#f2d3aa;fill-opacity:1;stroke:#7e772c;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter12370-4-4-0-1-6-1-9-0)"
+         id="path8243-7-1-6-8-7-4-4-3-3"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.21562817,0,0,0.21562817,79.969716,177.8161)" />
+      <circle
+         style="mix-blend-mode:normal;fill:#edd9be;fill-opacity:1;stroke:#7e772c;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter12370-4-4-0-1-6-1-9-0-5)"
+         id="path8243-7-1-6-8-7-4-4-3-3-5"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.18567634,0,0,0.18567634,83.045883,181.59802)" />
+      <circle
+         style="mix-blend-mode:normal;fill:#eee8e0;fill-opacity:1;stroke:#7e772c;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter12370-4-4-0-1-6-1-9-0-5-9)"
+         id="path8243-7-1-6-8-7-4-4-3-3-5-5"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.13143924,0,0,0.13143924,88.526295,190.09789)" />
+      <circle
+         style="mix-blend-mode:normal;fill:#f6f3ee;fill-opacity:1;stroke:#7e772c;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter12370-4-4-0-1-6-1-9-0-5-9-5)"
+         id="path8243-7-1-6-8-7-4-4-3-3-5-5-3"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.09709469,0,0,0.09709469,92.522463,197.06378)" />
+    </g>
+    <g
+       id="g14889"
+       transform="translate(-136.94784,-61.790841)"
+       inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star.png"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <ellipse
-       style="mix-blend-mode:normal;fill:#dce7ea;fill-opacity:1;stroke-width:4.5864;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter976)"
-       id="path880"
-       cx="60.523113"
-       cy="134.56721"
-       rx="27.517258"
-       ry="30"
-       transform="matrix(0.82898317,0,0,1.0132754,7.4296018,28.736687)"
-       inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\aliens_invasion_game\images\path880.png"
+       inkscape:export-ydpi="300">
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient8331-0-8);fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4)"
+         id="path8243-7-1"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,116.18702,51.193396)" />
+      <ellipse
+         style="mix-blend-mode:normal;fill:url(#radialGradient8331-06);fill-opacity:1;stroke:none;stroke-width:1.32353;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12382-9)"
+         id="path8243-6"
+         cx="114.89566"
+         cy="161.08388"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,115.87194,51.166334)"
+         rx="38.545284"
+         ry="38.544666" />
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient12130-3);fill-opacity:1;stroke:none;stroke-width:0.769482;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12378-7)"
+         id="path8243-2-4"
+         cx="114.69956"
+         cy="160.03017"
+         r="22.40934"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,116.18419,50.753684)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:1;mix-blend-mode:normal;fill:url(#radialGradient7981-5);fill-opacity:1;stroke:none;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12386-3)"
+         id="path7717-6"
+         inkscape:flatsided="false"
+         sodipodi:sides="4"
+         sodipodi:cx="-681.58093"
+         sodipodi:cy="167.4646"
+         sodipodi:r1="490.01071"
+         sodipodi:r2="53.901176"
+         sodipodi:arg1="0.64965277"
+         sodipodi:arg2="1.4350509"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         transform="matrix(0.04295762,0.05509254,-0.05509254,0.04295762,193.86598,135.71136)"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         d="m -291.3884,463.87695 -382.89814,-243.00703 -303.70675,336.78722 243.00703,-382.89815 -336.78724,-303.70674 382.89818,243.00702 303.70674,-336.78721 -243.00703,382.89815 z" />
+      <path
+         sodipodi:type="star"
+         style="opacity:1;mix-blend-mode:normal;fill:url(#radialGradient7981-8-4);fill-opacity:1;stroke:none;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter13103-9)"
+         id="path7717-7-1"
+         inkscape:flatsided="false"
+         sodipodi:sides="4"
+         sodipodi:cx="-681.58093"
+         sodipodi:cy="167.4646"
+         sodipodi:r1="490.01071"
+         sodipodi:r2="53.901176"
+         sodipodi:arg1="0.64965277"
+         sodipodi:arg2="1.4350509"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         transform="matrix(0.03217217,0.0040903,-0.0040903,0.03217217,177.85433,103.60987)"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         d="m -291.3884,463.87695 -382.89814,-243.00703 -303.70675,336.78722 243.00703,-382.89815 -336.78724,-303.70674 382.89818,243.00702 303.70674,-336.78721 -243.00703,382.89815 z" />
+    </g>
+    <g
+       id="g24762"
+       transform="translate(-28.729061,2.3624547)">
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient21579);fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2)"
+         id="path8243-7-1-4"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,4.74702,78.659015)" />
+      <ellipse
+         style="mix-blend-mode:normal;fill:url(#radialGradient21595);fill-opacity:1;stroke:none;stroke-width:1.32353;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12382-9-7)"
+         id="path8243-6-6"
+         cx="114.89566"
+         cy="161.08388"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,4.43194,78.631953)"
+         rx="38.545284"
+         ry="38.544666" />
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient21587);fill-opacity:1;stroke:none;stroke-width:0.769482;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12378-7-6)"
+         id="path8243-2-4-0"
+         cx="114.69956"
+         cy="160.03017"
+         r="22.40934"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,4.74419,78.219303)" />
+    </g>
+    <g
+       id="g5303"
+       transform="translate(-203.68763,8.5802477)"
+       inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\g5303.png"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <ellipse
-       style="mix-blend-mode:normal;fill:#e5eff0;fill-opacity:1;stroke-width:4.5864;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter976-5)"
-       id="path880-9"
-       cx="60.523113"
-       cy="134.56721"
-       rx="27.517258"
-       ry="30"
-       transform="matrix(0.17460366,0,0.42550194,0.70876366,91.507414,71.84358)"
-       inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\aliens_invasion_game\images\path880-9.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <ellipse
-       style="fill:#ecdbb3;fill-opacity:1;stroke-width:5.48464;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5015)"
-       id="path4916"
-       cx="55.119503"
-       cy="267.94757"
-       rx="30"
-       ry="15"
-       inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\aliens_invasion_game\images\path4916.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <ellipse
-       style="mix-blend-mode:normal;fill:#e0ab87;fill-opacity:1;stroke-width:4;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5014-5-5)"
-       id="path942-5-9"
-       cx="153.92996"
-       cy="262.00226"
-       rx="24.371347"
-       ry="22.925589"
-       inkscape:export-filename="C:\Users\Mateusz\Downloads\path942-5.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"
-       transform="matrix(-0.61502653,-0.29275426,0.39285261,-0.8239111,164.80443,541.33398)" />
-    <ellipse
-       style="mix-blend-mode:normal;fill:#86c0f8;fill-opacity:1;stroke-width:4;stroke-linecap:round;stroke-linejoin:bevel;filter:url(#filter5014-9)"
-       id="path942-4"
-       cx="54.912395"
-       cy="359.55936"
-       rx="24.371347"
-       ry="22.925589"
-       inkscape:export-filename="C:\Users\Mateusz\Downloads\path942.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"
-       transform="matrix(0.7688075,0.46043908,-0.35113065,1.0081405,138.65556,-12.438083)" />
+       inkscape:export-ydpi="300">
+      <circle
+         style="mix-blend-mode:normal;fill:#bfd7e3;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-3)"
+         id="path8243-7-1-4-25"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,188.13422,178.24611)" />
+      <g
+         id="g5292">
+        <circle
+           style="mix-blend-mode:normal;fill:#ecf3f6;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-3-6-7-5)"
+           id="path8243-7-1-4-25-6-2-3"
+           cx="114.80225"
+           cy="160.1563"
+           r="53.609505"
+           inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300"
+           transform="matrix(0.14932347,0,0,0.14932347,211.82635,210.59349)" />
+        <circle
+           style="mix-blend-mode:normal;fill:#d6e8f1;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-3-6-7-2)"
+           id="path8243-7-1-4-25-6-2-9"
+           cx="114.80225"
+           cy="160.1563"
+           r="53.609505"
+           inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300"
+           transform="matrix(0.16097187,0,0,0.16097187,211.01666,209.2555)" />
+        <circle
+           style="mix-blend-mode:normal;fill:#d6e9f4;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-3-6-7-83)"
+           id="path8243-7-1-4-25-6-2-8"
+           cx="114.80225"
+           cy="160.1563"
+           r="53.609505"
+           inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300"
+           transform="matrix(0.15864219,0,0,0.15864219,212.07548,209.8924)" />
+        <circle
+           style="mix-blend-mode:normal;fill:#bfd8e6;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-3-2)"
+           id="path8243-7-1-4-25-8"
+           cx="114.80225"
+           cy="160.1563"
+           r="53.609505"
+           inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300"
+           transform="matrix(0.29019856,0,0,0.29019856,195.12599,191.46073)" />
+        <circle
+           style="mix-blend-mode:normal;fill:#c7d6df;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-3-6)"
+           id="path8243-7-1-4-25-6"
+           cx="114.80225"
+           cy="160.1563"
+           r="53.609505"
+           inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300"
+           transform="matrix(0.28296243,0,0,0.28296243,196.35239,189.32228)" />
+        <circle
+           style="mix-blend-mode:normal;fill:#bcd4e1;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-3-6-7)"
+           id="path8243-7-1-4-25-6-2"
+           cx="114.80225"
+           cy="160.1563"
+           r="53.609505"
+           inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300"
+           transform="matrix(0.2308623,0,0,0.2308623,202.99308,198.3259)" />
+        <circle
+           style="mix-blend-mode:normal;fill:#c5deeb;fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-3-6-7-8)"
+           id="path8243-7-1-4-25-6-2-7"
+           cx="114.80225"
+           cy="160.1563"
+           r="53.609505"
+           inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star3.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300"
+           transform="matrix(0.18426868,0,0,0.18426868,207.0232,204.9968)" />
+      </g>
+    </g>
+    <g
+       id="g5456"
+       transform="translate(-12.683846,14.176062)">
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient26421);fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-2-7)"
+         id="path8243-7-1-4-2"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star4.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,77.688797,68.056441)" />
+      <ellipse
+         style="mix-blend-mode:normal;fill:url(#radialGradient26437);fill-opacity:1;stroke:none;stroke-width:1.32353;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12382-9-7-1)"
+         id="path8243-6-6-7"
+         cx="114.89566"
+         cy="161.08388"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star4.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,78.428878,68.161269)"
+         rx="38.545284"
+         ry="38.544666" />
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient26429);fill-opacity:1;stroke:none;stroke-width:0.769482;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12378-7-6-4)"
+         id="path8243-2-4-0-4"
+         cx="114.69956"
+         cy="160.03017"
+         r="22.40934"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star4.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,78.081653,67.880519)" />
+    </g>
+    <g
+       id="g27078"
+       transform="translate(-52.60065)">
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient8331-0-8-3);fill-opacity:1;stroke:none;stroke-width:1.84082;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12370-4-4)"
+         id="path8243-7-1-6"
+         cx="114.80225"
+         cy="160.1563"
+         r="53.609505"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,118.78243,-8.653486)" />
+      <ellipse
+         style="mix-blend-mode:normal;fill:url(#radialGradient8331-06-0);fill-opacity:1;stroke:none;stroke-width:1.32353;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12382-9-8)"
+         id="path8243-6-4"
+         cx="114.89566"
+         cy="161.08388"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,118.46735,-8.680548)"
+         rx="38.545284"
+         ry="38.544666" />
+      <circle
+         style="mix-blend-mode:normal;fill:url(#radialGradient12130-3-3);fill-opacity:1;stroke:none;stroke-width:0.769482;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12378-7-8)"
+         id="path8243-2-4-4"
+         cx="114.69956"
+         cy="160.03017"
+         r="22.40934"
+         inkscape:export-filename="C:\Users\Mateusz\Documents\PythonRepository\alien_invasion_game\assets\stars\pretty_star1png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"
+         transform="matrix(0.34229869,0,0,0.34229869,118.7796,-9.093198)" />
+    </g>
   </g>
 </svg>

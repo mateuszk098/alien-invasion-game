@@ -17,7 +17,7 @@ class Star(Sprite):
                                       "star5.png", "star6.png", "star7.png", "star8.png",
                                       "star9.png", "star10.png", "star11.png", "star12.png",
                                       "star13.png", "star14.png", "star15.png", "star16.png",
-                                      "star17.png", "star18.png", "star19.png", "star20.png")
+                                      "star17.png", "star18.png")
 
     def __init__(self, ai_game) -> None:
         """Initialize a random star in a random position (but confined in the y direction)."""

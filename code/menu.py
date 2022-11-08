@@ -105,7 +105,7 @@ class Menu():
         text_lines: list[str] = textwrap.wrap(text, max_width)
         vertical_offset: int = kwargs.get("vertical_offset", 42)
 
-        text_color = kwargs.get("color", pg.Color("#f0f0f0"))
+        text_color = kwargs.get("color", self.settings.text_color)
         background = self.settings.background_color
         fontsize: int = kwargs.get("fontsize", 42)
         font = pg.font.SysFont("freesansbold", fontsize)
