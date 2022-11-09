@@ -63,7 +63,6 @@ class AlienInvasion():
         self.aliens_ships = pg.sprite.Group()
         self.aliens_bullets = pg.sprite.Group()
 
-        self.general_ship = pg.sprite.Group()
         self.general_bullets = pg.sprite.Group()
 
         self.stars = pg.sprite.Group()
@@ -147,7 +146,7 @@ class AlienInvasion():
                 self.menu.return_to_menu()
 
     def _start_game(self) -> None:
-        """ 
+        """
         If not game_active, resets current statistics, prepares scoreboard
         and aliens fleet and starts the game.
         """
@@ -162,7 +161,7 @@ class AlienInvasion():
             self.game_active = True
 
     def _reset_game(self) -> None:
-        """ 
+        """
         If game_active, resets the current game, remove the remaining bullets and aliens,
         set the player's ship to the screen centre, set the star's speed
         to default, and return to the menu.
@@ -170,6 +169,7 @@ class AlienInvasion():
         if self.game_active and not self.game_paused:
             self.player_bullets.empty()
             self.aliens_bullets.empty()
+            self.general_bullets.empty()
             self.aliens_ships.empty()
             self.player_ship.set_center()
             self.settings.reset_gameplay_speedup()
@@ -184,9 +184,8 @@ class AlienInvasion():
             self.game_paused = not self.game_paused
 
     def _create_stars(self) -> None:
-        """ Creates outer space with a constant number of stars in the current frame. """
+        """Creates outer space with a constant number of stars."""
         pixels_per_row: int = self.settings.screen_height // self.settings.stars_rows
-
         for row in range(self.settings.stars_rows):
             for _ in range(self.settings.stars_per_row):
                 star: Star = Star(self)
@@ -195,10 +194,10 @@ class AlienInvasion():
                 self.stars.add(star)
 
     def _update_stars(self) -> None:
-        """ 
+        """
         Updates all stars' positions, which causes the feeling of
         traversing space. If any stars arrive beyond the screen's bottom
-        edge, they are removed, and a new star is created.
+        edge, they are removed, and a new stars are created.
         """
         self.stars.update()
 
@@ -207,13 +206,10 @@ class AlienInvasion():
                 self.stars.remove(star)
 
         pixels_per_row: int = self.settings.screen_height // self.settings.stars_rows
-
-        # Add new star.
+        # Provide constant number of stars.
         if len(self.stars) < self.settings.stars_per_row*self.settings.stars_rows:
             new_star: Star = Star(self)
-            # Provides effect that stars coming on the screen naturally.
-            new_star.y -= pixels_per_row
-            new_star.rect.y = int(new_star.y)
+            new_star.rect.y -= pixels_per_row  # Provides effect that stars coming on the screen naturally.
             self.stars.add(new_star)
 
     def _fire_bullet(self, owner: str) -> None:
@@ -232,7 +228,7 @@ class AlienInvasion():
                 self.general_bullets.add(general_bullet)
 
     def _update_bullets(self) -> None:
-        """ 
+        """
         Updates player's and aliens' bullets position and remove them
         if any of the bullets are out of the screen.
         """
@@ -331,7 +327,7 @@ class AlienInvasion():
     def _create_alien(self, alien_number: int, row_number: int) -> None:
         """
         Create a new alien ship in the specified (x,y) position and add
-        it to the appropriate group. 
+        it to the appropriate group.
         """
         alien: Soldier = Soldier(self)
         space: int = self.settings.space_between_aliens
@@ -344,14 +340,13 @@ class AlienInvasion():
 
     def _update_aliens(self) -> None:
         """
-        Updates all aliens' ships' positions on the screen and checks if there 
-        is a collision between them and the player's ship or if any aliens 
-        arrive at the screen's bottom edge. 
+        Updates all aliens' ships' positions on the screen and checks if there
+        is a collision between them and the player's ship or if any aliens
+        arrive at the screen's bottom edge.
         """
         self._check_fleet_edges()
         self.aliens_ships.update()
 
-        # Check collision between player's spaceship and alien's ship.
         if pg.sprite.spritecollideany(self.player_ship, self.aliens_ships):
             self._ship_hit()
 
@@ -365,20 +360,20 @@ class AlienInvasion():
 
     def _check_fleet_edges(self) -> None:
         """ Change the fleet movement's direction if any alien comes to the screen edge. """
-        for alien in self.aliens_ships.sprites():
+        for alien in self.aliens_ships:
             if alien.check_left_right_screen_edge():  # type: ignore
                 self._change_fleet_direction()
                 break
 
     def _change_fleet_direction(self) -> None:
         """ Shifts the whole alien fleet and changes the direction of its movement. """
-        for alien in self.aliens_ships.sprites():
+        for alien in self.aliens_ships:
             alien.rect.y += self.settings.aliens_fleet_drop_speed  # type: ignore
         self.settings.aliens_fleet_direction *= -1
 
     def _check_aliens_bottom(self) -> None:
         """ We lose the current round if any aliens arrive at the screen's bottom edge. """
-        for alien in self.aliens_ships.sprites():
+        for alien in self.aliens_ships:
             if alien.rect.bottom >= self.screen_rect.bottom:  # type: ignore
                 self._ship_hit()
                 break
@@ -389,8 +384,6 @@ class AlienInvasion():
         and aliens, set the ship to the screen centre, and start a new
         round if the player has remaining ships.
         """
-        self.aliens_ships.empty()
-        self.aliens_bullets.empty()
         self.player_bullets.empty()
         self.player_ship.set_center()
 
@@ -398,8 +391,11 @@ class AlienInvasion():
             self.stats.remaining_player_ships -= 1
             self.scoreboard.prepare_remaining_player_ships()
             if not self.final_level_achieved:
+                self.aliens_ships.empty()
+                self.aliens_bullets.empty()
                 self._create_fleet()
             else:
+                self.general_bullets.empty()
                 self.aliens_general.reset_aliens_general_ship()
         else:
             self.settings.reset_gameplay_speedup()
@@ -413,29 +409,21 @@ class AlienInvasion():
     def _update_game(self) -> None:
         """ Updates and draws all objects when the game is active. """
         self.scoreboard.show_scoreboard_and_stats()
-        self.player_ship.update()
-        self.player_ship.draw()
 
         self._update_bullets()
-        # for player_bullet in self.player_bullets:
-        #     player_bullet.draw()  # type: ignore
-        # for alien_bullet in self.aliens_bullets:
-        #     alien_bullet.draw()  # type: ignore
-        # for general_bullet in self.general_bullets:
-        #     general_bullet.draw()  # type: ignore
-
+        self.player_ship.update()
+        self.player_ship.draw()
         self.player_bullets.draw(self.screen)
-        self.aliens_bullets.draw(self.screen)
-        self.general_bullets.draw(self.screen)
 
         if not self.final_level_achieved:
             self._update_aliens()
             self.aliens_ships.draw(self.screen)
+            self.aliens_bullets.draw(self.screen)
             self._fire_bullet("Alien")
-
-        if self.final_level_achieved:
+        else:
             self._update_aliens_general()
             self.aliens_general.draw()
+            self.general_bullets.draw(self.screen)
             self._fire_bullet("General")
 
     def _update_screen(self) -> None:
@@ -455,9 +443,3 @@ class AlienInvasion():
             self.menu.draw_menu()
 
         pg.display.flip()  # Update of the screen.
-
-        #print(f"Ship Speed: {self.settings.player_ship_speed:.1f}, Player Bullet Speed: {self.settings.player_bullet_speed:.1f}, Alien Ship Speed: {self.settings.alien_ship_speed:.1f}, Alien Bullet Speed: {self.settings.alien_bullet_speed:.1f}, Points: {self.settings.points_for_alien:.1f}, Stars Speed: {self.settings.star_speed:.1f}")
-
-        # print(f"Ships: {self.settings.player_ships_limit}, Player Bullets: {self.settings.player_allowed_bullets}, Alien Bullets: {self.settings.alien_allowed_bullets}, Drop Speed: {self.settings.aliens_fleet_drop_speed}")
-
-        # print(f"Stars: {len(self.stars)}, Aliens: {len(self.aliens_ships)}, Bullets: {len(self.player_bullets)}, Alien Bullets: {len(self.aliens_bullets)}")

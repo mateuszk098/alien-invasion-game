@@ -15,7 +15,6 @@ class Alien(Sprite, metaclass=ABCMeta):
     @abstractmethod
     def __init__(self, ai_game, img, speed) -> None:
         super().__init__()
-        self.screen = ai_game.screen
         self.screen_rect: Rect = ai_game.screen_rect
         self.image: Surface = pg.image.load(img).convert_alpha()
         self.rect: Rect = self.image.get_rect()
@@ -55,10 +54,11 @@ class General(Alien):
     __IMGS: tuple[str, ...] = ("perseus_arm_general.png", "outer_arm_general.png", "norma_arm_general.png")
 
     def __init__(self, ai_game) -> None:
+        self.screen = ai_game.screen
         self.settings = ai_game.settings
-        ship_model: int = ai_game.settings.aliens_general_ship_model
+        ship_model: int = self.settings.aliens_general_ship_model
         img: str = f"../assets/aliens_ships/{self.__IMGS[ship_model-1]}"
-        speed: float = ai_game.settings.aliens_general_ship_speed
+        speed: float = self.settings.aliens_general_ship_speed
         super().__init__(ai_game, img, speed)
 
         self.rect.centerx = self.screen_rect.centerx
