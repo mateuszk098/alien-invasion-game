@@ -17,7 +17,6 @@ class Bullet(Sprite, metaclass=ABCMeta):
     @abstractmethod
     def __init__(self, ai_game, img, direction, speed) -> None:
         super().__init__()
-        self.screen: Surface = ai_game.screen
         self.image: Surface = pg.image.load(img).convert_alpha()
         self.rect: Rect = self.image.get_rect()
         self.direction: int = direction
@@ -29,13 +28,10 @@ class Bullet(Sprite, metaclass=ABCMeta):
         self.y += self.direction*self.speed
         self.rect.y = int(self.y)
 
-    def draw(self) -> None:
-        """Displays a bullet on the screen."""
-        self.screen.blit(self.image, self.rect)
-
 
 class PlayerBullet(Bullet):
     """PlayerBullet provides a bullet, which can be fired by the user."""
+
     __IMG: str = "../assets/bullets/player_bullet.png"
     __DIRECTION: int = -1
     __SOUND: str = "../sounds/fire.wav"
@@ -53,6 +49,7 @@ class PlayerBullet(Bullet):
 
 class AlienBullet(Bullet):
     """AlienBullet provides a bullet, which can be fired by the alien."""
+
     __IMG: str = "../assets/bullets/alien_bullet.png"
     __DIRECTION: int = 1
 
@@ -66,6 +63,7 @@ class AlienBullet(Bullet):
 
 class GeneralBullet(Bullet):
     """GeneralBullet provides a bullet, which can be fired by the aliens' general."""
+
     __IMG: str = "../assets/bullets/general_bullet.png"
     __DIRECTION: int = 1
 

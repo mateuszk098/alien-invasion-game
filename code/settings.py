@@ -39,7 +39,8 @@ class Settings():
 
         self.aliens_general_ship_model: int = 2
         self.aliens_general_ship_speed: float = 0.5*self.dt
-        self.aliens_general_life_points: int = 200
+        self.aliens_general_life_points: int = 2
+        self.general_allowed_bullets: int = 4
 
         self.stars_per_row: int = 10
         # The game screen is divided into 10 sections, where each of them has 10 stars.
@@ -50,7 +51,7 @@ class Settings():
         self.space_between_aliens: int = 3
         self.speedup_scale: float = 1.05
         self.score_scale: float = 1.05
-        self.final_level: int = 15
+        self.final_level: int = 2
 
     def reset_gameplay_speedup(self) -> None:
         """Resets settings, which can change dynamically during the game."""
@@ -81,6 +82,7 @@ class Settings():
             self.alien_allowed_bullets = 1
             self.aliens_fleet_drop_speed = self.dt
             self.aliens_general_ship_model = 1
+            self.general_allowed_bullets = 3
             self.space_between_aliens = 4
         elif mode == 2:  # Medium
             self.player_ships_limit = 2
@@ -90,6 +92,7 @@ class Settings():
             self.alien_allowed_bullets = 2
             self.aliens_fleet_drop_speed = 2*self.dt
             self.aliens_general_ship_model = 2
+            self.general_allowed_bullets = 4
             self.space_between_aliens = 3
         elif mode == 3:  # Hard
             self.player_ships_limit = 1
@@ -99,6 +102,7 @@ class Settings():
             self.alien_allowed_bullets = 3
             self.aliens_fleet_drop_speed = 3*self.dt
             self.aliens_general_ship_model = 3
+            self.general_allowed_bullets = 5
             self.space_between_aliens = 2
 
     def reset_difficulty(self) -> None:
@@ -110,4 +114,5 @@ class Settings():
         self.alien_allowed_bullets = 2
         self.aliens_fleet_drop_speed = 2*self.dt
         self.aliens_general_ship_model = 2
+        self.general_allowed_bullets = 4
         self.space_between_aliens = 3
