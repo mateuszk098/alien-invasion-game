@@ -2,9 +2,9 @@
 General file with class used to game management.
 """
 
-import random
 import sys
 from time import sleep
+from random import randint
 
 import pygame as pg
 from pygame.surface import Surface
@@ -15,7 +15,7 @@ from scoreboard import Scoreboard
 from game_stats import GameStats
 from spaceship import Spaceship
 from settings import Settings
-from bullet import Bullet
+from bullet import PlayerBullet, AlienBullet, GeneralBullet
 from alien import Alien
 from alien import AliensGeneral
 from star import Star
@@ -36,7 +36,7 @@ class AlienInvasion():
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.2)
-        #pg.mixer.music.play(-1)
+        pg.mixer.music.play(-1)
 
         self.clock = pg.time.Clock()
         self.game_active: bool = False
@@ -95,7 +95,7 @@ class AlienInvasion():
         elif event.key == pg.K_g:
             self._start_game()
         elif event.key == pg.K_SPACE:
-            self._player_fire_bullet()
+            self._fire_bullet("Player")
         elif event.key == pg.K_r:
             self._reset_game()
         elif event.key == pg.K_s:
@@ -214,18 +214,20 @@ class AlienInvasion():
             new_star.rect.y = int(new_star.y)
             self.stars.add(new_star)
 
-    def _player_fire_bullet(self) -> None:
-        """ If possible, create a new player's bullet and add it to the player_bullets group. """
-        if self.game_active and len(self.player_bullets) < self.settings.player_allowed_bullets:
-            player_bullet: Bullet = Bullet(self, "Player")
-            player_bullet.play_sound()
-            self.player_bullets.add(player_bullet)
-
-    def _alien_fire_bullet(self) -> None:
-        """ If possible, create a new alien's bullet and add it to the aliens_bullets group. """
-        if len(self.aliens_bullets) < self.settings.alien_allowed_bullets:
-            alien_bullet: Bullet = Bullet(self, "Alien")
-            self.aliens_bullets.add(alien_bullet)
+    def _fire_bullet(self, owner: str) -> None:
+        if owner == "Player":
+            if self.game_active and len(self.player_bullets) < self.settings.player_allowed_bullets:
+                player_bullet: PlayerBullet = PlayerBullet(self)
+                self.player_bullets.add(player_bullet)
+                player_bullet.play_sound()
+        elif owner == "Alien":
+            if self.aliens_ships and len(self.aliens_bullets) < self.settings.alien_allowed_bullets:
+                alien_bullet: AlienBullet = AlienBullet(self)
+                self.aliens_bullets.add(alien_bullet)
+        elif owner == "General":
+            if randint(1, 1000) <= 10 and len(self.aliens_bullets) < self.settings.alien_allowed_bullets:
+                general_bullet: GeneralBullet = GeneralBullet(self)
+                self.aliens_bullets.add(general_bullet)
 
     def _update_bullets(self) -> None:
         """ 
@@ -407,22 +409,21 @@ class AlienInvasion():
         self.player_ship.update()
         self.player_ship.draw()
 
-        if not self.final_level_achieved:
-            self._update_aliens()
-            self.aliens_ships.draw(self.screen)
-            self._alien_fire_bullet()
-
         self._update_bullets()
         for player_bullet in self.player_bullets.sprites():
             player_bullet.draw()  # type: ignore
         for alien_bullet in self.aliens_bullets.sprites():
             alien_bullet.draw()  # type: ignore
 
+        if not self.final_level_achieved:
+            self._update_aliens()
+            self.aliens_ships.draw(self.screen)
+            self._fire_bullet("Alien")
+
         if self.final_level_achieved:
             self._update_aliens_general()
             self.aliens_general.draw()
-            if random.randint(1, 1000) <= 10:
-                self._alien_fire_bullet()
+            self._fire_bullet("General")
 
     def _update_screen(self) -> None:
         """ Updates the game screen. """
