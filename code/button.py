@@ -1,5 +1,6 @@
 """
-This module provides a button object, used by the menu object.
+This module provides a button class. The button objects are used 
+in the menu module to manage the game.
 """
 
 import pygame as pg
@@ -8,11 +9,11 @@ from pygame.rect import Rect
 
 
 class Button():
-    """Button object provides communication with the player using a mouse."""
+    """Button object provides communication with the player."""
 
     def __init__(self, ai_game, text: str, **kwargs) -> None:
         """
-        Initialize default button properties like as size and text.
+        Initialise default button object properties.
 
         Parameters:
         -----------
@@ -21,8 +22,8 @@ class Button():
             height : `int`, default=50
             fontsize : `int`, default=48
             offset : `int`, default=0
-                Initial position on the screen. Default value is 0, which means the centre
-                of the screen. It can be positive or negative.
+                Initial position on the screen. The default value is 0, which means 
+                the centre of the screen. It can be positive or negative.
         """
         self.screen: Surface = ai_game.screen
         self.screen_rect: Rect = ai_game.screen_rect
@@ -48,7 +49,7 @@ class Button():
         self.text_rect.center = self.rect.center
 
     def draw(self, is_pressed: bool = False) -> None:
-        """Draws a button rect with the message on the screen."""
+        """Displays the button with the message on the screen."""
         current_color = self.released_color
         if is_pressed:
             current_color = self.pressed_color

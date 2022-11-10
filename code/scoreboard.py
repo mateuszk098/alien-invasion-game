@@ -1,6 +1,7 @@
 """
-This module provides displaying a current level, score, best score
-and remaining player's ships.
+This module provides a Scoreboard class. The Scoreboard object is 
+responsible for displaying a current level, score, best score and 
+remaining player ships.
 """
 
 import pygame as pg
@@ -14,7 +15,7 @@ class Scoreboard():
     """Scoreboard object is responsible for displaying game statistics."""
 
     def __init__(self, ai_game) -> None:
-        """Initialize scoreboard."""
+        """Initialise Scoreboard object."""
         self.ai_game = ai_game
         self.screen: Surface = ai_game.screen
         self.screen_rect: Rect = ai_game.screen_rect
@@ -52,8 +53,8 @@ class Scoreboard():
 
     def prepare_current_level(self) -> None:
         """ 
-        Transforms a current score into an image placed in the top-right corner
-        under the current score. 
+        Transforms a current gameplay level into an image placed in the top-right 
+        corner under the current score. 
         """
         text: str = f"Level: {self.stats.current_level}"
         color = self.settings.text_color
@@ -71,7 +72,7 @@ class Scoreboard():
         """
         self.remaining_player_ships = pg.sprite.Group()
         for ship_number in range(self.stats.remaining_player_ships):
-            ship = Spaceship(self.ai_game, resized=True)
+            ship: Spaceship = Spaceship(self.ai_game, resized=True)
             ship.rect.x = self.screen_rect.left + 20 + ship_number*(ship.rect.width + 20)
             ship.rect.y = self.current_score_rect.top
             self.remaining_player_ships.add(ship)

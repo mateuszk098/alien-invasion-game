@@ -1,5 +1,5 @@
 """
-Main module with instance of the game.
+Main module with the instance of the game.
 """
 
 from alien_invasion import AlienInvasion

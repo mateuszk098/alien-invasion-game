@@ -1,5 +1,5 @@
 """
-This module provides a menu object, which provides a interactive GUI.
+This module provides a Menu object, which provides an interactive GUI.
 """
 
 import textwrap
@@ -12,52 +12,55 @@ from button import Button
 
 
 class Menu():
-    """Menu object provides a interactive GUI with buttons used to gameplay manipulation."""
+    """Menu object provides an interactive GUI with buttons used for gameplay manipulation."""
 
     __GAME_TITLE_TEXT: str = "Alien Invasion!"
     __PAUSE_TEXT: str = "PAUSE"
     __HELP_TEXT: str = "Welcome to Alien Invasion! The Milky Way has been attacked by "\
-        "hostile creatures. You have been chosen by the Starfleet general to be the and "\
+        "hostile creatures. You have been chosen by the Starfleet general to be the "\
         "captain of the 'Eagle 2' spaceship. The Eagle 2 is the best spaceship of Starfleet "\
-        "one of the engineering miracles. The Eagle 2 has a modern guidance system and "\
+        "and one of the engineering miracles. The Eagle 2 has a modern guidance system and "\
         "hypersonic missiles, which should help shoot aliens down. You cannot allow aliens "\
-        "to arrive on Earth. We believe in You. Press 'Esc' to return to the control centre. "\
+        "to arrive on Earth! We believe in You. Press 'Esc' to return to the control centre. "\
         "Press 'g' or click 'Play' to go on the mission. Press 'r' during the mission to return "\
         "to the base. Press 's' or click 'Settings' to travel to a more dangerous part of the "\
         "galaxy. Press '1', '2' or '3' being in settings to choose your mission or click "\
         "appropriate option. Press 'p' to pause the current mission. Press 'q' or click "\
         "'Exit' to give up."
-    __GAME_COMPLETION_TEXT: str = "Congratulations! You've defeated the aliens' general "\
-        "and saved Earth against alien invasion. The Starfleet general awarded you with "\
+    __GAME_COMPLETION_TEXT: str = "Congratulations! You've defeated the alien general "\
+        "and saved Earth against alien invasion! The Starfleet general awarded you with "\
         "the medal of courage, and the president honoured you as a hero of the nation. "\
         "Press 'Esc' to return on Earth. "
 
     def __init__(self, ai_game) -> None:
-        """Initialize menu buttons in the game."""
+        """Initialise Menu object."""
         self.screen: Surface = ai_game.screen
         self.screen_rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
-        # Menu section.
+        # Buttons in the menu section.
         self.play_button: Button = Button(ai_game, "Play", offset=-105)
         self.settings_button: Button = Button(ai_game, "Settings", offset=-35)
         self.help_button: Button = Button(ai_game, "Help", offset=35)
         self.exit_button: Button = Button(ai_game, "Exit", offset=105)
 
-        # Settings section.
+        # Buttons in the settings section.
         self.easy_mode_button: Button = Button(ai_game, "Perseus Arm", offset=-105)
         self.medium_mode_button: Button = Button(ai_game, "Outer Arm", offset=-35)
         self.hard_mode_button: Button = Button(ai_game, "Norma Arm", offset=35)
         self.back_button: Button = Button(ai_game, "Back", offset=105)
 
+        # For the tracking active menu section and which buttons can be currently pressed.
         self.menu_is_active: bool = True
         self.settings_is_active: bool = False
         self.help_is_active: bool = False
 
+        # For tracking changes in game difficulty mode and the highlight of buttons.
         self.easy_btn_pressed: bool = False
         self.medium_btn_pressed: bool = False
         self.hard_btn_pressed: bool = False
 
+        # For getting text to draw in the `draw_message` method.
         self.messages_to_draw: dict[str, str] = {
             "Title": self.__GAME_TITLE_TEXT,
             "Pause": self.__PAUSE_TEXT,
@@ -66,7 +69,7 @@ class Menu():
         }
 
     def draw_menu(self) -> None:
-        """Draws the current menu state (Menu, Settings or Help) on the screen."""
+        """Displays the current menu state (Menu, Settings or Help)."""
         if self.menu_is_active:
             self.draw_message("Title", fontsize=128, ypos=150)
             self.play_button.draw()
@@ -81,9 +84,9 @@ class Menu():
         elif self.help_is_active:
             self.draw_message("Help", ypos=150)
 
-    def draw_message(self, text_key: str, **kwargs) -> None:
+    def draw_message(self, message_key: str, **kwargs) -> None:
         """ 
-        Draws oneline or multiline message on the screen. 
+        Draws one-line or multiline message on the screen. 
 
         Parameters
         ----------
@@ -100,7 +103,7 @@ class Menu():
                 Initial vertical position of the first text line.
         """
 
-        text: str = self.messages_to_draw.get(text_key, "No such key")
+        text: str = self.messages_to_draw.get(message_key, "There is no such key.")
         max_width: int = kwargs.get("max_width", 60)
         text_lines: list[str] = textwrap.wrap(text, max_width)
         vertical_offset: int = kwargs.get("vertical_offset", 42)
@@ -120,7 +123,7 @@ class Menu():
 
     def check_button_press(self, mouse_pos: tuple[int, int], btn_key: str) -> bool:
         """
-        Checks if the given button is pressed by the mouse.
+        Checks if the mouse presses the given button. Return True if yes, otherwise return False.
 
         Parameters
         ----------
@@ -128,11 +131,6 @@ class Menu():
             The position of the mouse - pygame.mouse.get_pos().
         btn_key : `str`
             "Play", "Settings", "Easy Mode", "Medium Mode", "Hard Mode", "Back", "Help", "Exit Game".
-
-        Returns
-        -------
-        bool
-            True if the button is pressed, otherwise False.
         """
         buttons: dict[str, tuple[Button, bool]] = {
             "Play": (self.play_button, self.menu_is_active),
@@ -146,7 +144,7 @@ class Menu():
         }
 
         button: Button
-        related_menu_state: bool  # The press possibility is related to visible section (menu or settings).
+        related_menu_state: bool  # The press possibility is related to the active menu section.
         button, related_menu_state = buttons[btn_key]
         pressed: bool = button.rect.collidepoint(mouse_pos)
 
@@ -155,27 +153,27 @@ class Menu():
         return False
 
     def show_settings(self) -> None:
-        """Changes visibility of Settings section to True, Menu and Help to False."""
+        """Changes activity of Settings section to True. Menu and Help to False."""
         self.menu_is_active = False
         self.settings_is_active = True
         self.help_is_active = False
 
     def show_help(self) -> None:
-        """Changes visibility of Help section to True, Menu and Settings to False."""
+        """Changes activity of Help section to True. Menu and Settings to False."""
         self.menu_is_active = False
         self.settings_is_active = False
         self.help_is_active = True
 
     def return_to_menu(self) -> None:
-        """Changes visibility of Menu section to True, Settings and Help to False."""
+        """Changes activity of Menu section to True. Settings and Help to False."""
         self.menu_is_active = True
         self.settings_is_active = False
         self.help_is_active = False
 
     def switch_to_easy_mode(self) -> None:
         """
-        Switches game difficulty level to easy if the button is pressed,
-        otherwise, switches to medium level if released.
+        Switches game difficulty mode to easy if the button is pressed,
+        otherwise, switches to medium mode if released.
         """
         if self.easy_btn_pressed and self.settings_is_active:
             self.easy_btn_pressed = False
@@ -187,8 +185,8 @@ class Menu():
 
     def switch_to_medium_mode(self) -> None:
         """
-        Switches game difficulty level to medium if the button is pressed,
-        otherwise, switches to medium level if released.
+        Switches game difficulty mode to medium if the button is pressed,
+        otherwise, switches to medium mode if released.
         """
         if self.medium_btn_pressed and self.settings_is_active:
             self.medium_btn_pressed = False
@@ -200,8 +198,8 @@ class Menu():
 
     def switch_to_hard_mode(self) -> None:
         """
-        Switches game difficulty level to hard if the button is pressed,
-        otherwise, switches to medium level if released.
+        Switches game difficulty mode to hard if the button is pressed,
+        otherwise, switches to medium mode if released.
         """
         if self.hard_btn_pressed and self.settings_is_active:
             self.hard_btn_pressed = False
