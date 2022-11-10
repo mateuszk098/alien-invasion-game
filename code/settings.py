@@ -50,7 +50,11 @@ class Settings():
         self.space_between_aliens: int = 3
         self.speedup_scale: float = 1.05
         self.score_scale: float = 1.05
-        self.final_level: int = 10
+        self.final_level: int = 15
+
+    def reset_alien_moving_direction(self) -> None:
+        """Set the alien_moving_direction to 1 (right)."""
+        self.alien_moving_direction = 1
 
     def reset_gameplay_speedup(self) -> None:
         """Resets settings, which change dynamically during the game."""

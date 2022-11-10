@@ -37,7 +37,7 @@ class AlienInvasion():
 
         pg.mixer.music.load(self.__MUSIC_PATH)
         pg.mixer.music.set_volume(0.2)
-        # pg.mixer.music.play(-1)
+        pg.mixer.music.play(-1)
 
         # Primary states of the game.
         self.game_active: bool = False
@@ -216,7 +216,7 @@ class AlienInvasion():
         if owner == "Player":
             if self.game_active and len(self.player_bullets) < self.settings.player_allowed_bullets:
                 player_bullet: PlayerBullet = PlayerBullet(self)
-                # player_bullet.play_sound()
+                player_bullet.play_sound()
                 self.player_bullets.add(player_bullet)
         elif owner == "AlienSoldier":
             if self.alien_soldier_ships and len(self.alien_soldier_bullets) < self.settings.alien_allowed_bullets:
@@ -385,6 +385,7 @@ class AlienInvasion():
         self.alien_general_bullets.empty()
         self.player_bullets.empty()
         self.player_ship.set_center()
+        self.settings.reset_alien_moving_direction()
 
         if self.stats.remaining_player_ships > 0:
             self.stats.remaining_player_ships -= 1
@@ -439,3 +440,9 @@ class AlienInvasion():
             self.menu.draw_menu()
 
         pg.display.flip()  # Update of the screen.
+
+        # print(f"Ship Speed: {self.settings.player_ship_speed:.1f}, Player Bullet Speed: {self.settings.player_bullet_speed:.1f}, Alien Ship Speed: {self.settings.alien_ship_speed:.1f}, Alien Bullet Speed: {self.settings.alien_bullet_speed:.1f}, Points: {self.settings.points_for_alien:.1f}, Stars Speed: {self.settings.star_speed:.1f}")
+
+        # print(f"Ships: {self.settings.player_ships_limit}, Player Bullets: {self.settings.player_allowed_bullets}, Alien Bullets: {self.settings.alien_allowed_bullets}, Drop Speed: {self.settings.alien_drop_shift_speed}, General Bullets: {self.settings.alien_general_allowed_bullets}")
+
+        # print(f"Stars: {len(self.stars)}, Aliens: {len(self.alien_soldier_ships)}, Bullets: {len(self.player_bullets)}, Alien Bullets: {len(self.alien_soldier_bullets)}, General Bullets: {len(self.alien_general_bullets)}")
