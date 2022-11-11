@@ -13,7 +13,7 @@ from pygame.rect import Rect
 class Star(Sprite):
     """Star object representing a individual random star in the space."""
 
-    __STARS_NAMES: tuple[str, ...] = ("star1.png", "star2.png", "star3.png", "star4.png",
+    _STARS_NAMES: tuple[str, ...] = ("star1.png", "star2.png", "star3.png", "star4.png",
                                       "star5.png", "star6.png", "star7.png", "star8.png",
                                       "star9.png", "star10.png", "star11.png", "star12.png",
                                       "star13.png", "star14.png", "star15.png", "star16.png",
@@ -24,7 +24,7 @@ class Star(Sprite):
         super().__init__()
         self.settings = ai_game.settings
         # Load the random star.
-        star_path: str = f"../assets/stars/{choice(self.__STARS_NAMES)}"
+        star_path: str = f"../assets/stars/{choice(self._STARS_NAMES)}"
         self.image: Surface = pg.image.load(star_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()
         # Initially the star is placed randomly but in the first row of the screen.

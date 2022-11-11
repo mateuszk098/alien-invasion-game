@@ -18,24 +18,24 @@ class Settings():
         self.button_pressed_background_color = pg.Color("#60ce80")
 
         self.FPS: int = 144
-        self.__DT: int = 1000 // self.FPS
+        self._DT: int = 1000 // self.FPS
 
         self.player_ships_limit: int = 2
-        self.player_ship_speed: float = 0.75*self.__DT
+        self.player_ship_speed: float = 0.75*self._DT
         self.player_allowed_bullets: int = 4
-        self.player_bullet_speed: float = 0.75*self.__DT
+        self.player_bullet_speed: float = 0.75*self._DT
         self.player_bullet_points: int = 3
 
         self.alien_ship_model: int = 2
-        self.alien_ship_speed: float = 0.25*self.__DT
+        self.alien_ship_speed: float = 0.25*self._DT
         self.alien_allowed_bullets: int = 2
-        self.alien_bullet_speed: float = 0.35*self.__DT
-        self.alien_drop_shift_speed: int = 2*self.__DT
+        self.alien_bullet_speed: float = 0.35*self._DT
+        self.alien_drop_shift_speed: int = 2*self._DT
         self.alien_moving_direction: int = 1  # To the right, otherwise -1 to the left.
         self.points_for_alien: int = 50
 
         self.alien_general_ship_model: int = 2
-        self.alien_general_ship_speed: float = 0.5*self.__DT
+        self.alien_general_ship_speed: float = 0.5*self._DT
         self.alien_general_allowed_bullets: int = 4
         self.alien_general_life_points: int = 200
         self.alien_general_life_bar_color = pg.Color("#ea3c53")
@@ -44,10 +44,11 @@ class Settings():
         # The game screen is divided into 10 sections, each with 10 stars.
         self.stars_per_row: int = 10
         self.stars_rows: int = 10
-        self.star_speed: float = 0.25*self.__DT
+        self.star_speed: float = 0.25*self._DT
 
         # Settings related to the gameplay.
-        self.space_between_aliens: int = 3
+        self.space_between_aliens: int = 50
+        self.additional_alien_in_row: int = 1
         self.speedup_scale: float = 1.05
         self.score_scale: float = 1.05
         self.final_level: int = 15
@@ -58,13 +59,13 @@ class Settings():
 
     def reset_gameplay_speedup(self) -> None:
         """Resets settings, which change dynamically during the game."""
-        self.player_ship_speed = 0.75*self.__DT
-        self.player_bullet_speed = 0.75*self.__DT
-        self.alien_ship_speed = 0.25*self.__DT
-        self.alien_bullet_speed = 0.35*self.__DT
+        self.player_ship_speed = 0.75*self._DT
+        self.player_bullet_speed = 0.75*self._DT
+        self.alien_ship_speed = 0.25*self._DT
+        self.alien_bullet_speed = 0.35*self._DT
         self.alien_moving_direction = 1
         self.points_for_alien = 50
-        self.star_speed = 0.25*self.__DT
+        self.star_speed = 0.25*self._DT
 
     def increase_gameplay_speed(self) -> None:
         """Increase gameplay speed with each successive level."""
@@ -83,30 +84,30 @@ class Settings():
             self.player_bullet_points = 4
             self.alien_ship_model = 1
             self.alien_allowed_bullets = 1
-            self.alien_drop_shift_speed = self.__DT
+            self.alien_drop_shift_speed = self._DT
             self.alien_general_ship_model = 1
             self.alien_general_allowed_bullets = 3
-            self.space_between_aliens = 4
+            self.additional_alien_in_row = 0
         elif mode == 2:  # Medium
             self.player_ships_limit = 2
             self.player_allowed_bullets = 4
             self.player_bullet_points = 3
             self.alien_ship_model = 2
             self.alien_allowed_bullets = 2
-            self.alien_drop_shift_speed = 2*self.__DT
+            self.alien_drop_shift_speed = 2*self._DT
             self.alien_general_ship_model = 2
             self.alien_general_allowed_bullets = 4
-            self.space_between_aliens = 3
+            self.additional_alien_in_row = 1
         elif mode == 3:  # Hard
             self.player_ships_limit = 1
             self.player_allowed_bullets = 3
             self.player_bullet_points = 2
             self.alien_ship_model = 3
             self.alien_allowed_bullets = 3
-            self.alien_drop_shift_speed = 3*self.__DT
+            self.alien_drop_shift_speed = 3*self._DT
             self.alien_general_ship_model = 3
             self.alien_general_allowed_bullets = 5
-            self.space_between_aliens = 2
+            self.additional_alien_in_row = 2
 
     def reset_difficulty(self) -> None:
         """Resets the game difficulty mode to medium."""
@@ -115,7 +116,7 @@ class Settings():
         self.player_bullet_points = 2
         self.alien_ship_model = 2
         self.alien_allowed_bullets = 2
-        self.alien_drop_shift_speed = 2*self.__DT
+        self.alien_drop_shift_speed = 2*self._DT
         self.alien_general_ship_model = 2
         self.alien_general_allowed_bullets = 4
-        self.space_between_aliens = 3
+        self.additional_alien_in_row = 1

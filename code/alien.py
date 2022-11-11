@@ -42,13 +42,13 @@ class Alien(Sprite, metaclass=ABCMeta):
 class AlienSoldier(Alien):
     """AlienSoldier provides an ordinary alien ship object, which depends on the game's difficulty mode."""
 
-    __IMGS: tuple[str, ...] = ("perseus_arm_alien.png", "outer_arm_alien.png", "norma_arm_alien.png")
+    _IMGS: tuple[str, ...] = ("perseus_arm_alien.png", "outer_arm_alien.png", "norma_arm_alien.png")
 
     def __init__(self, ai_game) -> None:
         """Initialise AlienSoldier object."""
         self.settings = ai_game.settings
         ship_model: int = self.settings.alien_ship_model
-        img: str = f"../assets/aliens_ships/{self.__IMGS[ship_model-1]}"
+        img: str = f"../assets/aliens_ships/{self._IMGS[ship_model-1]}"
         speed: float = self.settings.alien_ship_speed
         super().__init__(ai_game, img, speed)
         self.x: float = float(self.rect.x)
@@ -65,13 +65,13 @@ class AlienGeneral(Alien):
     This alien ship has a dedicated life bar.
     """
 
-    __IMGS: tuple[str, ...] = ("perseus_arm_general.png", "outer_arm_general.png", "norma_arm_general.png")
+    _IMGS: tuple[str, ...] = ("perseus_arm_general.png", "outer_arm_general.png", "norma_arm_general.png")
 
     def __init__(self, ai_game) -> None:
         """Initialise AlienGeneral object."""
         self.settings = ai_game.settings
         ship_model: int = self.settings.alien_general_ship_model
-        img: str = f"../assets/aliens_ships/{self.__IMGS[ship_model-1]}"
+        img: str = f"../assets/aliens_ships/{self._IMGS[ship_model-1]}"
         speed: float = self.settings.alien_general_ship_speed
         super().__init__(ai_game, img, speed)
 

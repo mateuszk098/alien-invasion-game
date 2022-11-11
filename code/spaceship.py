@@ -11,8 +11,8 @@ from pygame.rect import Rect
 class Spaceship(Sprite):
     """Spaceship object controlled by the player."""
 
-    __RESIZED_SHIP: str = "../assets/player_ships/SF02_resized.png"  # Used as remaining lives indicator.
-    __NORMAL_SHIP: str = "../assets/player_ships/SF02.png"
+    _RESIZED_SHIP: str = "../assets/player_ships/SF02_resized.png"  # Used as remaining lives indicator.
+    _NORMAL_SHIP: str = "../assets/player_ships/SF02.png"
 
     def __init__(self, ai_game, resized: bool = False) -> None:
         """Initialise Spaceship object."""
@@ -24,9 +24,9 @@ class Spaceship(Sprite):
         self.moving_right: bool = False
         self.moving_left: bool = False
 
-        ship_path: str = self.__NORMAL_SHIP
+        ship_path: str = self._NORMAL_SHIP
         if resized:
-            ship_path = self.__RESIZED_SHIP
+            ship_path = self._RESIZED_SHIP
 
         self.image: Surface = pg.image.load(ship_path).convert_alpha()
         self.rect: Rect = self.image.get_rect()

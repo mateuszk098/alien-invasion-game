@@ -25,7 +25,7 @@ from menu import Menu
 class AlienInvasion():
     """The AlienInvasion class provides a general game management."""
 
-    __MUSIC_PATH: str = '../sounds/infected_vibes.mp3'
+    _MUSIC_PATH: str = '../sounds/infected_vibes.mp3'
 
     def __init__(self) -> None:
         """Game initialisation."""
@@ -35,7 +35,7 @@ class AlienInvasion():
         pg.event.set_allowed([pg.QUIT, pg.KEYDOWN, pg.KEYUP, pg.MOUSEBUTTONDOWN])
         self.clock = pg.time.Clock()
 
-        pg.mixer.music.load(self.__MUSIC_PATH)
+        pg.mixer.music.load(self._MUSIC_PATH)
         pg.mixer.music.set_volume(0.2)
         pg.mixer.music.play(-1)
 
@@ -307,18 +307,15 @@ class AlienInvasion():
         Creates new aliens' fleet considering available screen width,
         screen height, screen margin and space between aliens.
         """
-        alien: AlienSoldier = AlienSoldier(self)
-        space: int = self.settings.space_between_aliens
-
-        alien_width: int = alien.rect.width
-        available_space_x: int = 2*self.settings.screen_width // 3
-        number_aliens_x: int = available_space_x // (space*alien_width)
-
-        alien_height: int = alien.rect.height
+        available_space_x: int = self.settings.screen_width // 2
         available_space_y: int = self.settings.screen_height // 3
-        number_rows: int = available_space_y // (3*alien_height // 2)
 
-        # Create the fleet
+        space_between_aliens: int = self.settings.space_between_aliens
+        additional_alien_in_row: int = self.settings.additional_alien_in_row
+        number_aliens_x: int = available_space_x // (2*space_between_aliens) + additional_alien_in_row
+        number_rows: int = available_space_y // (2*space_between_aliens)
+
+        # Create the fleet.
         for row_number in range(number_rows):
             for alien_number in range(number_aliens_x):
                 self._create_alien_soldier(alien_number, row_number)
@@ -326,12 +323,10 @@ class AlienInvasion():
     def _create_alien_soldier(self, alien_number: int, row_number: int) -> None:
         """Create a new alien ship in the specified (x,y) position and add it to the appropriate group."""
         alien: AlienSoldier = AlienSoldier(self)
-        space: int = self.settings.space_between_aliens
-        alien_width: int = alien.rect.width
-        alien_height: int = alien.rect.height
-        alien.x = alien_width + space*alien_width*alien_number
+        space_between_aliens: int = self.settings.space_between_aliens
+        alien.x = 20 + 2*space_between_aliens*alien_number
         alien.rect.x = alien.x
-        alien.rect.y = 3*alien.rect.height + (3*alien_height*row_number // 2)
+        alien.rect.y = 4*space_between_aliens + (2*space_between_aliens*row_number)
         self.alien_soldier_ships.add(alien)
 
     def _update_alien_soldiers(self) -> None:

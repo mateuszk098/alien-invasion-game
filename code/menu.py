@@ -14,9 +14,9 @@ from button import Button
 class Menu():
     """Menu object provides an interactive GUI with buttons used for gameplay manipulation."""
 
-    __GAME_TITLE_TEXT: str = "Alien Invasion!"
-    __PAUSE_TEXT: str = "PAUSE"
-    __HELP_TEXT: str = "Welcome to Alien Invasion! The Milky Way has been attacked by "\
+    _GAME_TITLE_TEXT: str = "Alien Invasion!"
+    _PAUSE_TEXT: str = "PAUSE"
+    _HELP_TEXT: str = "Welcome to Alien Invasion! The Milky Way has been attacked by "\
         "hostile creatures. You have been chosen by the Starfleet general to be the "\
         "captain of the 'Eagle 2' spaceship. The Eagle 2 is the best spaceship of Starfleet "\
         "and one of the engineering miracles. The Eagle 2 has a modern guidance system and "\
@@ -27,7 +27,7 @@ class Menu():
         "galaxy. Press '1', '2' or '3' being in settings to choose your mission or click "\
         "appropriate option. Press 'p' to pause the current mission. Press 'q' or click "\
         "'Exit' to give up."
-    __GAME_COMPLETION_TEXT: str = "Congratulations! You've defeated the alien general "\
+    _GAME_COMPLETION_TEXT: str = "Congratulations! You've defeated the alien general "\
         "and saved Earth against alien invasion! The Starfleet general awarded you with "\
         "the medal of courage, and the president honoured you as a hero of the nation. "\
         "Press 'Esc' to return on Earth. "
@@ -62,10 +62,10 @@ class Menu():
 
         # For getting text to draw in the `draw_message` method.
         self.messages_to_draw: dict[str, str] = {
-            "Title": self.__GAME_TITLE_TEXT,
-            "Pause": self.__PAUSE_TEXT,
-            "Help": self.__HELP_TEXT,
-            "Congratulations": self.__GAME_COMPLETION_TEXT
+            "Title": self._GAME_TITLE_TEXT,
+            "Pause": self._PAUSE_TEXT,
+            "Help": self._HELP_TEXT,
+            "Congratulations": self._GAME_COMPLETION_TEXT
         }
 
     def draw_menu(self) -> None:

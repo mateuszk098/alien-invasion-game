@@ -37,16 +37,16 @@ class Bullet(Sprite, metaclass=ABCMeta):
 class PlayerBullet(Bullet):
     """PlayerBullet provides a bullet which the player can fire."""
 
-    __IMG: str = "../assets/bullets/player_bullet.png"
-    __DIRECTION: int = -1  # The bullet moves to the top of the screen.
-    __SOUND: str = "../sounds/fire.wav"
+    _IMG: str = "../assets/bullets/player_bullet.png"
+    _DIRECTION: int = -1  # The bullet moves to the top of the screen.
+    _SOUND: str = "../sounds/fire.wav"
 
     def __init__(self, ai_game) -> None:
         """Initialise PlayerBullet object."""
-        super().__init__(ai_game, self.__IMG, self.__DIRECTION, ai_game.settings.player_bullet_speed)
+        super().__init__(ai_game, self._IMG, self._DIRECTION, ai_game.settings.player_bullet_speed)
         self.rect.midtop = ai_game.player_ship.rect.midtop
         self.y = float(self.rect.y)
-        self.fire_sound = pg.mixer.Sound(self.__SOUND)
+        self.fire_sound = pg.mixer.Sound(self._SOUND)
 
     def play_sound(self) -> None:
         """Plays the sound if the player fires a bullet."""
@@ -56,12 +56,12 @@ class PlayerBullet(Bullet):
 class AlienSoldierBullet(Bullet):
     """AlienSoldierBullet provides a bullet which the alien can fire."""
 
-    __IMG: str = "../assets/bullets/alien_bullet.png"
-    __DIRECTION: int = 1  # The bullet moves to the bottom of the screen.
+    _IMG: str = "../assets/bullets/alien_bullet.png"
+    _DIRECTION: int = 1  # The bullet moves to the bottom of the screen.
 
     def __init__(self, ai_game) -> None:
         """Initialise AlienSoldierBullet object."""
-        super().__init__(ai_game, self.__IMG, self.__DIRECTION, ai_game.settings.alien_bullet_speed)
+        super().__init__(ai_game, self._IMG, self._DIRECTION, ai_game.settings.alien_bullet_speed)
         # The bullet initial position is associated with a random alien ship.
         random_alien = choice(list(ai_game.alien_soldier_ships))
         self.rect.center = random_alien.rect.midbottom
@@ -71,11 +71,11 @@ class AlienSoldierBullet(Bullet):
 class AlienGeneralBullet(Bullet):
     """AlienGeneralBullet provides a bullet which the alien's general can fire."""
 
-    __IMG: str = "../assets/bullets/general_bullet.png"
-    __DIRECTION: int = 1
+    _IMG: str = "../assets/bullets/general_bullet.png"
+    _DIRECTION: int = 1
 
     def __init__(self, ai_game) -> None:
         """Initialise AlienGeneralBullet object."""
-        super().__init__(ai_game, self.__IMG, self.__DIRECTION, ai_game.settings.alien_bullet_speed)
+        super().__init__(ai_game, self._IMG, self._DIRECTION, ai_game.settings.alien_bullet_speed)
         self.rect.center = ai_game.alien_general_ship.rect.midbottom
         self.y = float(self.rect.y)
