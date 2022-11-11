@@ -30,7 +30,7 @@ class Settings():
         self.alien_ship_speed: float = 0.25*self._DT
         self.alien_allowed_bullets: int = 2
         self.alien_bullet_speed: float = 0.35*self._DT
-        self.alien_drop_shift_speed: int = 2*self._DT
+        self.alien_drop_shift_speed: int = 4*self._DT
         self.alien_moving_direction: int = 1  # To the right, otherwise -1 to the left.
         self.points_for_alien: int = 50
 
@@ -84,7 +84,7 @@ class Settings():
             self.player_bullet_points = 4
             self.alien_ship_model = 1
             self.alien_allowed_bullets = 1
-            self.alien_drop_shift_speed = self._DT
+            self.alien_drop_shift_speed = 3*self._DT
             self.alien_general_ship_model = 1
             self.alien_general_allowed_bullets = 3
             self.additional_alien_in_row = 0
@@ -94,7 +94,7 @@ class Settings():
             self.player_bullet_points = 3
             self.alien_ship_model = 2
             self.alien_allowed_bullets = 2
-            self.alien_drop_shift_speed = 2*self._DT
+            self.alien_drop_shift_speed = 4*self._DT
             self.alien_general_ship_model = 2
             self.alien_general_allowed_bullets = 4
             self.additional_alien_in_row = 1
@@ -104,7 +104,7 @@ class Settings():
             self.player_bullet_points = 2
             self.alien_ship_model = 3
             self.alien_allowed_bullets = 3
-            self.alien_drop_shift_speed = 3*self._DT
+            self.alien_drop_shift_speed = 5*self._DT
             self.alien_general_ship_model = 3
             self.alien_general_allowed_bullets = 5
             self.additional_alien_in_row = 2
@@ -116,7 +116,7 @@ class Settings():
         self.player_bullet_points = 2
         self.alien_ship_model = 2
         self.alien_allowed_bullets = 2
-        self.alien_drop_shift_speed = 2*self._DT
+        self.alien_drop_shift_speed = 4*self._DT
         self.alien_general_ship_model = 2
         self.alien_general_allowed_bullets = 4
         self.additional_alien_in_row = 1

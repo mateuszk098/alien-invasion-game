@@ -214,7 +214,8 @@ class AlienInvasion():
     def _fire_bullet(self, owner: str) -> None:
         """Adds a new Bullet object to the appropriate group."""
         if owner == "Player":
-            if self.game_active and len(self.player_bullets) < self.settings.player_allowed_bullets:
+            if self.game_active and not self.game_paused and len(
+                    self.player_bullets) < self.settings.player_allowed_bullets:
                 player_bullet: PlayerBullet = PlayerBullet(self)
                 player_bullet.play_sound()
                 self.player_bullets.add(player_bullet)
